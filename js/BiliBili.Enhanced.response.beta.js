@@ -1,5 +1,5 @@
 /*
-README:https://github.com/VirgilClyne/BiliBili
+README: https://github.com/BiliUniverse/Enhanced
 */
 const $ = new Env("📺 BiliBili:Enhanced v0.1.4(5) response.beta");
 const URL = new URLs();
