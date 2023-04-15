@@ -1,7 +1,7 @@
 /*
 README:https://github.com/VirgilClyne/BiliBili
 */
-const $ = new Env("📺 BiliBili:Enhanced v0.1.4(4) response");
+const $ = new Env("📺 BiliBili:Enhanced v0.1.4(5) response");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -11,10 +11,7 @@ const DataBase = {
 		}
 	},
     "Global":{
-		"Settings":{"Switch":true,"ForceHost":"1","Locales":["CHN","HKG","TWN","USA","SGP"],"Proxies":{"CHN":"DIRECT","HKG":"🇭🇰香港","MAC":"🇲🇴澳门","TWN":"🇹🇼台湾","USA":"🇺🇸美国","SGP":"🇸🇬新加坡","MYA":"🇲🇾马来西亚","THA":"🇹🇭泰国"}},
-		"Configs":{
-			"SearchNav":{"CHN":{"name":"番剧🇨🇳","total":0,"pages":0,"type":17},"HKG":{"name":"动画🇭🇰","total":0,"pages":0,"type":27},"MAC":{"name":"动画🇲🇴","total":0,"pages":0,"type":37},"TWN":{"name":"动画🇹🇼","total":0,"pages":0,"type":47},"SEA":{"name":"动画🇺🇳","total":0,"pages":0,"type":57}}
-		}
+		"Settings":{"Switch":true,"ForceHost":"1","Locales":["CHN","HKG","TWN"],"Proxies":{"CHN":"DIRECT","HKG":"🇭🇰香港","MAC":"🇲🇴澳门","TWN":"🇹🇼台湾"}}
 	},
 	"Roaming":{
 		"Settings":{"Switch":"true","Proxy":{"Pool":["xn--2vrub.plus","api.qiu.moe","xn--2vrub.icu","xn--n4yr07d.xn--6qq986b3xl","xn--3dz622b.xn--n4y597a0mfle743a.icu","bili.tuturu.top","xn--7rv796dvkm.xn--6qq986b3xl","xn--7ovr3tf1cxr4d.fun","xn--8fv56a330gjea.icu","xn--qoqt3y678a.xn--6qq986b3xl","atri.ink","xn--kiv440b.xn--6qq986b3xl","xn--w4r620anpl.xn--oor00vs23b.icu","xn--chqwq129p.pch.pub","melusinesuki.site","bili.takami.ink"],"Customs":""}}
@@ -51,11 +48,9 @@ for (const [key, value] of Object.entries($response.headers)) {
 			// 解析格式
 			switch (Format) {
 				case "application/json":
-				body = JSON.parse($response.body);
+					body = JSON.parse($response.body);
 					let data = body.data;
 					switch (url.host) {
-						case "grpc.biliapi.net":
-							break;
 						case "app.bilibili.com":
 						case "app.biliapi.net":
 							// 先保存一下AccessKey
@@ -99,24 +94,12 @@ for (const [key, value] of Object.entries($response.headers)) {
 									break;
 							};
 							break;
-						case "api.bilibili.com":
-							break;
-						case "app.biliintl.com":
-						case "api.global.bilibili.com":
-							break;
 					};
 					$response.body = JSON.stringify(body);
 					break;
 				case "text/xml":
 					break;
 				case "application/x-protobuf":
-					/******************  initialization start  *******************/
-					/******************  initialization finish  *******************/
-					const binaryBody = $.isQuanX() ? new Uint8Array($response.bodyBytes) : $response.body;
-					data = Player.fromBinary(binaryBody);
-					//$.log(`🚧 ${$.name}`, `data: ${JSON.stringify(data)}`, "");
-					if ($.isQuanX()) $response.bodyBytes = Player.toBinary(data);
-					else $response.body = Player.toBinary(data);
 					break;
 				default:
 					break;
@@ -129,6 +112,8 @@ for (const [key, value] of Object.entries($response.headers)) {
 })()
 	.catch((e) => $.logErr(e))
 	.finally(() => {
+		//$.log(`🚧 ${$.name}, finally`, `$response:${JSON.stringify($response)}`, "");
+		$.log(`🎉 ${$.name}, finally`, `$response`, "");
 		// 设置格式
 		const Format = $response?.headers?.["content-type"]?.split(";")?.[0]
 		//$.log(`🚧 ${$.name}`, `Format: ${Format}`, "");
@@ -136,10 +121,13 @@ for (const [key, value] of Object.entries($response.headers)) {
 			case "application/json":
 			case "text/xml":
 			default:
+				// 返回普通数据
 				if ($.isQuanX()) $.done({ headers: $response.headers, body: $response.body })
 				else $.done($response)
 				break;
 			case "application/x-protobuf":
+			case "application/grpc":
+				// 返回二进制数据
 				if ($.isQuanX()) {
 					$.log(`${$response.bodyBytes.byteLength}---${$response.bodyBytes.buffer.byteLength}`);
 					$.log(`bodyBytes.byteOffset: ${$response.bodyBytes.byteOffset}}`);
@@ -148,6 +136,11 @@ for (const [key, value] of Object.entries($response.headers)) {
 					$.log(`${$response.body.byteLength}---${$response.body.buffer.byteLength}`);
 					$.done($response)
 				}
+				break;
+			case undefined: // 视为无body
+				// 返回普通数据
+				if ($.isQuanX()) $.done({ headers: $response.headers })
+				else $.done($response)
 				break;
 		};
 	})
