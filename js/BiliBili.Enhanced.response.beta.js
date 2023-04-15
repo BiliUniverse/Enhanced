@@ -1,7 +1,7 @@
 /*
 README:https://github.com/VirgilClyne/BiliBili
 */
-const $ = new Env("📺 BiliBili:Enhanced v0.1.4(3) response.beta");
+const $ = new Env("📺 BiliBili:Enhanced v0.1.4(4) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -249,7 +249,7 @@ const DataBase = {
 					"mine": {
 						"exp": 0,
 						"head_tag": "",
-						"url": "bilibili://root?bottom_tab_id=我的Bottom",
+						"url": "bilibili://user_center/",
 						"goto": 1,
 						"story_background_image": "",
 						"story_foreground_image": "",

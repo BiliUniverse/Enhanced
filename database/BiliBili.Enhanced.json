@@ -269,7 +269,7 @@
 				"mine": {
 					"exp": 0,
 					"head_tag": "",
-					"url": "bilibili://root?bottom_tab_id=我的Bottom",
+					"url": "bilibili://user_center/",
 					"goto": 1,
 					"story_background_image": "",
 					"story_foreground_image": "",
