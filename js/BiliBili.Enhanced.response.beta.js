@@ -1,7 +1,7 @@
 /*
 README: https://github.com/BiliUniverse/Enhanced
 */
-const $ = new Env("📺 BiliBili:Enhanced v0.1.4(5) response");
+const $ = new Env("📺 BiliBili:Enhanced v0.1.4(5) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -56,7 +56,7 @@ for (const [key, value] of Object.entries($response.headers)) {
 			$.log(`⚠ ${$.name}, url.path=${url.path}`, "");
 			// 设置格式
 			const Format = $response?.headers?.["content-type"]?.split(";")?.[0]
-			//$.log(`🚧 ${$.name}`, `Format: ${Format}`, "");
+			$.log(`🚧 ${$.name}`, `Format: ${Format}`, "");
 			// 创建空数据
 			let body = { "code": 0, "message": "0", "data": {} };
 			// 解析格式
@@ -155,7 +155,7 @@ for (const [key, value] of Object.entries($response.headers)) {
 		$.log(`🎉 ${$.name}, finally`, `$response`, "");
 		// 设置格式
 		const Format = $response?.headers?.["content-type"]?.split(";")?.[0]
-		//$.log(`🚧 ${$.name}`, `Format: ${Format}`, "");
+		$.log(`🚧 ${$.name}`, `Format: ${Format}`, "");
 		switch (Format) {
 			case "application/json":
 			case "text/xml":
