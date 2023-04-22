@@ -37,7 +37,8 @@
 			],
 			"More": [
 				"407",
-				"410"
+				"410",
+				"1028"
 			]
 		}
 	},
@@ -348,7 +349,7 @@
 							"need_login": 1,
 							"display": 1,
 							"id": 171,
-							"title": "创作首页",
+							"title": "创作中心",
 							"global_red_dot": 1,
 							"uri": "bilibili://uper/homevc",
 							"icon": "http://i0.hdslb.com/bfs/archive/d3aad2d07538d2d43805f1fa14a412d7a45cc861.png"
@@ -365,15 +366,6 @@
 						{
 							"need_login": 1,
 							"display": 1,
-							"id": 533,
-							"title": "任务中心",
-							"global_red_dot": 1,
-							"uri": "https://member.bilibili.com/york/mission-center?navhide=1",
-							"icon": "http://i0.hdslb.com/bfs/archive/ae18624fd2a7bdda6d95ca606d5e4cf2647bfa4d.png"
-						},
-						{
-							"need_login": 1,
-							"display": 1,
 							"id": 174,
 							"title": "有奖活动",
 							"red_dot": 1,
@@ -382,12 +374,13 @@
 							"icon": "http://i0.hdslb.com/bfs/archive/7f4fa86d99bf3814bf10f8ee5d6c8c9db6e931c8.png"
 						},
 						{
-							"id": 709,
-							"title": "开播福利",
-							"icon": "https://i0.hdslb.com/bfs/legacy/97a52b64cbd8c099d6520c6be57006c954ec0f5c.png",
 							"need_login": 1,
-							"uri": "https://live.bilibili.com/p/html/live-anchor-galaxy/task_center/?source_event=16&week_live_btn=1&is_live_full_webview=1#/",
-							"display": 1
+							"display": 1,
+							"id": 533,
+							"title": "任务中心",
+							"global_red_dot": 1,
+							"uri": "https://member.bilibili.com/york/mission-center?navhide=1",
+							"icon": "http://i0.hdslb.com/bfs/archive/ae18624fd2a7bdda6d95ca606d5e4cf2647bfa4d.png"
 						},
 						{
 							"id": 707,
@@ -403,6 +396,14 @@
 							"icon": "http://i0.hdslb.com/bfs/feed-admin/5bc5a1aa8dd4bc5d6f5222d29ebaca9ef9ce37de.png",
 							"need_login": 1,
 							"uri": "https://live.bilibili.com/activity/live-activity-full/activity_center/mobile.html?is_live_webview=1",
+							"display": 1
+						},
+						{
+							"id": 709,
+							"title": "开播福利",
+							"icon": "https://i0.hdslb.com/bfs/legacy/97a52b64cbd8c099d6520c6be57006c954ec0f5c.png",
+							"need_login": 1,
+							"uri": "https://live.bilibili.com/p/html/live-anchor-galaxy/task_center/?source_event=16&week_live_btn=1&is_live_full_webview=1#/",
 							"display": 1
 						},
 						{
@@ -448,12 +449,11 @@
 							"uri": "https://www.bilibili.com/h5/mall/home?navhide=1&f_source=shop"
 						},
 						{
-							"id": 423,
-							"title": "邀好友赚红包",
-							"icon": "http://i0.hdslb.com/bfs/archive/de39fc8899204a4e5abaab68fa4bd604068ce124.png",
+							"id": 403,
+							"title": "游戏中心",
+							"icon": "http://i0.hdslb.com/bfs/archive/873e3c16783fe660b111c02ebc4c50279cb5db57.png",
 							"common_op_item": {},
-							"uri": "https://www.bilibili.com/blackboard/redpack/activity-8SX5lYqUj.html?from=wode",
-							"red_dot_for_new": true
+							"uri": "bilibili://game_center/user?sourceFrom=100003"
 						},
 						{
 							"id": 404,
@@ -464,18 +464,19 @@
 							"uri": "bilibili://bilipay/mine_wallet"
 						},
 						{
-							"id": 403,
-							"title": "游戏中心",
-							"icon": "http://i0.hdslb.com/bfs/archive/873e3c16783fe660b111c02ebc4c50279cb5db57.png",
+							"id": 406,
+							"title": "直播中心",
+							"icon": "http://i0.hdslb.com/bfs/archive/1db5791746a0112890b77a0236baf263d71ecb27.png",
 							"common_op_item": {},
-							"uri": "bilibili://game_center/user?sourceFrom=100003"
+							"uri": "bilibili://user_center/live_center"
 						},
 						{
-							"id": 622,
-							"title": "会员购中心",
-							"icon": "http://i0.hdslb.com/bfs/archive/19c794f01def1a267b894be84427d6a8f67081a9.png",
+							"id": 423,
+							"title": "邀好友赚红包",
+							"icon": "http://i0.hdslb.com/bfs/archive/de39fc8899204a4e5abaab68fa4bd604068ce124.png",
 							"common_op_item": {},
-							"uri": "bilibili://mall/mine?msource=mine"
+							"uri": "https://www.bilibili.com/blackboard/redpack/activity-8SX5lYqUj.html?from=wode",
+							"red_dot_for_new": true
 						},
 						{
 							"id": 514,
@@ -484,6 +485,21 @@
 							"need_login": 1,
 							"uri": "https://www.bilibili.com/blackboard/dynamic/169422",
 							"common_op_item": {}
+						},
+						{
+							"id": 544,
+							"title": "创作中心",
+							"icon": "http://i0.hdslb.com/bfs/archive/a879489af0406067c39940316396ae63aeefe088.png",
+							"need_login": 1,
+							"uri": "bilibili://upper/homevc",
+							"common_op_item": {}
+						},
+						{
+							"id": 622,
+							"title": "会员购中心",
+							"icon": "http://i0.hdslb.com/bfs/archive/19c794f01def1a267b894be84427d6a8f67081a9.png",
+							"common_op_item": {},
+							"uri": "bilibili://mall/mine?msource=mine"
 						},
 						{
 							"id": 924,
@@ -514,28 +530,6 @@
 							"uri": "bilibili://user_center/feedback"
 						},
 						{
-							"id": 812,
-							"title": "听视频",
-							"icon": "http://i0.hdslb.com/bfs/feed-admin/97276c5df099e516946682edf4ef10dc6b18c7dc.png",
-							"common_op_item": {},
-							"uri": "bilibili://podcast",
-							"red_dot_for_new": true
-						},
-						{
-							"id": 964,
-							"title": "青少年守护",
-							"icon": "http://i0.hdslb.com/bfs/feed-admin/90f5920ac351da19c6451757ad71704fcea8192b.png",
-							"common_op_item": {},
-							"uri": "https://www.bilibili.com/h5/teenagers/home?navhide=1"
-						},
-						{
-							"id": 950,
-							"title": "青少年模式",
-							"icon": "http://i0.hdslb.com/bfs/archive/68acfd37a735411ad56b59b3253acc33f94f7046.png",
-							"common_op_item": {},
-							"uri": "bilibili://user_center/teenagersmode"
-						},
-						{
 							"id": 410,
 							"title": "设置",
 							"icon": "http://i0.hdslb.com/bfs/archive/e932404f2ee62e075a772920019e9fbdb4b5656a.png",
@@ -556,6 +550,36 @@
 							"icon": "http://i0.hdslb.com/bfs/archive/97acb2d8dec09b296a38f7f7093d651947d13b91.png",
 							"need_login": 1,
 							"uri": "bilibili://uper//user_center/manuscript-list/",
+							"common_op_item": {}
+						},
+						{
+							"id": 812,
+							"title": "听视频",
+							"icon": "http://i0.hdslb.com/bfs/feed-admin/97276c5df099e516946682edf4ef10dc6b18c7dc.png",
+							"common_op_item": {},
+							"uri": "bilibili://podcast",
+							"red_dot_for_new": true
+						},
+						{
+							"id": 950,
+							"title": "青少年模式",
+							"icon": "http://i0.hdslb.com/bfs/archive/68acfd37a735411ad56b59b3253acc33f94f7046.png",
+							"common_op_item": {},
+							"uri": "bilibili://user_center/teenagersmode"
+						},
+						{
+							"id": 964,
+							"title": "青少年守护",
+							"icon": "http://i0.hdslb.com/bfs/feed-admin/90f5920ac351da19c6451757ad71704fcea8192b.png",
+							"common_op_item": {},
+							"uri": "https://www.bilibili.com/h5/teenagers/home?navhide=1"
+						},
+						{
+							"id": 1028,
+							"title": "我的NFT",
+							"icon": "http://i0.hdslb.com/bfs/feed-admin/569a9178aa707f2f2494e34bb6eb1d9d14bd9a7b.png",
+							"need_login": 1,
+							"uri": "https://www.bilibili.com/h5/pangu/gat?navhide=1",
 							"common_op_item": {}
 						}
 					],
