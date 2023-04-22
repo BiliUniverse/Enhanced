@@ -7,8 +7,8 @@
 #!icon=https://github.com/BiliUniverse/Enhanced/raw/main/database/icon_108x.png
 
 [Script]
-http-response ^https?:\/\/app\.bili(bili|api)\.(com|net)\/x\/resource\/show\/tab\/v2(\?.+)?$ requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.resource.show.tab.v2, argument=
-http-response ^https?:\/\/app\.bili(bili|api)\.(com|net)\/x\/v2\/account\/mine(\?.+)?$, requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.v2.account.mine, argument=
+http-response ^https?:\/\/app\.(bilibili\.com|biliapi\.net)\/x\/resource\/show\/tab\/v2(\?.+)?$ requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.resource.show.tab.v2, argument=
+http-response ^https?:\/\/app\.(bilibili\.com|biliapi\.net)\/x\/v2\/account\/mine(\?.+)?$ requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.v2.account.mine, argument=
 
 [MITM]
 hostname = app.bilibili.com, app.biliapi.net
