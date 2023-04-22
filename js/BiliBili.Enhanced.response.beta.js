@@ -186,18 +186,16 @@ for (const [key, value] of Object.entries($response.headers)) {
  */
 function setENV(name, platform, database) {
 	$.log(`⚠ ${$.name}, Set Environment Variables`, "");
-	let { Settings, Caches, Configs } = getENV(name, platform, database);
+	const { Settings, Caches, Configs } = getENV(name, platform, database);
 	/***************** Prase *****************/
-	if (typeof Settings.Home.Top === "string") Settings.Home.Top = Settings.Home.Top.split(",") // BoxJs字符串转数组
-	if (typeof Settings.Home.Top_more === "string") Settings.Home.Top_more = Settings.Home.Top_more.split(",") // BoxJs字符串转数组
-	if (typeof Settings.Home.Tab === "string") Settings.Home.Tab = Settings.Home.Tab.split(",") // BoxJs字符串转数组
-	if (typeof Settings.Bottom === "string") Settings.Bottom = Settings.Bottom.split(",") // BoxJs字符串转数组
-	if (typeof Settings.Mine.CreatorCenter === "string") Settings.Mine.CreatorCenter = Settings.Mine.CreatorCenter.split(",") // BoxJs字符串转数组
-	if (typeof Settings.Mine.Recommend === "string") Settings.Mine.Recommend = Settings.Mine.Recommend.split(",") // BoxJs字符串转数组
-	if (typeof Settings.Mine.More === "string") Settings.Mine.More = Settings.Mine.More.split(",") // BoxJs字符串转数组
+	traverseObject(Settings, (key, value) => {
+		if (typeof value === 'string') return value.split(',');
+	});
 	$.log(`🎉 ${$.name}, Set Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
-	return { Settings, Caches, Configs }
-};
+	return { Settings, Caches, Configs };
+}
+
+function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}
 
 /***************** Env *****************/
 // prettier-ignore
