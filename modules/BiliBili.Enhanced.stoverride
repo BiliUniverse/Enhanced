@@ -1,4 +1,4 @@
-name: "📺 BiliBili: 🧰 Enhanced"
+name: "📺 BiliBili: ⚙ Enhanced"
 desc: "哔哩哔哩：增强模式（中国站功能增强及UI自定义）"
 openUrl: "http://boxjs.com/#/app/BiliBili.Enhanced"
 author: VirgilClyne
@@ -15,8 +15,10 @@ http:
       name: BiliBili.Enhanced.response
       type: response
       require-body: true
-      timeout: 15
-      max-size: 0
+    - match: ^https?:\/\/app\.bili(bili|api)\.(com|net)\/x\/v2\/account\/mine(\?.+)?$
+      name: BiliBili.Enhanced.response
+      type: response
+      require-body: true
 
 script-providers:
   BiliBili.Enhanced.response:
