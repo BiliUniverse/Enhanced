@@ -459,6 +459,7 @@
 							"id": 404,
 							"title": "我的钱包",
 							"icon": "http://i0.hdslb.com/bfs/archive/f416634e361824e74a855332b6ff14e2e7c2e082.png",
+							"need_login": 1,
 							"common_op_item": {},
 							"uri": "bilibili://bilipay/mine_wallet"
 						},
@@ -528,11 +529,34 @@
 							"uri": "https://www.bilibili.com/h5/teenagers/home?navhide=1"
 						},
 						{
+							"id": 950,
+							"title": "青少年模式",
+							"icon": "http://i0.hdslb.com/bfs/archive/68acfd37a735411ad56b59b3253acc33f94f7046.png",
+							"common_op_item": {},
+							"uri": "bilibili://user_center/teenagersmode"
+						},
+						{
 							"id": 410,
 							"title": "设置",
 							"icon": "http://i0.hdslb.com/bfs/archive/e932404f2ee62e075a772920019e9fbdb4b5656a.png",
 							"common_op_item": {},
 							"uri": "bilibili://user_center/setting"
+						},
+						{
+							"id": 741,
+							"title": "我的钱包",
+							"icon": "http://i0.hdslb.com/bfs/archive/f416634e361824e74a855332b6ff14e2e7c2e082.png",
+							"need_login": 1,
+							"uri": "bilibili://bilipay/mine_wallet",
+							"common_op_item": {}
+						},
+						{
+							"id": 742,
+							"title": "稿件管理",
+							"icon": "http://i0.hdslb.com/bfs/archive/97acb2d8dec09b296a38f7f7093d651947d13b91.png",
+							"need_login": 1,
+							"uri": "bilibili://uper//user_center/manuscript-list/",
+							"common_op_item": {}
 						}
 					],
 					"style": 2,
