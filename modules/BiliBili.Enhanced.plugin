@@ -2,13 +2,13 @@
 #!desc=哔哩哔哩：增强模式（中国站功能增强及UI自定义）
 #!openUrl=http://boxjs.com/#/app/BiliBili.Enhanced
 #!author=VirgilClyne
-#!homepage=https://github.com/BiliUniverse
-#!manual=https://github.com/BiliUniverse/Enhanced/wiki
+#!homepage=https://enhanced.biliuniverse.io
+#!manual=https://manual.biliuniverse.io
 #!icon=https://github.com/BiliUniverse/Enhanced/raw/main/database/icon_108x.png
 
 [Script]
-http-response ^https?:\/\/app\.(bilibili\.com|biliapi\.net)\/x\/resource\/show\/tab\/v2(\?.+)?$ requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.resource.show.tab.v2, argument=
-http-response ^https?:\/\/app\.(bilibili\.com|biliapi\.net)\/x\/v2\/account\/mine(\?.+)?$ requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.v2.account.mine, argument=
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2(\?.+)?$ requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.resource.show.tab.v2, argument=
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\?.+)?$ requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.v2.account.mine, argument=
 
 [MITM]
 hostname = app.bilibili.com, app.biliapi.net

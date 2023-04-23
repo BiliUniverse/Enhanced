@@ -2,8 +2,8 @@
 #!desc=(BETA) 哔哩国际：增强模式（国际站功能增强及UI自定义）
 #!openUrl=http://boxjs.com/#/app/BiliIntl.Enhanced.beta
 #!author=VirgilClyne
-#!homepage=https://github.com/BiliUniverse
-#!manual=https://github.com/BiliUniverse/Enhanced/wiki
+#!homepage=https://enhanced.biliuniverse.io
+#!manual=https://manual.biliuniverse.io
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png
 
 [Script]
