@@ -2,7 +2,7 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili:Enhanced v0.2.0(7) response.beta");
+const $ = new Env("📺 BiliBili:Enhanced v0.2.0(10) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -132,9 +132,10 @@ const DataBase = {
 									});
 									break;
 								};
-								case "x/v2/region/index": { // 分区页面-索引
+								case "x/v2/region/index":
+								case "x/v2/channel/region/list": { // 分区页面-索引
 									let data = body.data ?? [];
-									// 方法1-太low
+									// 方法1-low
 									/*
 									let tids1 = data.map(e => e.tid);
 									let tids2 = Configs.Region.index.map(e => e.tid);
@@ -147,30 +148,41 @@ const DataBase = {
 									*/
 									// 方法2-high
 									data.push(...Configs.Region.index); // 末尾插入全部分区
-									$.log(JSON.stringify(data));
+									//$.log(JSON.stringify(data));
 									data = uniqueFunc(data, "tid"); // 去重
-									$.log(JSON.stringify(data));
+									//$.log(JSON.stringify(data));
 									data = data.sort(compareFn("tid")); // 排序
-									$.log(JSON.stringify(data));
+									//$.log(JSON.stringify(data));
+									data = data.map(e => { // 过滤
+										if (Settings.Region.includes(e.tid)) return e;
+									}).filter(Boolean);
+									//$.log(JSON.stringify(data));
+									
+									switch (PATH) { // 特殊处理
+										case "x/v2/region/index":
+											break;
+										case "x/v2/channel/region/list":
+											data = data.map(e => {
+												if (e.goto == "0") e.goto = "";
+												delete e.children;
+												return e;
+											});
+											break;
+									};
 									body.data = data;
 
-									function uniqueFunc(arr, uniId) {
+									function uniqueFunc(array, property) { // 数组去重
 										const res = new Map();
-										return arr.filter(item => {
-											if (!res.has(item[uniId])) {
-												res.set(item[uniId], 1);
-												return true;
-											} else return false;
-										});
+										return array.filter((item) => !res.has(item[property]) && res.set(item[property], 1));
 									};
 
-									function compareFn(property){ //这是比较函数
-										return function(m,n){
+									function compareFn(property) { // 比较函数
+										return function (m, n) {
 											var a = m[property];
 											var b = n[property];
-											return a - b; //升序
+											return a - b; // 升序
 										}
-									}
+									};
 									break;
 								};
 							};
