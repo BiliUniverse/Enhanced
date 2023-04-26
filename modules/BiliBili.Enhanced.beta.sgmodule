@@ -9,6 +9,7 @@
 [Script]
 BiliBili.Enhanced.x.resource.show.tab.v2 = type=http-response, pattern=^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2(\?.+)?$, requires-body=1, max-size=0, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/beta/js/BiliBili.Enhanced.response.beta.js, argument=
 BiliBili.Enhanced.x.v2.account.mine = type=http-response, pattern=^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\?.+)?$, requires-body=1, max-size=0, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/beta/js/BiliBili.Enhanced.response.beta.js, argument=
+BiliBili.Enhanced.x.v2.region.index = type=http-response, pattern=^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index(\?.+)?$, requires-body=1, max-size=0, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/beta/js/BiliBili.Enhanced.response.beta.js, argument=
 
 [MITM]
 hostname = %APPEND% app.bilibili.com, app.biliapi.net
