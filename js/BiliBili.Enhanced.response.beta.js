@@ -2,7 +2,7 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili:Enhanced v0.2.0(10) response.beta");
+const $ = new Env("📺 BiliBili:Enhanced v0.2.0(11) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -165,6 +165,7 @@ const DataBase = {
 											data = data.map(e => {
 												if (e.goto == "0") e.goto = "";
 												delete e.children;
+												delete e.config;
 												return e;
 											});
 											break;
