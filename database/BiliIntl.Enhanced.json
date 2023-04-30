@@ -2,14 +2,25 @@
 	"Settings": {
 		"Switch": "true",
 		"Home": {
-			"Tab": ["for_you_tab", "animation_tab", "gaming_tab"],
+			"Tab": [
+				"for_you_tab",
+				"animation_tab",
+				"gaming_tab"
+			],
 			"Tab_default": "for_you_tab"
 		},
 		"Following": {
-			"Tab": ["following_tab"],
+			"Tab": [
+				"following_tab"
+			],
 			"Tab_default": "following_tab"
 		},
-		"Bottom": ["home", "search", "following", "me"]
+		"Bottom": [
+			"home",
+			"search",
+			"following",
+			"me"
+		]
 	},
 	"Configs": {
 		"Tab": {
