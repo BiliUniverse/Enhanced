@@ -2,7 +2,7 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili:Enhanced v0.2.1(1) response.beta");
+const $ = new Env("📺 BiliBili:Enhanced v0.2.1(2) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -221,9 +221,6 @@ const DataBase = {
 				//$.log(`🚧 ${$.name}, finally`, `$response: ${JSON.stringify($response)}`, "");
 				if ($response?.headers?.["Content-Encoding"]) $response.headers["Content-Encoding"] = "identity";
 				if ($response?.headers?.["content-encoding"]) $response.headers["content-encoding"] = "identity";
-				delete $response?.headers?.["Content-Length"];
-				delete $response?.headers?.["content-length"];
-				delete $response?.headers?.["Transfer-Encoding"];
 				if ($.isQuanX()) {
 					switch (FORMAT) {
 						case undefined: // 视为无body
