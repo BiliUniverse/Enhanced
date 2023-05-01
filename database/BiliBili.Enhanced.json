@@ -63,6 +63,7 @@
 			"217",
 			"223",
 			"234",
+			"6544",
 			"65537",
 			"65539",
 			"65541",
@@ -78,84 +79,98 @@
 			"65559",
 			"65560",
 			"65561",
-			"65563"
+			"65563",
+			"95636",
+			"168312"
 		]
 	},
 	"Configs": {
 		"Tab": {
 			"tab": [
 				{
-					"id": 39,
+					"id": 2036,
 					"name": "直播",
 					"uri": "bilibili://live/home",
-					"tab_id": "直播tab",
-					"pos": 1
+					"tab_id": "直播tab"
 				},
 				{
-					"id": 40,
+					"id": 2037,
 					"name": "推荐",
 					"uri": "bilibili://pegasus/promo",
-					"tab_id": "推荐tab",
-					"pos": 2
+					"tab_id": "推荐tab"
 				},
 				{
-					"id": 41,
+					"id": 780,
 					"name": "热门",
 					"uri": "bilibili://pegasus/hottopic",
-					"tab_id": "hottopic",
-					"pos": 3
+					"tab_id": "hottopic"
 				},
 				{
 					"id": 545,
 					"name": "追番",
 					"uri": "bilibili://pgc/home",
-					"tab_id": "bangumi",
-					"pos": 4
+					"tab_id": "bangumi"
 				},
 				{
 					"id": 774,
-					"name": "动画",
+					"name": "动画（港澳台）",
 					"uri": "bilibili://following/home_activity_tab/6544",
-					"tab_id": "anime",
-					"pos": 4
+					"tab_id": "anime"
 				},
 				{
 					"id": 151,
 					"name": "影视",
 					"uri": "bilibili://pgc/cinema-tab",
-					"tab_id": "film",
-					"pos": 5
+					"tab_id": "film"
+				},
+				{
+					"id": 801,
+					"name": "韩综（港澳台）",
+					"uri": "bilibili://following/home_activity_tab/95636",
+					"tab_id": "koreavtw"
+				},
+				{
+					"id": 861,
+					"name": "游戏",
+					"uri": "bilibili://pegasus/vertical/802",
+					"tab_id": "game"
+				},
+				{
+					"id": 843,
+					"name": "minecraft",
+					"uri": "bilibili://pegasus/vertical/2485003",
+					"tab_id": "mctab"
+				},
+				{
+					"id": 1229,
+					"name": "动画同人",
+					"uri": "bilibili://pegasus/vertical/27555107",
+					"tab_id": "dhtr"
+				},
+				{
+					"id": 1405,
+					"name": "搞笑",
+					"uri": "bilibili://pegasus/vertical/1833",
+					"tab_id": "gaoxiao"
 				},
 				{
 					"id": 2280,
 					"name": "校园",
 					"uri": "bilibili://campus/home_tab",
-					"tab_id": "school",
-					"pos": 6
+					"tab_id": "school"
+				},
+				{
+					"id": 1716,
+					"name": "数码",
+					"uri": "bilibili://pegasus/vertical/13807",
+					"tab_id": "kj"
 				},
 				{
 					"id": 136117,
 					"name": "新征程",
 					"uri": "bilibili://following/home_activity_tab/136117",
 					"tab_id": "165",
-					"pos": 7,
 					"color": "#DD1225"
-				},
-				{
-					"id": 1716,
-					"icon": "http://i0.hdslb.com/bfs/archive/38d2c2669a68eae8a53fc9afaa193aafa5265a78.png",
-					"name": "数码",
-					"uri": "bilibili://pegasus/vertical/13807",
-					"tab_id": "kj",
-					"pos": 8
-				},
-				{
-					"id": 801,
-					"icon": "http://i0.hdslb.com/bfs/archive/38d2c2669a68eae8a53fc9afaa193aafa5265a78.png",
-					"name": "韩综",
-					"uri": "bilibili://following/home_activity_tab/95636",
-					"tab_id": "koreavtw",
-					"pos": 10
 				}
 			],
 			"top": [
@@ -164,24 +179,21 @@
 					"icon": "http://i0.hdslb.com/bfs/archive/734a3b610a953df398bbe6d787944514dcd94a46.png",
 					"name": "游戏中心",
 					"uri": "bilibili://game_center/home",
-					"tab_id": "游戏中心Top",
-					"pos": 1
+					"tab_id": "游戏中心Top"
 				},
 				{
 					"id": 108,
 					"icon": "http://i0.hdslb.com/bfs/archive/9d1c0985b9d0e2da2c2f919cc2ee0e36ea41fd90.png",
 					"name": "会员购",
 					"uri": "bilibili://mall/home/",
-					"tab_id": "会员购Top",
-					"pos": 2
+					"tab_id": "会员购Top"
 				},
 				{
 					"id": 176,
 					"icon": "http://i0.hdslb.com/bfs/archive/d43047538e72c9ed8fd8e4e34415fbe3a4f632cb.png",
 					"name": "消息",
 					"uri": "bilibili://link/im_home",
-					"tab_id": "消息Top",
-					"pos": 2
+					"tab_id": "消息Top"
 				}
 			],
 			"bottom": [
@@ -191,8 +203,7 @@
 					"icon_selected": "http://i0.hdslb.com/bfs/archive/e5106aa688dc729e7f0eafcbb80317feb54a43bd.png",
 					"name": "首页",
 					"uri": "bilibili://main/home/",
-					"tab_id": "home",
-					"pos": 1
+					"tab_id": "home"
 				},
 				{
 					"id": 103,
@@ -200,8 +211,7 @@
 					"icon_selected": "http://i0.hdslb.com/bfs/archive/94539249e59621214f7dc1226cf38a2b8fe4c64f.png",
 					"name": "频道",
 					"uri": "bilibili://pegasus/channel/",
-					"tab_id": "频道Bottom",
-					"pos": 2
+					"tab_id": "频道Bottom"
 				},
 				{
 					"id": 179,
@@ -209,8 +219,7 @@
 					"icon_selected": "http://i0.hdslb.com/bfs/archive/25b658e1f6b6da57eecba328556101dbdcb4b53f.png",
 					"name": "动态",
 					"uri": "bilibili://following/home/",
-					"tab_id": "dynamic",
-					"pos": 2
+					"tab_id": "dynamic"
 				},
 				{
 					"id": 670,
@@ -218,7 +227,6 @@
 					"name": "发布",
 					"uri": "bilibili://uper/center_plus?relation_from=center_plus\u0026tab_index=2",
 					"tab_id": "publish",
-					"pos": 3,
 					"dialog_items": [
 						{
 							"id": 617,
@@ -248,13 +256,12 @@
 					"type": 3
 				},
 				{
-					"id": 690,
+					"id": 884,
 					"icon": "http://i0.hdslb.com/bfs/feed-admin/68b1625cef3a8315d6fe3fbfd2a8b06c905f323a.png",
 					"icon_selected": "http://i0.hdslb.com/bfs/feed-admin/1903c6f1dc881ed4c459ab337767fd8436cda159.png",
 					"name": "节目",
 					"uri": "bilibili://following/home_bottom_tab_activity_tab/168312",
 					"tab_id": "ogv",
-					"pos": 4,
 					"type": 4
 				},
 				{
@@ -263,8 +270,7 @@
 					"icon_selected": "http://i0.hdslb.com/bfs/archive/eeaf83fb7157000776dd93f61702a049f56801d3.png",
 					"name": "会员购",
 					"uri": "bilibili://mall/home",
-					"tab_id": "会员购Bottom",
-					"pos": 4
+					"tab_id": "会员购Bottom"
 				},
 				{
 					"id": 105,
@@ -272,8 +278,7 @@
 					"icon_selected": "http://i0.hdslb.com/bfs/archive/f96bfd9ffea2e51443aed44dba6d76b7b34891c8.png",
 					"name": "消息",
 					"uri": "bilibili://link/im_home",
-					"tab_id": "消息Bottom",
-					"pos": 4
+					"tab_id": "消息Bottom"
 				},
 				{
 					"id": 181,
@@ -281,8 +286,7 @@
 					"icon_selected": "http://i0.hdslb.com/bfs/archive/a54a8009116cb896e64ef14dcf50e5cade401e00.png",
 					"name": "我的",
 					"uri": "bilibili://user_center/",
-					"tab_id": "我的Bottom",
-					"pos": 5
+					"tab_id": "我的Bottom"
 				}
 			],
 			"top_more": [
@@ -290,15 +294,13 @@
 					"id": 621,
 					"icon": "http://i0.hdslb.com/bfs/feed-admin/f95dfa31c793c857af6e7b65b5387a05f30d31ba.png",
 					"name": "更多分区",
-					"uri": "bilibili://main/top_category",
-					"pos": 1
+					"uri": "bilibili://main/top_category"
 				},
 				{
 					"id": 922,
 					"icon": "http://i0.hdslb.com/bfs/feed-admin/38beac42189ad4d838d20259a5b2cdfd302fef40.png",
 					"name": "搜索",
-					"uri": "bilibili://search",
-					"pos": 2
+					"uri": "bilibili://search"
 				}
 			],
 			"top_left": {
@@ -2888,6 +2890,58 @@
 					"goto": "0",
 					"param": "",
 					"uri": "https://www.bilibili.com/h5/musicplus?navhide=1",
+					"type": 0,
+					"config": [
+						{
+							"scenes_name": "region",
+							"scenes_type": "bottom"
+						}
+					]
+				}
+			],
+			"modify": [
+				{
+					"tid": 6544,
+					"reid": 0,
+					"name": "番劇(港澳台)",
+					"logo": "http://i0.hdslb.com/bfs/archive/6f629bd0dcd71d7b9911803f8e4f94fd0e5b4bfd.png",
+					"goto": "0",
+					"param": "",
+					"uri": "bilibili://following/home_bottom_tab_activity_tab/6544",
+					"type": 0,
+					"is_bangumi": 1,
+					"config": [
+						{
+							"scenes_name": "region",
+							"scenes_type": "bottom"
+						}
+					]
+				},
+				{
+					"tid": 95636,
+					"reid": 0,
+					"name": "韩综(港澳台)",
+					"logo": "http://i0.hdslb.com/bfs/archive/a9bcb4cb7e216c2ea28ba3dc10acd2d210f739bd.png",
+					"goto": "0",
+					"param": "",
+					"uri": "bilibili://following/home_bottom_tab_activity_tab/95636",
+					"type": 0,
+					"is_bangumi": 1,
+					"config": [
+						{
+							"scenes_name": "region",
+							"scenes_type": "bottom"
+						}
+					]
+				},
+				{
+					"tid": 168312,
+					"reid": 0,
+					"name": "節目(港澳台)",
+					"logo": "http://i0.hdslb.com/bfs/archive/f90bb1ef59630ad9765486c6088a4944b96e88a3.png",
+					"goto": "0",
+					"param": "",
+					"uri": "bilibili://following/home_bottom_tab_activity_tab/168312",
 					"type": 0,
 					"config": [
 						{
