@@ -19,6 +19,14 @@ http:
       name: BiliBili.Enhanced.response
       type: response
       require-body: true
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index(\?.+)?$
+      name: BiliBili.Enhanced.response
+      type: response
+      require-body: true
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list(\?.+)?$
+      name: BiliBili.Enhanced.response
+      type: response
+      require-body: true
 
 script-providers:
   BiliBili.Enhanced.response:
