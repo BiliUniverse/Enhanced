@@ -12,5 +12,5 @@ http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\?
 http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index(\?.+)?$ requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.v2.region.index, argument=
 http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list(\?.+)?$ requires-body=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js, tag=BiliBili.Enhanced.x.v2.channel.region.list, argument=
 
-[MITM]
+[MitM]
 hostname = app.bilibili.com, app.biliapi.net

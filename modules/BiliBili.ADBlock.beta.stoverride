@@ -34,27 +34,31 @@ http:
     - ^https:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v1\/ecommerce-user\/get_shopping_info\? - reject-dict
   script:
     - match: ^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom
-      name: BiliBili.ADBlock.response
+      name: BiliBili.ADBlock.response.json
       type: response
       require-body: true
+      argument:
     - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/page\/(bangumi|cinema\/tab\?)
-      name: BiliBili.ADBlock.response
+      name: BiliBili.ADBlock.response.json
       type: response
       require-body: true
       argument:
     - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/(splash\/(brand\/list|event\/list2|list|show)|feed\/index(\/story)?)
-      name: BiliBili.ADBlock.response
+      name: BiliBili.ADBlock.response.json
       type: response
       require-body: true
       argument:
     - match: ^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.(view\.v1\.View\/View|dynamic\.v2\.Dynamic\/DynAll|playurl\.v1\.PlayURL\/PlayView)$
-      name: BiliBili.ADBlock.response
+      name: BiliBili.ADBlock.response.proto
       type: response
       require-body: true
       binary-mode: true
       argument:
 
 script-providers:
-  BiliBili.ADBlock.response:
+  BiliBili.ADBlock.response.json:
+    url: https://raw.githubusercontent.com/BiliUniverse/Enhanced/beta/js/BiliBili.ADBlock.response.beta.js
+    interval: 86400
+  BiliBili.ADBlock.response.proto:
     url: https://raw.githubusercontent.com/BiliUniverse/Enhanced/beta/js/BiliBili.ADBlock.response.beta.js
     interval: 86400

@@ -6,7 +6,7 @@
 #!manual=https://manual.biliuniverse.io
 #!icon=https://github.com/BiliUniverse/Enhanced/raw/main/database/icon_108x.png
 
-#[Script]
+#[rewrite_local]
 # BiliBili.Enhanced.x.resource.show.tab.v2
 ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2(\?.+)?$ url script-response-body https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js
 # BiliBili.Enhanced.x.v2.account.mine
@@ -16,5 +16,5 @@
 # BiliBili.Enhanced.x.v2.channel.region.list
 ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list(\?.+)?$ url script-response-body https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.Enhanced.response.js
 
-#[MITM]
+#[mitm]
 hostname = app.bilibili.com, app.biliapi.net
