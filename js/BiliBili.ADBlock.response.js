@@ -2,7 +2,7 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili: 🛡️ ADBlock v0.0.1(7) response.beta");
+const $ = new Env("📺 BiliBili: 🛡️ ADBlock v0.0.1(7) response");
 const URL = new URLs();
 
 /***************** Processing *****************/
