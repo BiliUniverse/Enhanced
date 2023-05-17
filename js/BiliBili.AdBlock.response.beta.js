@@ -3,11 +3,11 @@ WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
 
-const $ = new Env("📺 BiliBili: 🛡️ ADBlock v0.0.1(8) response");
+const $ = new Env("📺 BiliBili: 🛡️ ADBlock v0.0.1(9) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"ADBlock":{
-		"Settings":{"Switch":"true","Detail":{"splash":true,"feed":true,"story":true,"cinema":true,"view":true,"xlive":true,"Hot_topics":true,"Most_visited":true,"Dynamic_adcard":true},"Configs":{}}
+		"Settings":{"Switch":"true","Detail":{"splash":true,"feed":true,"story":true,"cinema":true,"view":true,"search":true,"xlive":true,"Hot_topics":true,"Most_visited":true,"Dynamic_adcard":true},"Configs":{}}
 	},
 	"Default": {
 		"Settings":{"Switch":"true"}
@@ -103,7 +103,7 @@ const DataBase = {
 											break;
 									}
 									break;
-								case "x/v2/feed/index/story": // 推荐story页
+								case "x/v2/feed/index/story": // 首页短视频流
 									switch (Settings.Detail.story) {
 										case "true":
 											if (body.data?.items) {
@@ -111,14 +111,14 @@ const DataBase = {
 												// vertical_pgc 大会员专享
 												body.data.items = body.data.items.filter((i) => !(
 														i.hasOwnProperty("ad_info") ||
-														["ad", "vertical_live", "vertical_pgc"].includes(i.card_goto)
+														["vertical_ad_av", "vertical_pgc"].includes(i.card_goto)
 													)
 												);
-												$.log(`🎉 ${$.name}`, "story广告去除");
+												$.log(`🎉 ${$.name}`, "首页短视频流广告去除");
 											}
 											break;
 										case "false":
-											$.log(`🚧 ${$.name}`, "用户设置推荐页story广告不去除");
+											$.log(`🚧 ${$.name}`, "用户设置首页短视频流广告不去除");
 											break;
 									}
 									break;
@@ -241,7 +241,7 @@ const DataBase = {
 									/******************  initialization start  *******************/
 									/******************  initialization finish  ******************/
 									switch (PATHs?.[0]) {
-										case "bilibili.app.playurl.v1.PlayURL": // 普通视频
+										case "bilibili.app.playurl.v1.PlayURL": // 投稿视频
 											switch (PATHs?.[1]) {
 												case "PlayView": // 播放地址
 													/******************  initialization start  *******************/
@@ -388,12 +388,22 @@ const DataBase = {
 											};
 											break;
 										case "bilibili.polymer.app.search.v1.Search": // 搜索结果
-											/******************  initialization start  *******************/
-											/******************  initialization finish  *******************/
 											switch (PATHs?.[1]) {
 												case "SearchAll": { // 全部结果（综合）
-													/******************  initialization start  *******************/
-													/******************  initialization finish  *******************/
+												/******************  initialization start  *******************/
+												class Item$Type extends MessageType{constructor(){super("bilibili.polymer.app.search.v1.Item",[{no:25,name:"cm",kind:"message",oneof:"cardItem",T:()=>SearchAdCard}])}create(value){const message={cardItem:{oneofKind:undefined}};globalThis.Object.defineProperty(message,MESSAGE_TYPE,{enumerable:false,value:this});if(value!==undefined)reflectionMergePartial(this,message,value);return message}internalBinaryRead(reader,length,options,target){let message=target??this.create(),end=reader.pos+length;while(reader.pos<end){let[fieldNo,wireType]=reader.tag();switch(fieldNo){case 25:message.cardItem={oneofKind:"cm",cm:SearchAdCard.internalBinaryRead(reader,reader.uint32(),options,message.cardItem.cm)};break;default:let u=options.readUnknownField;if(u==="throw")throw new globalThis.Error(`Unknown field ${fieldNo}(wire type ${wireType})for ${this.typeName}`);let d=reader.skip(wireType);if(u!==false)(u===true?UnknownFieldHandler.onRead:u)(this.typeName,message,fieldNo,wireType,d)}}return message}internalBinaryWrite(message,writer,options){if(message.cardItem.oneofKind==="cm")SearchAdCard.internalBinaryWrite(message.cardItem.cm,writer.tag(25,WireType.LengthDelimited).fork(),options).join();let u=options.writeUnknownFields;if(u!==false)(u==true?UnknownFieldHandler.onWrite:u)(this.typeName,message,writer);return writer}}const Item=new Item$Type();class SearchAdCard$Type extends MessageType{constructor(){super("bilibili.polymer.app.search.v1.SearchAdCard",[{no:1,name:"json_str",kind:"scalar",T:9}])}create(value){const message={jsonStr:""};globalThis.Object.defineProperty(message,MESSAGE_TYPE,{enumerable:false,value:this});if(value!==undefined)reflectionMergePartial(this,message,value);return message}internalBinaryRead(reader,length,options,target){let message=target??this.create(),end=reader.pos+length;while(reader.pos<end){let[fieldNo,wireType]=reader.tag();switch(fieldNo){case 1:message.jsonStr=reader.string();break;default:let u=options.readUnknownField;if(u==="throw")throw new globalThis.Error(`Unknown field ${fieldNo}(wire type ${wireType})for ${this.typeName}`);let d=reader.skip(wireType);if(u!==false)(u===true?UnknownFieldHandler.onRead:u)(this.typeName,message,fieldNo,wireType,d)}}return message}internalBinaryWrite(message,writer,options){if(message.jsonStr!=="")writer.tag(1,WireType.LengthDelimited).string(message.jsonStr);let u=options.writeUnknownFields;if(u!==false)(u==true?UnknownFieldHandler.onWrite:u)(this.typeName,message,writer);return writer}}const SearchAdCard=new SearchAdCard$Type();class SearchAllResponse$Type extends MessageType{constructor(){super("bilibili.polymer.app.search.v1.SearchAllResponse",[{no:4,name:"item",kind:"message",repeat:1,T:()=>Item}])}create(value){const message={item:[]};globalThis.Object.defineProperty(message,MESSAGE_TYPE,{enumerable:false,value:this});if(value!==undefined)reflectionMergePartial(this,message,value);return message}internalBinaryRead(reader,length,options,target){let message=target??this.create(),end=reader.pos+length;while(reader.pos<end){let[fieldNo,wireType]=reader.tag();switch(fieldNo){case 4:message.item.push(Item.internalBinaryRead(reader,reader.uint32(),options));break;default:let u=options.readUnknownField;if(u==="throw")throw new globalThis.Error(`Unknown field ${fieldNo}(wire type ${wireType})for ${this.typeName}`);let d=reader.skip(wireType);if(u!==false)(u===true?UnknownFieldHandler.onRead:u)(this.typeName,message,fieldNo,wireType,d)}}return message}internalBinaryWrite(message,writer,options){for(let i=0;i<message.item.length;i++)Item.internalBinaryWrite(message.item[i],writer.tag(4,WireType.LengthDelimited).fork(),options).join();let u=options.writeUnknownFields;if(u!==false)(u==true?UnknownFieldHandler.onWrite:u)(this.typeName,message,writer);return writer}}const SearchAllResponse=new SearchAllResponse$Type();
+												/******************  initialization finish  *******************/
+													switch (Settings.Detail.search) {
+														case "true":
+															let data = SearchAllResponse.fromBinary(body);
+															data.item = data.item.filter((i) => !(i.cardItem?.oneofKind === "cm"));
+															$.log(`🎉 ${$.name}`, "搜索页广告去除");
+															body = SearchAllResponse.toBinary(data);
+															break;
+														case "false":
+															$.log(`🚧 ${$.name}`, "用户设置搜索页广告不去除");
+															break;
+													}
 													break;
 												};
 												case "SearchByType": { // 分类结果（番剧、用户、影视、专栏）
