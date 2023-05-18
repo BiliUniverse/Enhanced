@@ -3,9 +3,9 @@ desc: "哔哩哔哩：去广告"
 openUrl: "http://boxjs.com/#/app/BiliBili.ADBlock"
 author: "ClydeTime"
 references: "VirgilClyne、app2smile、RuCu6"
-homepage: "https://enhanced.biliuniverse.io"
+homepage: "https://adblock.biliuniverse.io"
 manual: "https://manual.biliuniverse.io"
-icon: "https://github.com/BiliUniverse/Enhanced/raw/main/database/icon_108x.png"
+icon: "https://github.com/BiliUniverse/ADBlock/raw/main/database/icon_108x.png"
 
 http:
   mitm:
@@ -75,8 +75,8 @@ http:
 
 script-providers:
   BiliBili.ADBlock.response.json:
-    url: https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.ADBlock.response.js
+    url: https://raw.githubusercontent.com/BiliUniverse/ADBlock/main/js/BiliBili.ADBlock.response.js
     interval: 86400
   BiliBili.ADBlock.response.proto:
-    url: https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/js/BiliBili.ADBlock.response.js
+    url: https://raw.githubusercontent.com/BiliUniverse/ADBlock/main/js/BiliBili.ADBlock.response.js
     interval: 86400
