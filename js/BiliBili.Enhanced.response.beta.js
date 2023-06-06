@@ -103,9 +103,9 @@ const DataBase = {
 						case "app.biliapi.net":
 							// 先保存一下AccessKey
 							/*
-							if (url?.params?.access_key) {
+							if (url?.query?.access_key) {
 								let newCaches = $.getjson("@BiliBili.Global.Caches", {});
-								newCaches.AccessKey = url.params.access_key; // 总是刷新
+								newCaches.AccessKey = url.query.access_key; // 总是刷新
 								$.log(`newCaches = ${JSON.stringify(newCaches)}`);
 								let isSave = $.setjson(newCaches, "@BiliBili.Global.Caches");
 								$.log(`$.setjson ? ${isSave}`);
