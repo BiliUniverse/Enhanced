@@ -15,7 +15,7 @@ http:
       name: BiliBili.Enhanced.response
       type: response
       require-body: true
-    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\?.+)?$
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)\?
       name: BiliBili.Enhanced.response
       type: response
       require-body: true
