@@ -4,85 +4,20 @@
 		"Home": {
 			"Switch": "true",
 			"Top_left": "mine",
-			"Top": [
-				"消息Top"
-			],
+			"Top": ["消息Top"],
 			"Top_more": [],
-			"Tab": [
-				"直播tab",
-				"推荐tab",
-				"hottopic",
-				"bangumi",
-				"anime",
-				"film",
-				"koreavtw"
-			],
+			"Tab": ["直播tab", "推荐tab", "hottopic", "bangumi", "anime", "film", "koreavtw"],
 			"Tab_default": "bangumi"
 		},
-		"Bottom": [
-			"home",
-			"dynamic",
-			"ogv",
-			"会员购Bottom",
-			"我的Bottom"
-		],
+		"Bottom": ["home", "dynamic", "ogv", "会员购Bottom", "我的Bottom"],
 		"Mine": {
 			"Switch": "true",
 			"CreatorCenter": [],
-			"Recommend": [
-				"400",
-				"402",
-				"404",
-				"403"
-			],
-			"More": [
-				"407",
-				"410",
-				"1028"
-			]
+			"Recommend": ["400", "402", "404", "403"],
+			"More": ["407", "410", "1028"],
+			"iPad": { "Upper": [], "Recommend": ["789", "790", "791", "793", "794", "2542"], "More": ["797", "798"] }
 		},
-		"Region": [
-			"1",
-			"3",
-			"4",
-			"5",
-			"11",
-			"13",
-			"23",
-			"36",
-			"119",
-			"129",
-			"155",
-			"160",
-			"167",
-			"177",
-			"181",
-			"188",
-			"202",
-			"211",
-			"217",
-			"223",
-			"234",
-			"6544",
-			"65537",
-			"65539",
-			"65541",
-			"65545",
-			"65549",
-			"65550",
-			"65551",
-			"65552",
-			"65553",
-			"65555",
-			"65556",
-			"65557",
-			"65559",
-			"65560",
-			"65561",
-			"65563",
-			"95636",
-			"168312"
-		]
+		"Region": ["1", "3", "4", "5", "11", "13", "23", "36", "119", "129", "155", "160", "167", "177", "181", "188", "202", "211", "217", "223", "234", "6544", "65537", "65539", "65541", "65545", "65549", "65550", "65551", "65552", "65553", "65555", "65556", "65557", "65559", "65560", "65561", "65563", "95636", "168312"]
 	},
 	"Configs": {
 		"Tab": {
@@ -608,6 +543,26 @@
 					"style": 2,
 					"button": {}
 				}
+			],
+			"ipad_upper_sections": [
+				{ "id": 785, "title": "投稿", "uri": "/uper/user_center/add_archive", "icon": "http://i0.hdslb.com/bfs/feed-admin/d0ad3c04df2253bfe0261cadd7adca1f1433eb50.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 786, "title": "创作首页", "uri": "/uper/homevc", "icon": "http://i0.hdslb.com/bfs/feed-admin/d20dfed3b403c895506b1c92ecd5874abb700c01.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 787, "title": "稿件管理", "uri": "/uper/user_center/archive_list", "icon": "http://i0.hdslb.com/bfs/feed-admin/325609d2b6059f278683d773636bf48681da9d6c.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 788, "title": "有奖活动", "uri": "https://www.bilibili.com/blackboard/x/activity-tougao-h5/all", "icon": "http://i0.hdslb.com/bfs/feed-admin/3ad73f45adfdeb999bb11a306dc8c8e169b426d9.png", "mng_resource": { "icon_id": 0, "icon": "" } }
+			],
+			"ipad_recommend_sections": [
+				{ "id": 789, "title": "我的关注", "uri": "bilibili://user_center/myfollows", "icon": "http://i0.hdslb.com/bfs/feed-admin/fdd7f676030c6996d36763a078442a210fc5a8c0.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 790, "title": "我的消息", "uri": "bilibili://link/im_home", "icon": "http://i0.hdslb.com/bfs/feed-admin/e1471740130a08a48b02a4ab29ed9d5f2281e3bf.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 791, "title": "我的钱包", "uri": "bilibili://bilipay/mine_wallet", "icon": "http://i0.hdslb.com/bfs/feed-admin/180f089fd2debb522919b22e08546cf5bc279026.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 792, "title": "直播中心", "uri": "bilibili://user_center/live_center", "icon": "http://i0.hdslb.com/bfs/feed-admin/d7255968066cef435370b18e87bdf3ac62d2bc14.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 793, "title": "大会员", "uri": "bilibili://user_center/vip", "icon": "http://i0.hdslb.com/bfs/feed-admin/a7d52c532beaedbec7c40883788b5d9c8adf96be.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 794, "title": "我的课程", "uri": "bilibili://user_center/course", "icon": "http://i0.hdslb.com/bfs/feed-admin/a2139eb7b1ac17c12fa26aff70efe5852195c53d.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 2542, "title": "我的游戏", "uri": "bilibili://hd/game/my_game", "icon": "https://i0.hdslb.com/bfs/legacy/59bf32e258af044a47badb39f3093286d92eb6d3.png", "mng_resource": { "icon_id": 0, "icon": "" } }
+			],
+			"ipad_more_sections": [
+				{ "id": 797, "title": "我的客服", "uri": "bilibili://user_center/feedback", "icon": "http://i0.hdslb.com/bfs/feed-admin/7801a6180fb67cf5f8ee05a66a4668e49fb38788.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 798, "title": "设置", "uri": "bilibili://user_center/setting", "icon": "http://i0.hdslb.com/bfs/feed-admin/34e8faea00b3dd78977266b58d77398b0ac9410b.png", "mng_resource": { "icon_id": 0, "icon": "" } },
+				{ "id": 1070, "title": "青少年守护", "uri": "https://www.bilibili.com/h5/teenagers/home?navhide=1", "icon": "https://i0.hdslb.com/bfs/feed-admin/90f5920ac351da19c6451757ad71704fcea8192b.png", "mng_resource": { "icon_id": 0, "icon": "" } }
 			]
 		},
 		"Region": {
