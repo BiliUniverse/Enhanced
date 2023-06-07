@@ -2,7 +2,7 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.0(5) response.beta");
+const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.0(6) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -333,7 +333,7 @@ function setENV(name, platforms, database) {
 	$.log(`⚠ ${$.name}, Set Environment Variables`, "");
 	let { Settings, Caches, Configs } = getENV(name, platforms, database);
 	/***************** Settings *****************/
-	// 单值或空值转换为数组
+	// 单值或空值转换为数组 (仅针对本项目选项转为纯数字的情况)
 	handleEmptyOrSingleValue(Settings);
 	function handleEmptyOrSingleValue(e){for(let n in e)"object"==typeof e[n]?handleEmptyOrSingleValue(e[n]):null===e[n]||""===e[n]||void 0===e[n]?e[n]=[]:"number"==typeof e[n]&&(e[n]=[e[n].toString()]);return e};
 	$.log(`🎉 ${$.name}, Set Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
