@@ -11,19 +11,19 @@ http:
     - "app.bilibili.com"
     - "app.biliapi.net"
   script:
-    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2(\?.+)?$
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\?
       name: BiliBili.Enhanced.response
       type: response
       require-body: true
-    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)\?
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\?
       name: BiliBili.Enhanced.response
       type: response
       require-body: true
-    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index(\?.+)?$
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index\?
       name: BiliBili.Enhanced.response
       type: response
       require-body: true
-    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list(\?.+)?$
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list\?
       name: BiliBili.Enhanced.response
       type: response
       require-body: true
