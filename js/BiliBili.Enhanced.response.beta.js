@@ -2,7 +2,7 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.1(3) response.beta");
+const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.1(4) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -305,9 +305,18 @@ function setENV(name, platforms, database) {
 	$.log(`☑️ ${$.name}, Set Environment Variables`, "");
 	let { Settings, Caches, Configs } = getENV(name, platforms, database);
 	/***************** Settings *****************/
-	// 单值或空值转换为数组 (仅针对本项目选项转为纯数字的情况)
-	handleEmptyOrSingleValue(Settings);
-	function handleEmptyOrSingleValue(e){for(let n in e)"object"==typeof e[n]?handleEmptyOrSingleValue(e[n]):null===e[n]||""===e[n]||void 0===e[n]?e[n]=[]:"number"==typeof e[n]&&(e[n]=[e[n].toString()]);return e};
+	// 单值或空值转换为数组
+	if (!Array.isArray(Settings?.Home?.Top)) $.lodash_set(Settings, "Home.Top", (Settings?.Home?.Top) ? [Settings.Home.Top.toString()] : []);
+	if (!Array.isArray(Settings?.Home?.Top_more)) $.lodash_set(Settings, "Home.Top_more", (Settings?.Home?.Top_more) ? [Settings.Home.Top_more.toString()] : []);
+	if (!Array.isArray(Settings?.Home?.Tab)) $.lodash_set(Settings, "Home.Tab", (Settings?.Home?.Tab) ? [Settings.Home.Tab.toString()] : []);
+	if (!Array.isArray(Settings?.Bottom)) $.lodash_set(Settings, "Bottom", (Settings?.Bottom) ? [Settings.Bottom.toString()] : []);
+	if (!Array.isArray(Settings?.Mine?.CreatorCenter)) $.lodash_set(Settings, "Mine.CreatorCenter", (Settings?.Mine?.CreatorCenter) ? [Settings.Mine.CreatorCenter.toString()] : []);
+	if (!Array.isArray(Settings?.Mine?.Recommend)) $.lodash_set(Settings, "Mine.Recommend", (Settings?.Mine?.Recommend) ? [Settings.Mine.Recommend.toString()] : []);
+	if (!Array.isArray(Settings?.Mine?.More)) $.lodash_set(Settings, "Mine.More", (Settings?.Mine?.More) ? [Settings.Mine.More.toString()] : []);
+	if (!Array.isArray(Settings?.Mine?.iPad?.Upper)) $.lodash_set(Settings, "Mine.iPad.Upper", (Settings?.Mine?.iPad?.Upper) ? [Settings.Mine.iPad.Upper.toString()] : []);
+	if (!Array.isArray(Settings?.Mine?.iPad?.Recommend)) $.lodash_set(Settings, "Mine.iPad.Recommend", (Settings?.Mine?.iPad?.Recommend) ? [Settings.Mine.iPad.Recommend.toString()] : []);
+	if (!Array.isArray(Settings?.Mine?.iPad?.More)) $.lodash_set(Settings, "Mine.iPad.More", (Settings?.Mine?.iPad?.More) ? [Settings.Mine.iPad.More.toString()] : []);
+	if (!Array.isArray(Settings?.Region?.Index)) $.lodash_set(Settings, "Region.Index", (Settings?.Region?.Index) ? [Settings.Region.Index.toString()] : []);
 	$.log(`✅ ${$.name}, Set Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
 	/***************** Caches *****************/
 	//$.log(`🎉 ${$.name}, Set Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
