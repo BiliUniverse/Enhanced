@@ -2,7 +2,7 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.2(1) response.beta");
+const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.2(2) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -148,19 +148,19 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 											case "创作中心":
 												e.items = e.items.map(item => {
 													//$.log(`item.id = ${item.id}`);
-													if (Settings.Mine.CreatorCenter.includes(item.id.toString())) return item;
+													if (Settings.Mine.CreatorCenter.includes(item.id)) return item;
 												}).filter(Boolean);
 												break;
 											case "推荐服务":
 												e.items = e.items.map(item => {
 													//$.log(`item.id = ${item.id}`);
-													if (Settings.Mine.Recommend.includes(item.id.toString())) return item;
+													if (Settings.Mine.Recommend.includes(item.id)) return item;
 												}).filter(Boolean);
 												break;
 											case "更多服务":
 												e.items = e.items.map(item => {
 													//$.log(`item.id = ${item.id}`);
-													if (Settings.Mine.More.includes(item.id.toString())) return item;
+													if (Settings.Mine.More.includes(item.id)) return item;
 												}).filter(Boolean);
 												break;
 										};
@@ -172,13 +172,13 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 								case "x/v2/account/mine/ipad": { // 账户信息-我的(pad)
 									let data = body.data;
 									data.ipad_upper_sections = Configs.Mine.ipad_upper_sections.map(item => {
-										if (Settings.Mine.iPad.Upper.includes(item.id.toString())) return item;
+										if (Settings.Mine.iPad.Upper.includes(item.id)) return item;
 									}).filter(Boolean);
 									data.ipad_recommend_sections = Configs.Mine.ipad_recommend_sections.map(item => {
-										if (Settings.Mine.iPad.Recommend.includes(item.id.toString())) return item;
+										if (Settings.Mine.iPad.Recommend.includes(item.id)) return item;
 									}).filter(Boolean);
 									data.ipad_more_sections = Configs.Mine.ipad_more_sections.map(item => {
-										if (Settings.Mine.iPad.More.includes(item.id.toString())) return item;
+										if (Settings.Mine.iPad.More.includes(item.id)) return item;
 									}).filter(Boolean);
 									break;
 								};
@@ -204,7 +204,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 									data = data.sort(compareFn("tid")); // 排序
 									//$.log(JSON.stringify(data));
 									data = data.map(e => { // 过滤
-										if (Settings.Region.Index.includes(e.tid.toString())) return e;
+										if (Settings.Region.Index.includes(e.tid)) return e;
 									}).filter(Boolean);
 									//$.log(JSON.stringify(data));
 
@@ -306,24 +306,18 @@ function setENV(name, platforms, database) {
 	let { Settings, Caches, Configs } = getENV(name, platforms, database);
 	/***************** Settings *****************/
 	// 单值或空值转换为数组
-	if (!Array.isArray(Settings?.Home?.Top)) $.lodash_set(Settings, "Home.Top", (Settings?.Home?.Top) ? [Settings.Home.Top.toString()] : []);
-	if (!Array.isArray(Settings?.Home?.Top_more)) $.lodash_set(Settings, "Home.Top_more", (Settings?.Home?.Top_more) ? [Settings.Home.Top_more.toString()] : []);
-	if (!Array.isArray(Settings?.Home?.Tab)) $.lodash_set(Settings, "Home.Tab", (Settings?.Home?.Tab) ? [Settings.Home.Tab.toString()] : []);
-	if (!Array.isArray(Settings?.Bottom)) $.lodash_set(Settings, "Bottom", (Settings?.Bottom) ? [Settings.Bottom.toString()] : []);
-	if (!Array.isArray(Settings?.Mine?.CreatorCenter)) $.lodash_set(Settings, "Mine.CreatorCenter", (Settings?.Mine?.CreatorCenter) ? [Settings.Mine.CreatorCenter.toString()] : []);
-	if (!Array.isArray(Settings?.Mine?.Recommend)) $.lodash_set(Settings, "Mine.Recommend", (Settings?.Mine?.Recommend) ? [Settings.Mine.Recommend.toString()] : []);
-	Settings.Mine.Recommend.forEach(element => {
-		console.log(typeof element);
-	});
-	if (!Array.isArray(Settings?.Mine?.More)) $.lodash_set(Settings, "Mine.More", (Settings?.Mine?.More) ? [Settings.Mine.More.toString()] : []);
-	if (!Array.isArray(Settings?.Mine?.iPad?.Upper)) $.lodash_set(Settings, "Mine.iPad.Upper", (Settings?.Mine?.iPad?.Upper) ? [Settings.Mine.iPad.Upper.toString()] : []);
-	if (!Array.isArray(Settings?.Mine?.iPad?.Recommend)) $.lodash_set(Settings, "Mine.iPad.Recommend", (Settings?.Mine?.iPad?.Recommend) ? [Settings.Mine.iPad.Recommend.toString()] : []);
-	if (!Array.isArray(Settings?.Mine?.iPad?.More)) $.lodash_set(Settings, "Mine.iPad.More", (Settings?.Mine?.iPad?.More) ? [Settings.Mine.iPad.More.toString()] : []);
-	if (!Array.isArray(Settings?.Region?.Index)) $.lodash_set(Settings, "Region.Index", (Settings?.Region?.Index) ? [Settings.Region.Index.toString()] : []);
+	if (!Array.isArray(Settings?.Home?.Top)) $.lodash_set(Settings, "Home.Top", (Settings?.Home?.Top) ? [Settings.Home.Top] : []);
+	if (!Array.isArray(Settings?.Home?.Top_more)) $.lodash_set(Settings, "Home.Top_more", (Settings?.Home?.Top_more) ? [Settings.Home.Top_more] : []);
+	if (!Array.isArray(Settings?.Home?.Tab)) $.lodash_set(Settings, "Home.Tab", (Settings?.Home?.Tab) ? [Settings.Home.Tab] : []);
+	if (!Array.isArray(Settings?.Bottom)) $.lodash_set(Settings, "Bottom", (Settings?.Bottom) ? [Settings.Bottom] : []);
+	if (!Array.isArray(Settings?.Mine?.CreatorCenter)) $.lodash_set(Settings, "Mine.CreatorCenter", (Settings?.Mine?.CreatorCenter) ? [Settings.Mine.CreatorCenter] : []);
+	if (!Array.isArray(Settings?.Mine?.Recommend)) $.lodash_set(Settings, "Mine.Recommend", (Settings?.Mine?.Recommend) ? [Settings.Mine.Recommend] : []);
+	if (!Array.isArray(Settings?.Mine?.More)) $.lodash_set(Settings, "Mine.More", (Settings?.Mine?.More) ? [Settings.Mine.More] : []);
+	if (!Array.isArray(Settings?.Mine?.iPad?.Upper)) $.lodash_set(Settings, "Mine.iPad.Upper", (Settings?.Mine?.iPad?.Upper) ? [Settings.Mine.iPad.Upper] : []);
+	if (!Array.isArray(Settings?.Mine?.iPad?.Recommend)) $.lodash_set(Settings, "Mine.iPad.Recommend", (Settings?.Mine?.iPad?.Recommend) ? [Settings.Mine.iPad.Recommend] : []);
+	if (!Array.isArray(Settings?.Mine?.iPad?.More)) $.lodash_set(Settings, "Mine.iPad.More", (Settings?.Mine?.iPad?.More) ? [Settings.Mine.iPad.More] : []);
+	if (!Array.isArray(Settings?.Region?.Index)) $.lodash_set(Settings, "Region.Index", (Settings?.Region?.Index) ? [Settings.Region.Index] : []);
 	$.log(`✅ ${$.name}, Set Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
-	Settings.Region.Index.forEach(element => {
-		console.log(typeof element);
-	});
 	/***************** Caches *****************/
 	//$.log(`🎉 ${$.name}, Set Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
 	/***************** Configs *****************/
