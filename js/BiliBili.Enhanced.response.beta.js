@@ -2,7 +2,7 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.1(4) response.beta");
+const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.1(9) response.beta");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -312,12 +312,18 @@ function setENV(name, platforms, database) {
 	if (!Array.isArray(Settings?.Bottom)) $.lodash_set(Settings, "Bottom", (Settings?.Bottom) ? [Settings.Bottom.toString()] : []);
 	if (!Array.isArray(Settings?.Mine?.CreatorCenter)) $.lodash_set(Settings, "Mine.CreatorCenter", (Settings?.Mine?.CreatorCenter) ? [Settings.Mine.CreatorCenter.toString()] : []);
 	if (!Array.isArray(Settings?.Mine?.Recommend)) $.lodash_set(Settings, "Mine.Recommend", (Settings?.Mine?.Recommend) ? [Settings.Mine.Recommend.toString()] : []);
+	Settings.Mine.Recommend.forEach(element => {
+		console.log(typeof element);
+	});
 	if (!Array.isArray(Settings?.Mine?.More)) $.lodash_set(Settings, "Mine.More", (Settings?.Mine?.More) ? [Settings.Mine.More.toString()] : []);
 	if (!Array.isArray(Settings?.Mine?.iPad?.Upper)) $.lodash_set(Settings, "Mine.iPad.Upper", (Settings?.Mine?.iPad?.Upper) ? [Settings.Mine.iPad.Upper.toString()] : []);
 	if (!Array.isArray(Settings?.Mine?.iPad?.Recommend)) $.lodash_set(Settings, "Mine.iPad.Recommend", (Settings?.Mine?.iPad?.Recommend) ? [Settings.Mine.iPad.Recommend.toString()] : []);
 	if (!Array.isArray(Settings?.Mine?.iPad?.More)) $.lodash_set(Settings, "Mine.iPad.More", (Settings?.Mine?.iPad?.More) ? [Settings.Mine.iPad.More.toString()] : []);
 	if (!Array.isArray(Settings?.Region?.Index)) $.lodash_set(Settings, "Region.Index", (Settings?.Region?.Index) ? [Settings.Region.Index.toString()] : []);
 	$.log(`✅ ${$.name}, Set Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
+	Settings.Region.Index.forEach(element => {
+		console.log(typeof element);
+	});
 	/***************** Caches *****************/
 	//$.log(`🎉 ${$.name}, Set Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
 	/***************** Configs *****************/
@@ -338,7 +344,53 @@ function Env(t,e){class s{constructor(t){this.env=t}send(t,e="GET"){t="string"==
  * @param {Object} database - Default Database
  * @return {Object} { Settings, Caches, Configs }
  */
-function getENV(key,names,database){let BoxJs=$.getjson(key,database),Argument={};if("undefined"!=typeof $argument&&Boolean($argument)){let arg=Object.fromEntries($argument.split("&").map((item=>item.split("="))));for(let item in arg)setPath(Argument,item,arg[item])}const Store={Settings:database?.Default?.Settings||{},Configs:database?.Default?.Configs||{},Caches:{}};Array.isArray(names)||(names=[names]);for(let name of names)Store.Settings={...Store.Settings,...database?.[name]?.Settings,...BoxJs?.[name]?.Settings,...Argument},Store.Configs={...Store.Configs,...database?.[name]?.Configs},BoxJs?.[name]?.Caches&&"string"==typeof BoxJs?.[name]?.Caches&&(BoxJs[name].Caches=JSON.parse(BoxJs?.[name]?.Caches)),Store.Caches={...Store.Caches,...BoxJs?.[name]?.Caches};return function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}(Store.Settings,((key,value)=>("true"===value||"false"===value?value=JSON.parse(value):"string"==typeof value&&(value?.includes(",")?value=value.split(","):value&&!isNaN(value)&&(value=parseInt(value,10))),value))),Store;function setPath(object,path,value){path.split(".").reduce(((o,p,i)=>o[p]=path.split(".").length===++i?value:o[p]||{}),object)}}
+//function getENV(key,names,database){let BoxJs=$.getjson(key,database),Argument={};if("undefined"!=typeof $argument&&Boolean($argument)){let arg=Object.fromEntries($argument.split("&").map((item=>item.split("="))));for(let item in arg)setPath(Argument,item,arg[item])}const Store={Settings:database?.Default?.Settings||{},Configs:database?.Default?.Configs||{},Caches:{}};Array.isArray(names)||(names=[names]);for(let name of names)Store.Settings={...Store.Settings,...database?.[name]?.Settings,...BoxJs?.[name]?.Settings,...Argument},Store.Configs={...Store.Configs,...database?.[name]?.Configs},BoxJs?.[name]?.Caches&&"string"==typeof BoxJs?.[name]?.Caches&&(BoxJs[name].Caches=JSON.parse(BoxJs?.[name]?.Caches)),Store.Caches={...Store.Caches,...BoxJs?.[name]?.Caches};return function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}(Store.Settings,((key,value)=>("true"===value||"false"===value?value=JSON.parse(value):"string"==typeof value&&(value?.includes(",")?value=value.split(","):value&&!isNaN(value)&&(value=parseInt(value,10))),value))),Store;function setPath(object,path,value){path.split(".").reduce(((o,p,i)=>o[p]=path.split(".").length===++i?value:o[p]||{}),object)}}
+function getENV(key, names, database) {
+	$.log(`☑️ ${$.name}, Get Environment Variables`, "");
+	/***************** BoxJs *****************/
+	// 包装为局部变量，用完释放内存
+	// BoxJs的清空操作返回假值空字符串, 逻辑或操作符会在左侧操作数为假值时返回右侧操作数。
+	let BoxJs = $.getjson(key, database);
+	$.log(`🚧 ${$.name}, Get Environment Variables`, `BoxJs类型: ${typeof BoxJs}`, `BoxJs内容: ${JSON.stringify(BoxJs)}`, "");
+	/***************** Argument *****************/
+	let Argument = {};
+	if (typeof $argument !== "undefined"){
+		if (Boolean($argument)) {
+			$.log(`🎉 ${$.name}, $Argument`);
+			let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
+			$.log(JSON.stringify(arg));
+			for (let item in arg) setPath(Argument, item, arg[item]);
+			$.log(JSON.stringify(Argument));
+		};
+		$.log(`✅ ${$.name}, Get Environment Variables`, `Argument类型: ${typeof Argument}`, `Argument内容: ${JSON.stringify(Argument)}`, "");
+	};
+	/***************** Store *****************/
+	const Store = { Settings: database?.Default?.Settings || {}, Configs: database?.Default?.Configs || {}, Caches: {}};
+	if (!Array.isArray(names)) names = [names];
+	$.log(`🚧 ${$.name}, Get Environment Variables`, `names类型: ${typeof names}`, `names内容: ${JSON.stringify(names)}`, "");
+	for (let name of names) {
+		Store.Settings = { ...Store.Settings, ...database?.[name]?.Settings, ...BoxJs?.[name]?.Settings, ...Argument };
+		Store.Configs = { ...Store.Configs, ...database?.[name]?.Configs };
+		if (BoxJs?.[name]?.Caches && typeof BoxJs?.[name]?.Caches === "string") BoxJs[name].Caches = JSON.parse(BoxJs?.[name]?.Caches);
+		Store.Caches = { ...Store.Caches, ...BoxJs?.[name]?.Caches };
+	};
+	$.log(`🚧 ${$.name}, Get Environment Variables`, `Store.Settings类型: ${typeof Store.Settings}`, `Store.Settings: ${JSON.stringify(Store.Settings)}`, "");
+	traverseObject(Store.Settings, (key, value) => {
+		$.log(`🚧 ${$.name}, traverseObject`, `${key}: ${typeof value}`, `${key}: ${JSON.stringify(value)}`, "");
+		if (value === "true" || value === "false") value = JSON.parse(value); // 字符串转Boolean
+		else if (typeof value === "string") {
+			if (value.includes(",")) value = value.split(",").map(item => string2number(item)); // 字符串转数组转数字
+			else value = string2number(value); // 字符串转数字
+		};
+		return value;
+	});
+	$.log(`✅ ${$.name}, Get Environment Variables`, `Store: ${typeof Store.Caches}`, `Store内容: ${JSON.stringify(Store)}`, "");
+	return Store;
+	/***************** function *****************/
+	function setPath(object, path, value) { path.split(".").reduce((o, p, i) => o[p] = path.split(".").length === ++i ? value : o[p] || {}, object) }
+	function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}
+	function string2number(string){ if(string && !isNaN(string)) string = parseInt(string, 10); return string}
+};
 
 // https://github.com/VirgilClyne/GetSomeFries/blob/main/function/URL/URLs.embedded.min.js
 function URLs(t){return new class{constructor(t=[]){this.name="URL v1.2.2",this.opts=t,this.json={scheme:"",host:"",path:"",type:"",query:{}}}parse(t){let s=t.match(/(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/)?.groups??null;return s?.path?s.paths=s?.path?.split("/"):s.path="",s?.paths&&(s.type=s?.paths?.[s?.paths?.length-1]?.split(".")?.[1]),s?.query&&(s.query=Object.fromEntries(s.query.split("&").map((t=>t.split("="))))),s}stringify(t=this.json){let s="";return t?.scheme&&t?.host&&(s+=t.scheme+"://"+t.host),t?.path&&(s+=t?.host?"/"+t.path:t.path),t?.query&&(s+="?"+Object.entries(t.query).map((t=>t.join("="))).join("&")),s}}(t)}
