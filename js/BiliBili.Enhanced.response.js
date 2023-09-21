@@ -2,7 +2,7 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.1(2) response");
+const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.1(3) response");
 const URL = new URLs();
 const DataBase = {
 	"Enhanced":{
@@ -15,7 +15,7 @@ const DataBase = {
 				"iPad":{"Upper":[],"Recommend":["789","790","791","793","794","2542"],"More":["797","798"]}
 			},
 			"Region":{
-				"index":["1","3","4","5","11","13","23","36","119","129","155","160","167","177","181","188","202","211","217","223","234","6544","65537","65539","65541","65545","65549","65550","65551","65552","65553","65555","65556","65557","65559","65560","65561","65563","95636","168312"]
+				"Index":["1","3","4","5","11","13","23","36","119","129","155","160","167","177","181","188","202","211","217","223","234","6544","65537","65539","65541","65545","65549","65550","65551","65552","65553","65555","65556","65557","65559","65560","65561","65563","95636","168312"]
 			}
 		},
 		"Configs":{
@@ -187,7 +187,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 									data = data.sort(compareFn("tid")); // 排序
 									//$.log(JSON.stringify(data));
 									data = data.map(e => { // 过滤
-										if (Settings.Region.index.includes(e.tid.toString())) return e;
+										if (Settings.Region.Index.includes(e.tid.toString())) return e;
 									}).filter(Boolean);
 									//$.log(JSON.stringify(data));
 
