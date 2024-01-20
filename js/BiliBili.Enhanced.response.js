@@ -2,8 +2,8 @@
 WEBSITE: https://biliuniverse.io
 README: https://github.com/BiliUniverse
 */
-const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.2(2) response");
-const URL = new URLs();
+const $ = new Env("📺 BiliBili: ⚙️ Enhanced v0.3.2(4) response");
+const URI = new URIs();
 const DataBase = {
 	"Enhanced":{
 		"Settings":{
@@ -51,13 +51,14 @@ const DataBase = {
 
 /***************** Processing *****************/
 // 解构URL
-let url = URL.parse($request?.url);
+const URL = URI.parse($request.url);
+$.log(`⚠ ${$.name}`, `URL: ${JSON.stringify(URL)}`, "");
 // 获取连接参数
-const METHOD = $request?.method, HOST = url?.host, PATH = url?.path, PATHs = url?.paths;
-$.log(`⚠ ${$.name}`, `METHOD: ${METHOD}`, `HOST: ${HOST}`, `PATH: ${PATH}`, `PATHs: ${PATHs}`, "");
+const METHOD = $request.method, HOST = URL.host, PATH = URL.path, PATHs = URL.paths;
+$.log(`⚠ ${$.name}`, `METHOD: ${METHOD}`, "");
 // 解析格式
-const FORMAT = ($response?.headers?.["Content-Type"] ?? $response?.headers?.["content-type"])?.split(";")?.[0];
-$.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
+const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
+$.log(`⚠ ${$.name}`, `FORMAT: ${FORMAT}`, "");
 (async () => {
 	// 读取设置
 	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", DataBase);
@@ -79,7 +80,8 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 				case "application/x-mpegURL":
 				case "application/x-mpegurl":
 				case "application/vnd.apple.mpegurl":
-					break;
+				case "audio/mpegurl":
+						break;
 				case "text/xml":
 				case "text/plist":
 				case "application/xml":
@@ -91,7 +93,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 					break;
 				case "text/json":
 				case "application/json":
-					body = JSON.parse($response.body);
+					body = JSON.parse($response.body ?? "{}");
 					// 解析链接
 					switch (HOST) {
 						case "www.bilibili.com":
@@ -100,28 +102,27 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case "app.biliapi.net":
 							// 先保存一下AccessKey
 							/*
-							if (url?.query?.access_key) {
+							if (URL.query?.access_key) {
 								let newCaches = $.getjson("@BiliBili.Global.Caches", {});
-								newCaches.AccessKey = url.query.access_key; // 总是刷新
+								newCaches.AccessKey = URL.query.access_key; // 总是刷新
 								$.log(`newCaches = ${JSON.stringify(newCaches)}`);
 								let isSave = $.setjson(newCaches, "@BiliBili.Global.Caches");
 								$.log(`$.setjson ? ${isSave}`);
 							};
 							*/
 							switch (PATH) {
-								case "x/resource/show/tab/v2": { // 首页-Tab
-									let data = body.data;
+								case "x/resource/show/tab/v2": // 首页-Tab
 									// 顶栏-左侧
-									data.top_left = Configs.Tab.top_left[Settings.Home.Top_left];
+									body.data.top_left = Configs.Tab.top_left[Settings.Home.Top_left];
 									// 顶栏-右侧
-									data.top = Configs.Tab.top.map(e => {
+									body.data.top = Configs.Tab.top.map(e => {
 										if (Settings.Home.Top.includes(e.tab_id)) return e;
 									}).filter(Boolean).map((e, i) => {
 										e.pos = i + 1;
 										return e;
 									});
 									// 标签栏
-									data.tab = Configs.Tab.tab.map(e => {
+									body.data.tab = Configs.Tab.tab.map(e => {
 										if (Settings.Home.Tab.includes(e.tab_id)) return e;
 									}).filter(Boolean).map((e, i) => {
 										if (Settings.Home.Tab_default == e.tab_id) e.default_selected = 1;
@@ -129,19 +130,17 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 										return e;
 									});
 									// 底部导航栏
-									data.bottom = Configs.Tab.bottom.map(e => {
+									body.data.bottom = Configs.Tab.bottom.map(e => {
 										if (Settings.Bottom.includes(e.tab_id)) return e;
 									}).filter(Boolean).map((e, i) => {
 										e.pos = i + 1;
 										return e;
 									});
 									break;
-								};
 								case "x/resource/show/tab/bubble": // 首页-Tab-?
 									break;
-								case "x/v2/account/mine": { // 账户信息-我的
-									let data = body.data;
-									data.sections_v2 = Configs.Mine.sections_v2.map(e => {
+								case "x/v2/account/mine": // 账户信息-我的
+									body.data.sections_v2 = Configs.Mine.sections_v2.map(e => {
 										switch (e.title) {
 											case "创作中心":
 												e.items = e.items.map(item => {
@@ -163,30 +162,26 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 										return e;
 									});
 									break;
-								};
-								case "x/v2/account/mine/ipad": { // 账户信息-我的(pad)
-									let data = body.data;
-									data.ipad_upper_sections = Configs.Mine.ipad_upper_sections.map(item => {
+								case "x/v2/account/mine/ipad": // 账户信息-我的(pad)
+									body.data.ipad_upper_sections = Configs.Mine.ipad_upper_sections.map(item => {
 										if (Settings.Mine.iPad.Upper.includes(item.id)) return item;
 									}).filter(Boolean);
-									data.ipad_recommend_sections = Configs.Mine.ipad_recommend_sections.map(item => {
+									body.data.ipad_recommend_sections = Configs.Mine.ipad_recommend_sections.map(item => {
 										if (Settings.Mine.iPad.Recommend.includes(item.id)) return item;
 									}).filter(Boolean);
-									data.ipad_more_sections = Configs.Mine.ipad_more_sections.map(item => {
+									body.data.ipad_more_sections = Configs.Mine.ipad_more_sections.map(item => {
 										if (Settings.Mine.iPad.More.includes(item.id)) return item;
 									}).filter(Boolean);
 									break;
-								};
 								case "x/v2/region/index":
-								case "x/v2/channel/region/list": { // 分区页面-索引
-									let data = body.data ?? [];
-									data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
-									//$.log(JSON.stringify(data));
-									data = uniqueFunc(data, "tid"); // 去重
-									//$.log(JSON.stringify(data));
-									data = data.sort(compareFn("tid")); // 排序
-									//$.log(JSON.stringify(data));
-									data = data.map(e => { // 过滤
+								case "x/v2/channel/region/list": // 分区页面-索引
+									body.data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
+									//$.log(JSON.stringify(body.data));
+									body.data = uniqueFunc(body.data, "tid"); // 去重
+									//$.log(JSON.stringify(body.data));
+									body.data = body.data.sort(compareFn("tid")); // 排序
+									//$.log(JSON.stringify(body.data));
+									body.data = body.data.map(e => { // 过滤
 										if (Settings.Region.Index.includes(e.tid)) return e;
 									}).filter(Boolean);
 									//$.log(JSON.stringify(data));
@@ -195,7 +190,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 										case "x/v2/region/index":
 											break;
 										case "x/v2/channel/region/list":
-											data = data.map(e => {
+											body.data = body.data.map(e => {
 												if (e.goto == "0") e.goto = "";
 												delete e.children;
 												delete e.config;
@@ -203,7 +198,6 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 											});
 											break;
 									};
-									body.data = data;
 
 									function uniqueFunc(array, property) { // 数组去重
 										const res = new Map();
@@ -218,7 +212,6 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 										}
 									};
 									break;
-								};
 							};
 							break;
 						case "api.bilibili.com":
@@ -227,7 +220,9 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 					};
 					$response.body = JSON.stringify(body);
 					break;
+				case "application/protobuf":
 				case "application/x-protobuf":
+				case "application/vnd.google.protobuf":
 				case "application/grpc":
 				case "application/grpc+proto":
 				case "applecation/octet-stream":
@@ -235,6 +230,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 			};
 			break;
 		case false:
+			$.log(`⚠ ${$.name}, 功能关闭`, "");
 			break;
 	};
 })()
@@ -250,19 +246,21 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 					switch (FORMAT) {
 						case undefined: // 视为无body
 							// 返回普通数据
-							$.done({ headers: $response.headers });
+							$.done({ status: $response.status, headers: $response.headers });
 							break;
 						default:
 							// 返回普通数据
-							$.done({ headers: $response.headers, body: $response.body });
+							$.done({ status: $response.status, headers: $response.headers, body: $response.body });
 							break;
+						case "application/protobuf":
 						case "application/x-protobuf":
+						case "application/vnd.google.protobuf":
 						case "application/grpc":
 						case "application/grpc+proto":
-						//case "applecation/octet-stream":
+						case "applecation/octet-stream":
 							// 返回二进制数据
 							//$.log(`${$response.bodyBytes.byteLength}---${$response.bodyBytes.buffer.byteLength}`);
-							$.done({ headers: $response.headers, bodyBytes: $response.bodyBytes.buffer.slice($response.bodyBytes.byteOffset, $response.bodyBytes.byteLength + $response.bodyBytes.byteOffset) });
+							$.done({ status: $response.status, headers: $response.headers, bodyBytes: $response.bodyBytes.buffer.slice($response.bodyBytes.byteOffset, $response.bodyBytes.byteLength + $response.bodyBytes.byteOffset) });
 							break;
 					};
 				} else $.done($response);
@@ -301,7 +299,7 @@ function setENV(name, platforms, database) {
 	if (!Array.isArray(Settings?.Region?.Index)) $.lodash_set(Settings, "Region.Index", (Settings?.Region?.Index) ? [Settings.Region.Index] : []);
 	$.log(`✅ ${$.name}, Set Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
 	/***************** Caches *****************/
-	//$.log(`🎉 ${$.name}, Set Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
+	//$.log(`✅ ${$.name}, Set Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
 	/***************** Configs *****************/
 	return { Settings, Caches, Configs };
 };
@@ -322,5 +320,5 @@ function Env(t,e){class s{constructor(t){this.env=t}send(t,e="GET"){t="string"==
  */
 function getENV(key,names,database){let BoxJs=$.getjson(key,database),Argument={};if("undefined"!=typeof $argument&&Boolean($argument)){let arg=Object.fromEntries($argument.split("&").map((item=>item.split("="))));for(let item in arg)setPath(Argument,item,arg[item])}const Store={Settings:database?.Default?.Settings||{},Configs:database?.Default?.Configs||{},Caches:{}};Array.isArray(names)||(names=[names]);for(let name of names)Store.Settings={...Store.Settings,...database?.[name]?.Settings,...BoxJs?.[name]?.Settings,...Argument},Store.Configs={...Store.Configs,...database?.[name]?.Configs},BoxJs?.[name]?.Caches&&"string"==typeof BoxJs?.[name]?.Caches&&(BoxJs[name].Caches=JSON.parse(BoxJs?.[name]?.Caches)),Store.Caches={...Store.Caches,...BoxJs?.[name]?.Caches};return function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}(Store.Settings,((key,value)=>("true"===value||"false"===value?value=JSON.parse(value):"string"==typeof value&&(value=value.includes(",")?value.split(",").map((item=>string2number(item))):string2number(value)),value))),Store;function setPath(object,path,value){path.split(".").reduce(((o,p,i)=>o[p]=path.split(".").length===++i?value:o[p]||{}),object)}function string2number(string){return string&&!isNaN(string)&&(string=parseInt(string,10)),string}}
 
-// https://github.com/VirgilClyne/GetSomeFries/blob/main/function/URL/URLs.embedded.min.js
-function URLs(t){return new class{constructor(t=[]){this.name="URL v1.2.2",this.opts=t,this.json={scheme:"",host:"",path:"",type:"",query:{}}}parse(t){let s=t.match(/(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/)?.groups??null;return s?.path?s.paths=s?.path?.split("/"):s.path="",s?.paths&&(s.type=s?.paths?.[s?.paths?.length-1]?.split(".")?.[1]),s?.query&&(s.query=Object.fromEntries(s.query.split("&").map((t=>t.split("="))))),s}stringify(t=this.json){let s="";return t?.scheme&&t?.host&&(s+=t.scheme+"://"+t.host),t?.path&&(s+=t?.host?"/"+t.path:t.path),t?.query&&(s+="?"+Object.entries(t.query).map((t=>t.join("="))).join("&")),s}}(t)}
+// https://github.com/VirgilClyne/GetSomeFries/blob/main/function/URI/URIs.embedded.min.js
+function URIs(t){return new class{constructor(t=[]){this.name="URI v1.2.6",this.opts=t,this.json={scheme:"",host:"",path:"",query:{}}}parse(t){let s=t.match(/(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/)?.groups??null;if(s?.path?s.paths=s.path.split("/"):s.path="",s?.paths){const t=s.paths[s.paths.length-1];if(t?.includes(".")){const e=t.split(".");s.format=e[e.length-1]}}return s?.query&&(s.query=Object.fromEntries(s.query.split("&").map((t=>t.split("="))))),s}stringify(t=this.json){let s="";return t?.scheme&&t?.host&&(s+=t.scheme+"://"+t.host),t?.path&&(s+=t?.host?"/"+t.path:t.path),t?.query&&(s+="?"+Object.entries(t.query).map((t=>t.join("="))).join("&")),s}}(t)}
