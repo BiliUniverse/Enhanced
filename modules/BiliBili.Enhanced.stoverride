@@ -5,6 +5,7 @@ author: VirgilClyne
 homepage: "https://enhanced.biliuniverse.io"
 manual: "https://manual.biliuniverse.io"
 icon: "https://github.com/BiliUniverse/Enhanced/raw/main/database/icon_108x.png"
+category: "📺 BiliUniverse"
 
 http:
   mitm:
