@@ -73,7 +73,7 @@ class Lodash {
 /* https://developer.mozilla.org/zh-CN/docs/Web/API/Storage/setItem */
 class $Storage {
 	static name = "$Storage";
-	static version = "1.0.6";
+	static version = "1.0.7";
 	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
 	static data = null
 	static dataFile = 'box.dat'
@@ -91,8 +91,8 @@ class $Storage {
 		if ('undefined' !== typeof Egern) return 'Egern'
 	}
 
-    static getItem(keyName = new String) {
-        let keyValue = null;
+    static getItem(keyName = new String, defaultValue = null) {
+        let keyValue = defaultValue;
         // 如果以 @
 		switch (keyName.startsWith('@')) {
 			case true:
@@ -129,7 +129,7 @@ class $Storage {
 				} catch (e) {
 					// do nothing
 				}				break;
-		}		return keyValue;
+		}		return keyValue ?? defaultValue;
     };
 
 	static setItem(keyName = new String, keyValue = new String) {
@@ -289,7 +289,7 @@ class $Storage {
 class ENV {
 	constructor(name, opts) {
 		this.name = "ENV";
-		this.version = '1.6.3';
+		this.version = '1.6.4';
 		this.logs = [];
 		this.isMute = false;
 		this.logSeparator = '\n';
@@ -711,7 +711,7 @@ class ENV {
 		/***************** BoxJs *****************/
 		// 包装为局部变量，用完释放内存
 		// BoxJs的清空操作返回假值空字符串, 逻辑或操作符会在左侧操作数为假值时返回右侧操作数。
-		let BoxJs = $Storage.getItem(key) ?? database;
+		let BoxJs = $Storage.getItem(key, database);
 		//this.log(`🚧 ${this.name}, Get Environment Variables`, `BoxJs类型: ${typeof BoxJs}`, `BoxJs内容: ${JSON.stringify(BoxJs)}`, "");
 		/***************** Argument *****************/
 		let Argument = {};
@@ -750,14 +750,13 @@ class ENV {
 	string2number(string) { if (string && !isNaN(string)) string = parseInt(string, 10); return string }
 }
 
-let URI$1 = class URI {
-	constructor(opts = []) {
-		this.name = "URI v1.2.6";
-		this.opts = opts;
-		this.json = { scheme: "", host: "", path: "", query: {} };
-	};
+class URI {
+	static name = "URI";
+	static version = "1.2.7";
+	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
+	static #json = { scheme: "", host: "", path: "", query: {} };
 
-	parse(url) {
+	static parse(url) {
 		const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/;
 		let json = url.match(URLRegex)?.groups ?? null;
 		if (json?.path) json.paths = json.path.split("/"); else json.path = "";
@@ -773,14 +772,14 @@ let URI$1 = class URI {
 		return json
 	};
 
-	stringify(json = this.json) {
+	static stringify(json = this.#json) {
 		let url = "";
 		if (json?.scheme && json?.host) url += json.scheme + "://" + json.host;
 		if (json?.path) url += (json?.host) ? "/" + json.path : json.path;
 		if (json?.query) url += "?" + Object.entries(json.query).map(param => param.join("=")).join("&");
 		return url
 	};
-};
+}
 
 var Settings$1 = {
 	Switch: true
@@ -3993,8 +3992,6 @@ function setENV($, name, platforms, database) {
 }
 
 const $ = new ENV("📺 BiliBili: ⚙️ Enhanced v0.3.3(1) response.beta");
-const URI = new URI$1();
-
 
 /***************** Processing *****************/
 // 解构URL

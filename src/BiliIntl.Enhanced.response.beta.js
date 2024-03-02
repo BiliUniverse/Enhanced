@@ -1,11 +1,11 @@
-import ENVs from "./ENV/ENV.mjs";
-import URIs from "./URI/URI.mjs";
+import _ from './ENV/Lodash.mjs'
+import ENV from "./ENV/ENV.mjs";
+import URI from "./URI/URI.mjs";
 
 import Database from "./database/BiliIntl.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENVs("📺 BiliIntl: ⚙️ Enhanced v0.1.5(1) response.beta");
-const URI = new URIs();
+const $ = new ENV("📺 BiliIntl: ⚙️ Enhanced v0.1.5(1) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
@@ -67,7 +67,7 @@ $.log(`⚠ ${$.name}`, `FORMAT: ${FORMAT}`, "");
 							// 先保存一下AccessKey
 							/*
 							if (URL.query?.access_key) {
-								let newCaches = $.getjson("@BiliIntl.Global.Caches", {});
+								let newCaches = $Storage.getItem("@BiliIntl.Global.Caches", {});
 								newCaches.AccessKey = URL.query.access_key; // 总是刷新
 								$.log(`newCaches = ${JSON.stringify(newCaches)}`);
 								let isSave = $.setjson(newCaches, "@BiliIntl.Global.Caches");
