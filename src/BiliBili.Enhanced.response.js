@@ -1,11 +1,12 @@
-import ENVs from "./ENV/ENV.mjs";
-import URIs from "./URI/URI.mjs";
+import _ from './ENV/Lodash.mjs'
+import $Storage from './ENV/$Storage.mjs'
+import ENV from "./ENV/ENV.mjs";
+import URI from "./URI/URI.mjs";
 
 import Database from "./database/BiliBili.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENVs("📺 BiliBili: ⚙️ Enhanced v0.3.3(1) response");
-const URI = new URIs();
+const $ = new ENV("📺 BiliBili: ⚙️ Enhanced v0.3.3(1) response");
 
 /***************** Processing *****************/
 // 解构URL

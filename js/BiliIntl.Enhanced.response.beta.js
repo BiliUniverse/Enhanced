@@ -73,11 +73,11 @@ class Lodash {
 /* https://developer.mozilla.org/zh-CN/docs/Web/API/Storage/setItem */
 class $Storage {
 	static name = "$Storage";
-	static version = "1.0.7";
+	static version = "1.0.9";
 	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
 	static data = null
 	static dataFile = 'box.dat'
-	static #nameRegex = /^@(?<keyName>[^.]+)(?:\.(?<path>.*))?$/;
+	static #nameRegex = /^@(?<key>[^.]+)(?:\.(?<path>.*))?$/;
 
 	static #platform() {
 		if ('undefined' !== typeof $environment && $environment['surge-version'])
@@ -97,13 +97,19 @@ class $Storage {
 		switch (keyName.startsWith('@')) {
 			case true:
 				const { key, path } = keyName.match(this.#nameRegex)?.groups;
+				//console.log(`1: ${key}, ${path}`);
 				keyName = key;
-				let value = this.getItem(keyName);
+				let value = this.getItem(keyName, {});
+				//console.log(`2: ${JSON.stringify(value)}`)
+				if (typeof value !== "object") value = {};
+				//console.log(`3: ${JSON.stringify(value)}`)
+				keyValue = Lodash.get(value, path);
+				//console.log(`4: ${JSON.stringify(keyValue)}`)
 				try {
-					value = JSON.parse(value ?? "{}");
+					keyValue = JSON.parse(keyValue);
 				} catch (e) {
-					value = {};
-				}				keyValue = Lodash.get(value, path);
+					// do nothing
+				}				//console.log(`5: ${JSON.stringify(keyValue)}`)
 				break;
 			default:
 				switch (this.#platform()) {
@@ -134,6 +140,7 @@ class $Storage {
 
 	static setItem(keyName = new String, keyValue = new String) {
 		let result = false;
+		//console.log(`0: ${typeof keyValue}`);
 		switch (typeof keyValue) {
 			case "object":
 				keyValue = JSON.stringify(keyValue);
@@ -144,14 +151,16 @@ class $Storage {
 		}		switch (keyName.startsWith('@')) {
 			case true:
 				const { key, path } = keyName.match(this.#nameRegex)?.groups;
+				//console.log(`1: ${key}, ${path}`);
 				keyName = key;
-				let value = this.getItem(keyName);
-				try {
-					value = JSON.parse(value ?? "{}");
-				} catch (e) {
-					value = {};
-				}				Lodash.set(value, path, keyValue);
+				let value = this.getItem(keyName, {});
+				//console.log(`2: ${JSON.stringify(value)}`)
+				if (typeof value !== "object") value = {};
+				//console.log(`3: ${JSON.stringify(value)}`)
+				Lodash.set(value, path, keyValue);
+				//console.log(`4: ${JSON.stringify(value)}`)
 				result = this.setItem(keyName, value);
+				//console.log(`5: ${result}`)
 				break;
 			default:
 				switch (this.#platform()) {
@@ -185,11 +194,8 @@ class $Storage {
 				const { key, path } = keyName.match(this.#nameRegex)?.groups;
 				keyName = key;
 				let value = this.getItem(keyName);
-				try {
-					value = JSON.parse(value ?? "{}");
-				} catch (e) {
-					value = {};
-				}				keyValue = Lodash.unset(value, path);
+				if (typeof value !== "object") value = {};
+				keyValue = Lodash.unset(value, path);
 				result = this.setItem(keyName, value);
 				break;
 			default:
@@ -287,9 +293,13 @@ class $Storage {
 }
 
 class ENV {
+	static name = "ENV"
+	static version = '1.6.4'
+	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) }
+
 	constructor(name, opts) {
-		this.name = "ENV";
-		this.version = '1.6.4';
+		console.log(`\n🟧 ${ENV.name} v${ENV.version}\n`);
+		this.name = name;
 		this.logs = [];
 		this.isMute = false;
 		this.logSeparator = '\n';
@@ -297,7 +307,6 @@ class ENV {
 		this.startTime = new Date().getTime();
 		Object.assign(this, opts);
 		this.log(`\n🚩 开始!\n${name}\n`);
-		console.log(`\n🟧 ${this.name} v${this.version}\n`);
 	}
 
 	platform() {

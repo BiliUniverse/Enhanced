@@ -1,4 +1,5 @@
 import _ from './ENV/Lodash.mjs'
+import $Storage from './ENV/$Storage.mjs'
 import ENV from "./ENV/ENV.mjs";
 import URI from "./URI/URI.mjs";
 
