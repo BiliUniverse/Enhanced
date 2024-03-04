@@ -6,22 +6,22 @@ import URI from "./URI/URI.mjs";
 import Database from "./database/BiliBili.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENV("📺 BiliBili: ⚙️ Enhanced v0.3.3(1) response");
+const $ = new ENV("📺 BiliBili: ⚙️ Enhanced v0.3.3(2) response");
 
 /***************** Processing *****************/
 // 解构URL
 const URL = URI.parse($request.url);
-$.log(`⚠ ${$.name}`, `URL: ${JSON.stringify(URL)}`, "");
+$.log(`⚠ URL: ${JSON.stringify(URL)}`, "");
 // 获取连接参数
 const METHOD = $request.method, HOST = URL.host, PATH = URL.path, PATHs = URL.paths;
-$.log(`⚠ ${$.name}`, `METHOD: ${METHOD}`, "");
+$.log(`⚠ METHOD: ${METHOD}`, "");
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
-$.log(`⚠ ${$.name}`, `FORMAT: ${FORMAT}`, "");
+$.log(`⚠ FORMAT: ${FORMAT}`, "");
 (async () => {
 	// 读取设置
-	const { Settings, Caches, Configs } = setENV($, "BiliBili", "Enhanced", Database);
-	$.log(`⚠ ${$.name}`, `Settings.Switch: ${Settings?.Switch}`, "");
+	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", Database);
+	$.log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
 		default:
@@ -193,7 +193,7 @@ $.log(`⚠ ${$.name}`, `FORMAT: ${FORMAT}`, "");
 			};
 			break;
 		case false:
-			$.log(`⚠ ${$.name}, 功能关闭`, "");
+			$.log(`⚠ 功能关闭`, "");
 			break;
 	};
 })()
