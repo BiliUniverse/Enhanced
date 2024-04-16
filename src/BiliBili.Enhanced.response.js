@@ -1,20 +1,20 @@
 import _ from './ENV/Lodash.mjs'
 import $Storage from './ENV/$Storage.mjs'
 import ENV from "./ENV/ENV.mjs";
-import URI from "./URI/URI.mjs";
+import URL from "./URL/URL.mjs";
 
 import Database from "./database/BiliBili.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENV("📺 BiliBili: ⚙️ Enhanced v0.3.3(2) response");
+const $ = new ENV("📺 BiliBili: ⚙️ Enhanced v0.4.0(1) response");
 
 /***************** Processing *****************/
 // 解构URL
-const URL = URI.parse($request.url);
-$.log(`⚠ URL: ${JSON.stringify(URL)}`, "");
+const url = new URL($request.url);
+$.log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
-const METHOD = $request.method, HOST = URL.host, PATH = URL.path, PATHs = URL.paths;
-$.log(`⚠ METHOD: ${METHOD}`, "");
+const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname;
+$.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 $.log(`⚠ FORMAT: ${FORMAT}`, "");
@@ -33,7 +33,6 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 					break;
 				case "application/x-www-form-urlencoded":
 				case "text/plain":
-				case "text/html":
 				default:
 					break;
 				case "application/x-mpegURL":
@@ -42,6 +41,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "audio/mpegurl":
 						break;
 				case "text/xml":
+				case "text/html":
 				case "text/plist":
 				case "application/xml":
 				case "application/plist":
@@ -61,16 +61,16 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "app.biliapi.net":
 							// 先保存一下AccessKey
 							/*
-							if (URL.query?.access_key) {
+							if (url.searchParams.has("access_key")) {
 								let newCaches = $.getjson("@BiliBili.Global.Caches", {});
-								newCaches.AccessKey = URL.query.access_key; // 总是刷新
+								newCaches.AccessKey = url.searchParams.get("access_key"); // 总是刷新
 								$.log(`newCaches = ${JSON.stringify(newCaches)}`);
 								let isSave = $.setjson(newCaches, "@BiliBili.Global.Caches");
 								$.log(`$.setjson ? ${isSave}`);
 							};
 							*/
 							switch (PATH) {
-								case "x/resource/show/tab/v2": // 首页-Tab
+								case "/x/resource/show/tab/v2": // 首页-Tab
 									// 顶栏-左侧
 									body.data.top_left = Configs.Tab.top_left[Settings.Home.Top_left];
 									// 顶栏-右侧
@@ -96,9 +96,9 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 										return e;
 									});
 									break;
-								case "x/resource/show/tab/bubble": // 首页-Tab-?
+								case "/x/resource/show/tab/bubble": // 首页-Tab-?
 									break;
-								case "x/v2/account/mine": // 账户信息-我的
+								case "/x/v2/account/mine": // 账户信息-我的
 									body.data.sections_v2 = Configs.Mine.sections_v2.map(e => {
 										switch (e.title) {
 											case "创作中心":
@@ -121,7 +121,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 										return e;
 									});
 									break;
-								case "x/v2/account/mine/ipad": // 账户信息-我的(pad)
+								case "/x/v2/account/mine/ipad": // 账户信息-我的(pad)
 									body.data.ipad_upper_sections = Configs.Mine.ipad_upper_sections.map(item => {
 										if (Settings.Mine.iPad.Upper.includes(item.id)) return item;
 									}).filter(Boolean);
@@ -132,8 +132,8 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 										if (Settings.Mine.iPad.More.includes(item.id)) return item;
 									}).filter(Boolean);
 									break;
-								case "x/v2/region/index":
-								case "x/v2/channel/region/list": // 分区页面-索引
+								case "/x/v2/region/index":
+								case "/x/v2/channel/region/list": // 分区页面-索引
 									body.data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
 									//$.log(JSON.stringify(body.data));
 									body.data = uniqueFunc(body.data, "tid"); // 去重
@@ -146,9 +146,9 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 									//$.log(JSON.stringify(data));
 
 									switch (PATH) { // 特殊处理
-										case "x/v2/region/index":
+										case "/x/v2/region/index":
 											break;
-										case "x/v2/channel/region/list":
+										case "/x/v2/channel/region/list":
 											body.data = body.data.map(e => {
 												if (e.goto == "0") e.goto = "";
 												delete e.children;

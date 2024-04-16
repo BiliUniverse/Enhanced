@@ -13,3 +13,6 @@
 [submodule "src/protobuf"]
 	path = src/protobuf
 	url = https://github.com/BiliUniverse/protobuf.git
+[submodule "src/URL"]
+	path = src/URL
+	url = https://github.com/NanoCat-Me/URL.git

@@ -1,20 +1,20 @@
 import _ from './ENV/Lodash.mjs'
 import $Storage from './ENV/$Storage.mjs'
 import ENV from "./ENV/ENV.mjs";
-import URI from "./URI/URI.mjs";
+import URL from "./URL/URL.mjs";
 
 import Database from "./database/BiliIntl.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENV("📺 BiliIntl: ⚙️ Enhanced v0.1.5(2) response.beta");
+const $ = new ENV("📺 BiliIntl: ⚙️ Enhanced v0.2.0(1) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
-const URL = URI.parse($request.url);
-$.log(`⚠ URL: ${JSON.stringify(URL)}`, "");
+const url = new URL($request.url);
+$.log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
-const METHOD = $request.method, HOST = URL.host, PATH = URL.path, PATHs = URL.paths;
-$.log(`⚠ METHOD: ${METHOD}`, "");
+const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname;
+$.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 $.log(`⚠ FORMAT: ${FORMAT}`, "");
@@ -33,7 +33,6 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 					break;
 				case "application/x-www-form-urlencoded":
 				case "text/plain":
-				case "text/html":
 				default:
 					break;
 				case "application/x-mpegURL":
@@ -45,6 +44,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 					//$response.body = M3U8.stringify(body);
 					break;
 				case "text/xml":
+				case "text/html":
 				case "text/plist":
 				case "application/xml":
 				case "application/plist":
@@ -67,16 +67,16 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "app.biliintl.com":
 							// 先保存一下AccessKey
 							/*
-							if (URL.query?.access_key) {
+							if (url.searchParams.has("access_key")) {
 								let newCaches = $Storage.getItem("@BiliIntl.Global.Caches", {});
-								newCaches.AccessKey = URL.query.access_key; // 总是刷新
+								newCaches.AccessKey = url.searchParams.get("access_key"); // 总是刷新
 								$.log(`newCaches = ${JSON.stringify(newCaches)}`);
 								let isSave = $.setjson(newCaches, "@BiliIntl.Global.Caches");
 								$.log(`$.setjson ? ${isSave}`);
 							};
 							*/
 							switch (PATH) {
-								case "intl/gateway/v2/app/resource/show/tab": // 首页-Tab
+								case "/intl/gateway/v2/app/resource/show/tab": // 首页-Tab
 									// 底部导航栏
 									body.data.bottom = Configs.Tab.bottom.map(bottom => {
 										// 标签栏

@@ -710,35 +710,66 @@ class ENV {
 	}
 }
 
-class URI {
-	static name = "URI";
-	static version = "1.2.7";
-	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
-	static #json = { scheme: "", host: "", path: "", query: {} };
-
-	static parse(url) {
-		const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/;
-		let json = url.match(URLRegex)?.groups ?? null;
-		if (json?.path) json.paths = json.path.split("/"); else json.path = "";
-		//if (json?.paths?.at(-1)?.includes(".")) json.format = json.paths.at(-1).split(".").at(-1);
-		if (json?.paths) {
-			const fileName = json.paths[json.paths.length - 1];
-			if (fileName?.includes(".")) {
-				const list = fileName.split(".");
-				json.format = list[list.length - 1];
-			}
-		}
-		if (json?.query) json.query = Object.fromEntries(json.query.split("&").map((param) => param.split("=")));
-		return json
+class URL {
+	constructor(url, base = undefined) {
+		const name = "URL";
+		const version = "2.1.0";
+		console.log(`\n🟧 ${name} v${version}\n`);
+		url = this.#parse(url, base);
+		return this;
 	};
 
-	static stringify(json = this.#json) {
-		let url = "";
-		if (json?.scheme && json?.host) url += json.scheme + "://" + json.host;
-		if (json?.path) url += (json?.host) ? "/" + json.path : json.path;
-		if (json?.query) url += "?" + Object.entries(json.query).map(param => param.join("=")).join("&");
-		return url
+	#parse(url, base = undefined) {
+		const URLRegex = /(?:(?<protocol>\w+:)\/\/(?:(?<username>[^\s:"]+)(?::(?<password>[^\s:"]+))?@)?(?<host>[^\s@/]+))?(?<pathname>\/?[^\s@?]+)?(?<search>\?[^\s?]+)?/;
+		const PortRegex = /(?<hostname>.+):(?<port>\d+)$/;
+		url = url.match(URLRegex)?.groups || {};
+		if (base) {
+			base = base?.match(URLRegex)?.groups || {};
+			if (!base.protocol || !base.hostname) throw new Error(`🚨 ${name}, ${base} is not a valid URL`);
+		}		if (url.protocol || base?.protocol) this.protocol = url.protocol || base.protocol;
+		if (url.username || base?.username) this.username = url.username || base.username;
+		if (url.password || base?.password) this.password = url.password || base.password;
+		if (url.host || base?.host) {
+			this.host = url.host || base.host;
+			Object.freeze(this.host);
+			this.hostname = this.host.match(PortRegex)?.groups.hostname ?? this.host;
+			this.port = this.host.match(PortRegex)?.groups.port ?? "";
+		}		if (url.pathname || base?.pathname) {
+			this.pathname = url.pathname || base?.pathname;
+			if (!this.pathname.startsWith("/")) this.pathname = "/" + this.pathname;
+			this.paths = this.pathname.split("/").filter(Boolean);
+			Object.freeze(this.paths);
+			if (this.paths) {
+				const fileName = this.paths[this.paths.length - 1];
+				if (fileName?.includes(".")) {
+					const list = fileName.split(".");
+					this.format = list[list.length - 1];
+					Object.freeze(this.format);
+				}
+			}		} else this.pathname = "";
+		if (url.search || base?.search) {
+			this.search = url.search || base.search;
+			Object.freeze(this.search);
+			if (this.search) {
+				const array = this.search.slice(1).split("&").map((param) => param.split("="));
+				this.searchParams = new Map(array);
+			}		}		this.harf = this.toString();
+		Object.freeze(this.harf);
+		return this;
 	};
+
+	toString() {
+		let string = "";
+		if (this.protocol) string += this.protocol + "//";
+		if (this.username) string += this.username + (this.password ? ":" + this.password : "") + "@";
+		if (this.hostname) string += this.hostname;
+		if (this.port) string += ":" + this.port;
+		if (this.pathname) string += this.pathname;
+		if (this.searchParams) string += "?" + Array.from(this.searchParams).map(param => param.join("=")).join("&");
+		return string;
+	};
+
+	toJSON() { return JSON.stringify({ ...this }) };
 }
 
 var Settings$1 = {
@@ -952,15 +983,15 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 }
 
-const $ = new ENV("📺 BiliIntl: ⚙️ Enhanced v0.1.5(2) response.beta");
+const $ = new ENV("📺 BiliIntl: ⚙️ Enhanced v0.2.0(1) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
-const URL = URI.parse($request.url);
-$.log(`⚠ URL: ${JSON.stringify(URL)}`, "");
+const url = new URL($request.url);
+$.log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
-const METHOD = $request.method, HOST = URL.host, PATH = URL.path; URL.paths;
-$.log(`⚠ METHOD: ${METHOD}`, "");
+const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname;
+$.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 $.log(`⚠ FORMAT: ${FORMAT}`, "");
@@ -979,7 +1010,6 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 					break;
 				case "application/x-www-form-urlencoded":
 				case "text/plain":
-				case "text/html":
 				default:
 					break;
 				case "application/x-mpegURL":
@@ -991,6 +1021,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 					//$response.body = M3U8.stringify(body);
 					break;
 				case "text/xml":
+				case "text/html":
 				case "text/plist":
 				case "application/xml":
 				case "application/plist":
@@ -1013,16 +1044,16 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "app.biliintl.com":
 							// 先保存一下AccessKey
 							/*
-							if (URL.query?.access_key) {
+							if (url.searchParams.has("access_key")) {
 								let newCaches = $Storage.getItem("@BiliIntl.Global.Caches", {});
-								newCaches.AccessKey = URL.query.access_key; // 总是刷新
+								newCaches.AccessKey = url.searchParams.get("access_key"); // 总是刷新
 								$.log(`newCaches = ${JSON.stringify(newCaches)}`);
 								let isSave = $.setjson(newCaches, "@BiliIntl.Global.Caches");
 								$.log(`$.setjson ? ${isSave}`);
 							};
 							*/
 							switch (PATH) {
-								case "intl/gateway/v2/app/resource/show/tab": // 首页-Tab
+								case "/intl/gateway/v2/app/resource/show/tab": // 首页-Tab
 									// 底部导航栏
 									body.data.bottom = Configs.Tab.bottom.map(bottom => {
 										// 标签栏
