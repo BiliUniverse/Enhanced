@@ -1,6 +1,6 @@
 import { $platform, URL, _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "./utils/utils.mjs";
 import Database from "./database/BiliIntl.mjs";
-import setENV from "./function/setENV.mjs";
+import setENV from "../src/function/setENV.mjs";
 log("v0.3.0(1002)");
 /***************** Processing *****************/
 // 解构URL

@@ -1,7 +1,6 @@
-import { $platform, URL, _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "./utils/utils.mjs";
-import Database from "./database/BiliBili.mjs";
+import { $platform, URL, Lodash as _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "@nsnanocat/util";
+import database from "./function/database.mjs";
 import setENV from "./function/setENV.mjs";
-log("v0.5.0(1001)");
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
@@ -14,7 +13,7 @@ const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["cont
 log(`⚠ FORMAT: ${FORMAT}`, "");
 !(async () => {
 	// 读取设置
-	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", Database);
+	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", database);
 	log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
@@ -33,6 +32,9 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/x-mpegurl":
 				case "application/vnd.apple.mpegurl":
 				case "audio/mpegurl":
+					//body = M3U8.parse($response.body);
+					//log(`🚧 body: ${JSON.stringify(body)}`, "");
+					//$response.body = M3U8.stringify(body);
 						break;
 				case "text/xml":
 				case "text/html":
@@ -40,9 +42,15 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/xml":
 				case "application/plist":
 				case "application/x-plist":
+					//body = XML.parse($response.body);
+					//log(`🚧 body: ${JSON.stringify(body)}`, "");
+					//$response.body = XML.stringify(body);
 					break;
 				case "text/vtt":
 				case "application/vtt":
+					//body = VTT.parse($response.body);
+					//log(`🚧 body: ${JSON.stringify(body)}`, "");
+					//$response.body = VTT.stringify(body);
 					break;
 				case "text/json":
 				case "application/json":
@@ -53,6 +61,16 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 							break;
 						case "app.bilibili.com":
 						case "app.biliapi.net":
+							// 先保存一下AccessKey
+							/*
+							if (url.searchParams.has("access_key")) {
+								let newCaches = Storage.getItem("@BiliBili.Global.Caches", {});
+								newCaches.AccessKey = url.searchParams.get("access_key"); // 总是刷新
+								log(`newCaches = ${JSON.stringify(newCaches)}`);
+								let isSave = Storage.setItem(newCaches, "@BiliBili.Global.Caches");
+								log(`Storage.setItem ? ${isSave}`);
+							};
+							*/
 							switch (PATH) {
 								case "/x/resource/show/tab/v2": // 首页-Tab
 									// 顶栏-左侧
@@ -84,19 +102,24 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 									break;
 								case "/x/v2/account/mine": // 账户信息-我的
 									body.data.sections_v2 = Configs.Mine.sections_v2.map(e => {
+										log(`e.title = ${e.title}`)
+										//log(`e.items = ${JSON.stringify(e.items)}`);
 										switch (e.title) {
 											case "创作中心":
 												e.items = e.items.map(item => {
+													//log(`item.id = ${item.id}`);
 													if (Settings.Mine.CreatorCenter.includes(item.id)) return item;
 												}).filter(Boolean);
 												break;
 											case "推荐服务":
 												e.items = e.items.map(item => {
+													//log(`item.id = ${item.id}`);
 													if (Settings.Mine.Recommend.includes(item.id)) return item;
 												}).filter(Boolean);
 												break;
 											case "更多服务":
 												e.items = e.items.map(item => {
+													//log(`item.id = ${item.id}`);
 													if (Settings.Mine.More.includes(item.id)) return item;
 												}).filter(Boolean);
 												break;
@@ -119,11 +142,15 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 								case "/x/v2/region/index":
 								case "/x/v2/channel/region/list": // 分区页面-索引
 									body.data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
+									//log(JSON.stringify(body.data));
 									body.data = uniqueFunc(body.data, "tid"); // 去重
+									//log(JSON.stringify(body.data));
 									body.data = body.data.sort(compareFn("tid")); // 排序
+									//log(JSON.stringify(body.data));
 									body.data = body.data.map(e => { // 过滤
 										if (Settings.Region.Index.includes(e.tid)) return e;
 									}).filter(Boolean);
+									//log(JSON.stringify(data));
 
 									switch (PATH) { // 特殊处理
 										case "/x/v2/region/index":
@@ -165,7 +192,11 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/grpc":
 				case "application/grpc+proto":
 				case "application/octet-stream":
+					//log(`🚧 $response.body: ${JSON.stringify($response.body)}`, "");
 					let rawBody = ($platform === "Quantumult X") ? new Uint8Array($response.bodyBytes ?? []) : $response.body ?? new Uint8Array();
+					//log(`🚧 isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`, "");					
+					/******************  initialization start  *******************/
+					/******************  initialization finish  *******************/
 					// 写入二进制数据
 					$response.body = rawBody;
 					break;
