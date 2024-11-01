@@ -12,12 +12,15 @@ log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 log(`⚠ FORMAT: ${FORMAT}`, "");
 !(async () => {
-	// 读取设置
+	/**
+	 * 设置
+	 * @type {{Settings: import('./types').Settings}}
+	 */
 	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", database);
 	log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
-		default:
+		default: {
 			// 创建空数据
 			let body = { "code": 0, "message": "0", "data": {} };
 			// 格式判断
@@ -86,7 +89,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 									body.data.tab = Configs.Tab.tab.map(e => {
 										if (Settings.Home.Tab.includes(e.tab_id)) return e;
 									}).filter(Boolean).map((e, i) => {
-										if (Settings.Home.Tab_default == e.tab_id) e.default_selected = 1;
+										if (Settings.Home.Tab_default === e.tab_id) e.default_selected = 1;
 										e.pos = i + 1;
 										return e;
 									});
@@ -140,7 +143,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 									}).filter(Boolean);
 									break;
 								case "/x/v2/region/index":
-								case "/x/v2/channel/region/list": // 分区页面-索引
+								case "/x/v2/channel/region/list": { // 分区页面-索引
 									body.data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
 									//log(JSON.stringify(body.data));
 									body.data = uniqueFunc(body.data, "tid"); // 去重
@@ -157,9 +160,9 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 											break;
 										case "/x/v2/channel/region/list":
 											body.data = body.data.map(e => {
-												if (e.goto == "0") e.goto = "";
-												delete e.children;
-												delete e.config;
+												if (e.goto === "0") e.goto = "";
+												e.children = undefined;
+												e.config = undefined;
 												return e;
 											});
 											break;
@@ -171,13 +174,14 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 									};
 
 									function compareFn(property) { // 比较函数
-										return function (m, n) {
-											var a = m[property];
-											var b = n[property];
+										return (m, n) => {
+											const a = m[property];
+											const b = n[property];
 											return a - b; // 升序
 										}
 									};
 									break;
+								}
 							};
 							break;
 						case "api.bilibili.com":
@@ -191,7 +195,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/vnd.google.protobuf":
 				case "application/grpc":
 				case "application/grpc+proto":
-				case "application/octet-stream":
+				case "application/octet-stream": {
 					//log(`🚧 $response.body: ${JSON.stringify($response.body)}`, "");
 					let rawBody = ($platform === "Quantumult X") ? new Uint8Array($response.bodyBytes ?? []) : $response.body ?? new Uint8Array();
 					//log(`🚧 isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`, "");					
@@ -200,10 +204,12 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 					// 写入二进制数据
 					$response.body = rawBody;
 					break;
+				}
 			};
 			break;
+		}
 		case false:
-			log(`⚠ 功能关闭`, "");
+			log("⚠ 功能关闭", "");
 			break;
 	};
 })()
