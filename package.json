@@ -1,6 +1,5 @@
 {
 	"name": "@biliuniverse/enhanced",
-	"version": "0.5.7",
 	"organizationName": "🪐 BiliUniverse",
 	"displayName": "📺 BiliBili: ⚙️ Enhanced",
 	"description": "哔哩哔哩：增强模式\n中国站功能增强及UI自定义",
@@ -45,6 +44,6 @@
 	},
 	"dependencies": {
 		"@nsnanocat/url": "^1.2.3",
-		"@nsnanocat/util": "^1.6.1"
+		"@nsnanocat/util": "^1.6.3"
 	}
 }
