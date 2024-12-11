@@ -25,9 +25,9 @@ export default function setENV(name, platforms, database) {
 	if (!Array.isArray(Settings?.Mine?.iPad?.Recommend)) _.set(Settings, "Mine.iPad.Recommend", Settings?.Mine?.iPad?.Recommend ? [Settings.Mine.iPad.Recommend] : []);
 	if (!Array.isArray(Settings?.Mine?.iPad?.More)) _.set(Settings, "Mine.iPad.More", Settings?.Mine?.iPad?.More ? [Settings.Mine.iPad.More] : []);
 	if (!Array.isArray(Settings?.Region?.Index)) _.set(Settings, "Region.Index", Settings?.Region?.Index ? [Settings.Region.Index] : []);
-	Console.info(`typeof Settings: ${typeof Settings}`, `Settings: ${JSON.stringify(Settings)}`);
+	Console.info(`typeof Settings: ${typeof Settings}`, `Settings: ${JSON.stringify(Settings, null, 2)}`);
 	/***************** Caches *****************/
-	//Console.debug(`typeof Caches: ${typeof Caches}`, `Caches: ${JSON.stringify(Caches)}`);
+	//Console.debug(`typeof Caches: ${typeof Caches}`, `Caches: ${JSON.stringify(Caches, null, 2)}`);
 	/***************** Configs *****************/
 	Console.log("✅ Set Environment Variables");
 	return { Settings, Caches, Configs };
