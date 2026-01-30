@@ -1,6 +1,14 @@
 export interface Settings {
     Home?: {
     /**
+         * [首页] 启用此标签页自定义功能
+         *
+         * 启用后可自定义首页标签页、顶栏按钮等内容。
+         *
+         * @defaultValue true
+         */
+        Switch?: boolean;
+    /**
          * [首页] 标签页
          *
          * 请选择启用的首页标签页，建议不超过7个。
@@ -100,6 +108,36 @@ export interface Settings {
      * @defaultValue ["home","dynamic","ogv","会员购Bottom","我的Bottom"]
      */
     Bottom?: ('home' | '频道Bottom' | 'dynamic' | 'publish' | 'ogv' | '会员购Bottom' | '消息Bottom' | '我的Bottom')[];
+    Region?: {
+    /**
+         * [分区] 启用此标签页自定义功能
+         *
+         * 启用后可自定义分区标签页的内容。
+         *
+         * @defaultValue true
+         */
+        Switch?: boolean;
+};
+    Mine?: {
+    /**
+         * [我的] 启用此标签页自定义功能
+         *
+         * 启用后可自定义我的标签页的服务内容。
+         *
+         * @defaultValue true
+         */
+        Switch?: boolean;
+    iPad?: {
+        /**
+         * [我的 iPad版] 启用此标签页自定义功能
+         *
+         * 启用后可自定义iPad版我的标签页的服务内容。
+         *
+         * @defaultValue true
+         */
+        Switch?: boolean;
+};
+};
     /**
      * [调试] 日志等级
      *

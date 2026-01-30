@@ -12,7 +12,7 @@ Console.info(`PATHs: ${PATHs}`);
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 Console.info(`FORMAT: ${FORMAT}`);
-(async () => {
+!(async () => {
 	/**
 	 * 设置
 	 * @type {{Settings: import('./types').Settings}}
@@ -55,6 +55,7 @@ Console.info(`FORMAT: ${FORMAT}`);
 				case "app.biliapi.net":
 					switch (url.pathname) {
 						case "/x/resource/show/tab/v2": // 首页-Tab
+							if (!Settings.Home?.Switch) break;
 							// 顶栏-左侧
 							body.data.top_left = Configs.Tab.top_left[Settings.Home.Top_left];
 							// 顶栏-右侧
@@ -92,6 +93,7 @@ Console.info(`FORMAT: ${FORMAT}`);
 						case "/x/resource/show/tab/bubble": // 首页-Tab-?
 							break;
 						case "/x/v2/account/mine": // 账户信息-我的
+							if (!Settings.Mine?.Switch) break;
 							body.data.sections_v2 = Configs.Mine.sections_v2.map(e => {
 								switch (e.title) {
 									case "创作中心":
@@ -121,6 +123,7 @@ Console.info(`FORMAT: ${FORMAT}`);
 							});
 							break;
 						case "/x/v2/account/mine/ipad": // 账户信息-我的(pad)
+							if (!Settings.Mine?.iPad?.Switch) break;
 							body.data.ipad_upper_sections = Configs.Mine.ipad_upper_sections
 								.map(item => {
 									if (Settings.Mine.iPad.Upper.includes(item.id)) return item;
@@ -139,6 +142,7 @@ Console.info(`FORMAT: ${FORMAT}`);
 							break;
 						case "/x/v2/region/index":
 						case "/x/v2/channel/region/list": {
+							if (!Settings.Region?.Switch) break;
 							// 分区页面-索引
 							body.data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
 							body.data = uniqueFunc(body.data, "tid"); // 去重

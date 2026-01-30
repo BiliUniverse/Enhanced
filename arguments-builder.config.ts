@@ -37,6 +37,13 @@ export default defineConfig({
 	},
 	args: [
 		{
+			key: "Home.Switch",
+			name: "[首页] 启用此标签页自定义功能",
+			type: "boolean",
+			defaultValue: true,
+			description: "启用后可自定义首页标签页、顶栏按钮等内容。",
+		},
+		{
 			key: "Home.Tab",
 			name: "[首页] 标签页",
 			defaultValue: ["直播tab", "推荐tab", "hottopic", "bangumi", "anime", "film", "koreavtw"],
@@ -241,6 +248,27 @@ export default defineConfig({
 					"label": "我的"
 				}
 			],
+		},
+		{
+			key: "Region.Switch",
+			name: "[分区] 启用此标签页自定义功能",
+			type: "boolean",
+			defaultValue: true,
+			description: "启用后可自定义分区标签页的内容。",
+		},
+		{
+			key: "Mine.Switch",
+			name: "[我的] 启用此标签页自定义功能",
+			type: "boolean",
+			defaultValue: true,
+			description: "启用后可自定义我的标签页的服务内容。",
+		},
+		{
+			key: "Mine.iPad.Switch",
+			name: "[我的 iPad版] 启用此标签页自定义功能",
+			type: "boolean",
+			defaultValue: true,
+			description: "启用后可自定义iPad版我的标签页的服务内容。",
 		},
 		{
 			key: "LogLevel",
