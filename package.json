@@ -37,13 +37,13 @@
 		"iOS >= 15"
 	],
 	"devDependencies": {
-		"@iringo/arguments-builder": "^1.7.8",
-		"@rspack/cli": "^1.0.14",
-		"@rspack/core": "^1.0.14",
-		"node-polyfill-webpack-plugin": "^4.0.0"
+		"@iringo/arguments-builder": "^1.8.5",
+		"@rspack/cli": "^1.7.4",
+		"@rspack/core": "^1.7.4",
+		"node-polyfill-webpack-plugin": "^4.1.0"
 	},
 	"dependencies": {
-		"@nsnanocat/url": "^1.2.4",
-		"@nsnanocat/util": "^1.7.6"
+		"@nsnanocat/url": "^1.2.5",
+		"@nsnanocat/util": "^1.8.10"
 	}
 }
