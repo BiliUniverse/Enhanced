@@ -39,12 +39,12 @@
 	],
 	"devDependencies": {
 		"@iringo/arguments-builder": "^1.8.5",
-		"@rspack/cli": "^1.7.4",
-		"@rspack/core": "^1.7.4",
-		"node-polyfill-webpack-plugin": "^4.1.0"
+		"@rspack/cli": "^1.7.6",
+		"@rspack/core": "^1.7.6",
+		"node-polyfill-webpack-plugin": "^4.0.0"
 	},
 	"dependencies": {
 		"@nsnanocat/url": "^1.2.5",
-		"@nsnanocat/util": "^2.0.0"
+		"@nsnanocat/util": "^2.1.5"
 	}
 }
