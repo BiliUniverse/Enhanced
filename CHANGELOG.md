@@ -11,3 +11,4 @@
       * `database`: 只使用由作者的 `database.mjs` 文件提供的默认配置，其他任何自定义配置不再起作用。
       * `未选择/未填写`： 配置优先级依旧是 `$persistentStore (BoxJs)` > `$argument` > `database`
     * ⚠️ 注意：`[储存] 配置类型 (Storage)`选项只能经由 `$argument` 进行配置，可通过支持 `$argument` 的插件选项或模块参数进行设置。对于本就不支持 `$argument` 的 app (如 Quantumult X)，始终按照 `未选择/未填写` 模式进行处理（与旧版逻辑一致）。
+  * 更新 `biome.json` 配置以适配 2.4.3 schema，并调整文件包含规则。
