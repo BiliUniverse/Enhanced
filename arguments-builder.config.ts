@@ -271,6 +271,18 @@ export default defineConfig({
 			description: "启用后可自定义iPad版我的标签页的服务内容。",
 		},
 		{
+			key: "Storage",
+			name: "[储存] 配置类型",
+			defaultValue: "Argument",
+			type: "string",
+			options: [
+				{ key: "Argument", label: "优先使用来自 $argument 的配置，$argument 不包含的设置项由 PersistentStore (BoxJs) 提供" },
+				{ key: "PersistentStore", label: "只使用 PersistentStore (BoxJs) 提供的配置" },
+				{ key: "database", label: "只使用由作者的 database.mjs 文件提供的默认配置，其他任何自定义配置不再起作用" },
+			],
+			description: "选择要使用的配置类型。未设置此选项或不通过此选项的旧版本的配置顺序依旧是 PersistentStore (BoxJs) > $argument > database。",
+		},
+		{
 			key: "LogLevel",
 			name: "[调试] 日志等级",
 			type: "string",
