@@ -16,10 +16,11 @@ version: "{{@package 'version'}}"
 
 http:
   mitm:
+    - "biliverse.github.io"
     - "app.bilibili.com"
     - "app.biliapi.net"
   script:
-    - match: ^https:\/\/app\.bilibili\.com\/biliverse\/settings\/(?:api\/Enhanced(?:\?.*)?$|(?:\?.*)?$)
+    - match: ^https:\/\/biliverse\.github\.io\/settings\/api\/Enhanced(?:\?.*)?$
       name: 📺 BiliBili.Enhanced.request.dev
       type: request
       require-body: true
