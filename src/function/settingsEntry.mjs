@@ -6,18 +6,28 @@ export function addSettingsEntry(data, ipad = false) {
 		: data.sections_v2?.map(section => section.items) ?? [];
 	for (const items of groups) {
 		if (!Array.isArray(items)) continue;
-		const index = items.findIndex(item => item.uri === "bilibili://user_center/setting");
-		if (index < 0) continue;
-		const existing = items.findIndex(item => item.uri === uri);
-		if (existing >= 0) items.splice(existing, 1);
-		const settingIndex = items.findIndex(item => item.uri === "bilibili://user_center/setting");
-		items.splice(settingIndex + 1, 0, {
+		for (let index = items.length - 1; index >= 0; index--) {
+			if (items[index].uri === uri) items.splice(index, 1);
+		}
+	}
+	let items;
+	if (ipad) {
+		items = data.ipad_recommend_sections ??= [];
+	} else {
+		if (!Array.isArray(data.sections_v2)) return;
+		let section = data.sections_v2.find(section => section.title === "推荐服务");
+		if (!section) {
+			section = { title: "推荐服务", style: 1, items: [], button: {} };
+			const moreIndex = data.sections_v2.findIndex(section => section.title === "更多服务");
+			data.sections_v2.splice(moreIndex < 0 ? data.sections_v2.length : moreIndex, 0, section);
+		}
+		items = section.items;
+	}
+	items.unshift({
 			id: 129515498,
 			title: "Biliverse 设置",
 			icon: "https://biliverse.github.io/settings/logo_settings_light.png",
 			uri,
 			common_op_item: {},
-		});
-		return;
-	}
+	});
 }
