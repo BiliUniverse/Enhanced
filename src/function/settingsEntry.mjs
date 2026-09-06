@@ -14,7 +14,7 @@ export function addSettingsEntry(data, ipad = false) {
 		items.splice(settingIndex + 1, 0, {
 			id: 129515498,
 			title: "Biliverse 设置",
-			icon: "https://biliverse.github.io/settings/logo.png",
+			icon: "https://biliverse.github.io/settings/logo_settings_light.png",
 			uri,
 			common_op_item: {},
 		});
