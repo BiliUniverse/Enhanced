@@ -25,7 +25,7 @@ export function addSettingsEntry(data, ipad = false) {
 	}
 	items.unshift({
 			id: 129515498,
-			title: "Biliverse 设置",
+			title: "Biliverse",
 			icon: "https://biliverse.github.io/settings/logo_settings_light.png",
 			uri,
 			common_op_item: {},

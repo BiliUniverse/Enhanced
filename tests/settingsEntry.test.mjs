@@ -10,6 +10,7 @@ test("moves the existing entry to recommended services without changing the shor
 	addSettingsEntry(data);
 	assert.deepEqual(data.sections_v2[0].items, shortcuts);
 	assert.equal(data.sections_v2[1].items[0].uri, uri);
+	assert.equal(data.sections_v2[1].items[0].title, "Biliverse");
 	assert.equal(data.sections_v2[1].items[1].id, 401);
 	assert.equal(data.sections_v2[2].items.length, 1);
 });
