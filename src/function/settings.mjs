@@ -1,26 +1,17 @@
-import { createSettingsHandler } from "@nsnanocat/preference-panes";
+import { SettingsHandler } from "@nsnanocat/preference-panes";
 import { URL } from "@nsnanocat/url";
 import { fetch } from "@nsnanocat/util/polyfill/fetch";
 
 const origin = "https://biliverse.github.io";
 const assets = `${origin}/settings/assets`;
 const configURL = `${assets}/Enhanced.boxjs.json`;
-globalThis.URL ??= URL;
-
-const handle = createSettingsHandler({
-	origin,
-	loadConfig: async () => {
-		const response = await fetch({ url: configURL, method: "GET", headers: { "Cache-Control": "no-cache" }, timeout: 5000 });
-		if (response.status !== 200) throw new Error(`BoxJS HTTP ${response.status}`);
-		return JSON.parse(response.body);
-	},
-});
+const handler = new SettingsHandler({ origin, configURL });
 
 // Native Mock handles these resources where supported; other clients use the same source.
 export async function settingsResponse(request) {
 	const url = new URL(request.url);
 	if (url.origin !== origin) return;
-	if (/^\/api\/Enhanced(?:\/|$)/.test(url.pathname)) return handle(request);
+	if (/^\/api\/Enhanced(?:\/|$)/.test(url.pathname)) return handler.handle(request);
 	let source, type;
 	if (url.pathname === "/configs/Enhanced") {
 		source = configURL;
