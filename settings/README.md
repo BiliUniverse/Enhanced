@@ -23,7 +23,9 @@
 
 Enhanced 在 PersistentStore 模式按已保存叶子覆盖默认值，包括取消全部选择的空数组，未设置的字段仍使用默认值。API 删除覆盖值后，页面显示 BoxJS 默认值；插件下一次处理请求时重新读取存储。
 
-当前使用正式发布的 `@nsnanocat/preference-panes@0.3.0`，通过原有 GitHub Packages scope 安装，package-lock.json 固定 registry 下载地址和完整性校验值。
+当前使用正式发布的 `@nsnanocat/preference-panes@0.3.1`，通过原有 GitHub Packages scope 安装，package-lock.json 固定 registry 下载地址和完整性校验值。
+
+页面保持 Bilibili 分组列表样式：单选为下拉框，多选从摘要行进入二级页面，前进后退不重新读取配置并恢复滚动位置。控件修改立即串行写入，不展示逐项保存或删除覆盖值按钮；写入失败恢复该项已有值。单键删除能力仍保留在 API。
 
 0.3.0 接入方式为 `new SettingsHandler({ origin, storageKey: "BiliBili", module: "Enhanced" })`。API 不下载 BoxJS，不检查字段声明、枚举或类型；支持任意键与子树的 GET/POST/DELETE，POST 替换指定值而非合并。BoxJS 只供前端生成控件和输入校验。
 

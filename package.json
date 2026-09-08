@@ -58,7 +58,7 @@
 		"wrangler": "^4.127.1"
 	},
 	"dependencies": {
-		"@nsnanocat/preference-panes": "^0.3.0",
+		"@nsnanocat/preference-panes": "^0.3.1",
 		"@nsnanocat/url": "^1.2.6",
 		"@nsnanocat/util": "^2.7.4",
 		"hono": "^4.13.5"
