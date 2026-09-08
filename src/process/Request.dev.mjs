@@ -1,11 +1,13 @@
-import { settingsResponse } from "../function/settings.mjs";
+import { PreferencesHandler } from "@nsnanocat/preference-panes";
+import preferences from "../../settings/install.json" with { type: "json" };
 import { URL } from "@nsnanocat/url";
 import { Console } from "@nsnanocat/util";
 import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
 /***************** Processing *****************/
+const preferencesHandler = new PreferencesHandler(preferences);
 export async function Request($request) {
-	let $response = await settingsResponse($request);
+	let $response = await preferencesHandler.handle($request);
 	if ($response) return { $request, $response };
 	// 解构URL
 	const url = new URL($request.url);

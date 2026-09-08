@@ -1,0 +1,15 @@
+{
+  "id": "biliverse",
+  "name": "Biliverse",
+  "icon": "/settings/logo_settings_light.png",
+  "iconDark": "/settings/logo_settings_dark.png",
+  "sectionTitle": "插件",
+  "desc": "设置保存在当前代理工具中。使用本地设置前，请将配置类型设为 PersistentStore。",
+  "stylesheets": ["https://s1.hdslb.com/bfs/static/2233-monorepo/customer-service-h5/static/css/index.545c1c91.css"],
+  "apps": [
+    { "module": "Enhanced", "name": "Enhanced", "icon": "/settings/assets/Enhanced_light.png", "iconDark": "/settings/assets/Enhanced_dark.png" },
+    { "module": "Global", "name": "Global", "icon": "/settings/assets/Global_light.png", "iconDark": "/settings/assets/Global_dark.png" },
+    { "module": "Redirect", "name": "Redirect", "icon": "/settings/assets/Redirect_light.png", "iconDark": "/settings/assets/Redirect_dark.png" },
+    { "module": "ADBlock", "name": "ADBlock", "icon": "/settings/assets/ADBlock_light.png", "iconDark": "/settings/assets/ADBlock_dark.png" }
+  ]
+}
