@@ -23,6 +23,6 @@
 
 Enhanced 在 PersistentStore 模式按已保存叶子覆盖默认值，包括取消全部选择的空数组，未设置的字段仍使用默认值。API 删除覆盖值后，页面显示 BoxJS 默认值；插件下一次处理请求时重新读取存储。
 
-当前使用正式发布的 `@nsnanocat/preference-panes@0.1.0`，通过原有 GitHub Packages scope 安装，package-lock.json 固定 registry 下载地址和完整性校验值。
+当前使用正式发布的 `@nsnanocat/preference-panes@0.2.0`，通过原有 GitHub Packages scope 安装，package-lock.json 固定 registry 下载地址和完整性校验值。
 
-本地下一版接入改为 `new SettingsHandler({ origin, configURL })`，配置下载和解析归通用类负责。该类尚未发布到 registry；这部分改动需与 PreferencePanes 下一版一起验证、更新依赖后再部署，不能直接用于 0.1.0。
+通过 `new SettingsHandler({ origin, configURL })` 接入，配置下载和解析归通用类负责。浏览器组件支持 BoxJS app 元数据、placeholder、rows 和 autoGrow；实际控件仍由 Enhanced 的 BoxJS JSON 决定。
