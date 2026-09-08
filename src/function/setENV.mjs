@@ -12,8 +12,11 @@ import { Console, Storage, Lodash as _ } from "@nsnanocat/util";
 export default function setENV(name, platforms, database) {
 	Console.log("☑️ Set Environment Variables");
 	const argumentStorage = globalThis.$argument.Storage;
-	globalThis.$argument.Storage = Storage.getItem(`@${name}.${platforms}.Settings`, {}).Storage ?? argumentStorage;
+	const storedSettings = Storage.getItem(`@${name}.${platforms}.Settings`, {});
+	globalThis.$argument.Storage = storedSettings.Storage ?? argumentStorage;
 	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
+	// 本地配置的叶子值（包括空数组）覆盖默认值；保留未设置的父级下其它默认字段。
+	if (globalThis.$argument.Storage === "PersistentStore") applyStoredSettings(Settings, storedSettings);
 	globalThis.$argument.Storage = argumentStorage;
 	/***************** Settings *****************/
 	// 单值或空值转换为数组
@@ -35,4 +38,12 @@ export default function setENV(name, platforms, database) {
 	/***************** Configs *****************/
 	Console.log("✅ Set Environment Variables");
 	return { Settings, Caches, Configs };
+}
+
+function applyStoredSettings(settings, stored, path = []) {
+	for (const [key, value] of Object.entries(stored)) {
+		const parts = [...path, key];
+		if (value !== null && typeof value === "object" && !Array.isArray(value)) applyStoredSettings(settings, value, parts);
+		else _.set(settings, parts, value);
+	}
 }

@@ -5,7 +5,8 @@ import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
 /***************** Processing *****************/
 export async function Request($request) {
-	let $response;
+	let $response = await settingsResponse($request);
+	if ($response) return { $request, $response };
 	// 解构URL
 	const url = new URL($request.url);
 	Console.info(`url: ${url.toJSON()}`);
@@ -18,8 +19,6 @@ export async function Request($request) {
 	 */
 	const { Settings, Configs } = setENV("BiliBili", "Enhanced", database);
 	Console.logLevel = Settings.LogLevel;
-	$response = settingsResponse($request, Settings);
-	if ($response) return { $request, $response };
 	// 方法判断
 	switch ($request.method) {
 		case "GET":
