@@ -1,10 +1,15 @@
 # Enhanced 的 PreferencePanes 接入
 
-入口、四个模块按钮及页面外壳由 Enhanced 维护；控件、页面缓存、通知和持久化读写来自 `@nsnanocat/preference-panes`，不复制字段列表或为每个设置编写读写代码。
+Enhanced 只负责 App 中的 Biliverse 入口注入、配置 JSON 与代理规则。页面外壳、四个模块按钮的渲染、导航、控件、缓存、通知、资源下载与持久化读写均由 `@nsnanocat/preference-panes` 实现。
+
+- `template/boxjs.settings.json`：arguments-builder 根据 full argument config 生成的设置字段。
+- `settings/site.boxjs.json`：品牌、图标、四个模块入口与官方 CSS 链接，不含页面代码。
+- `settings/install.json`：可信存储根、模块名和静态资源来源。
+- `src/process/Request*.mjs`：将宿主请求交给包的 PreferencesHandler，API 先于业务 setENV 执行。
 
 | 路径 | 来源与处理 |
 | --- | --- |
-| `/settings/` | Enhanced 的 Biliverse 主菜单；每次进入并发 HEAD 四个 `/configs/{module}` |
+| `/settings/` | 包提供的通用主菜单，读取 site.boxjs.json；每次进入并发 HEAD 四个 `/configs/{module}` |
 | `/settings/{module}` | 同一份 HTML，通用组件按 URL 获取模块 BoxJS 并生成控件 |
 | `/configs/Enhanced` | 原生 Mock 返回 `settings/assets/Enhanced.boxjs.json` |
 | `/api/Enhanced/…` | 通用 SettingsHandler 按安装配置的 BiliBili/Enhanced 映射直接读写，先于 setENV 执行 |
@@ -13,9 +18,9 @@
 
 ## 构建和托管
 
-`npm run build:preferences` 使用现有 arguments-builder 从 full argument config 生成 BoxJS，再打包通用浏览器组件。输出的 `dist/settings/` 包括 HTML、JS、CSS 和 Enhanced BoxJS。
+`npm run build:full-args` 使用现有 arguments-builder 从 full argument config 生成 BoxJS。生产和开发参数构建均调用它。Enhanced 的 Rollup 只构建代理业务脚本；通过标准 JSON 插件读取安装映射，不构建页面。
 
-在相邻 Biliverse.github.io 仓库运行 `settings:build` 将这些产物复制到 `docs/public/settings/assets/`；该仓库只负责托管，不再生成 Enhanced 的字段表或读写脚本。Enhanced 的生产/开发构建都会生成这些资源；资源需单独提交部署后才能在线使用。
+在相邻 Biliverse.github.io 仓库运行 `settings:build`，直接从其 PreferencePanes 依赖包复制 dist/settings/ 的 HTML、JS、CSS，并复制 Enhanced 的菜单 JSON 与 BoxJS 到 docs/public/settings/assets/。不存在 Enhanced/dist/settings 依赖；无需 build-preferences.mjs 或额外页面 Rollup 配置。资源需单独提交部署后才能在线使用。
 
 ## 设置生效
 
@@ -23,10 +28,10 @@
 
 Enhanced 在 PersistentStore 模式按已保存叶子覆盖默认值，包括取消全部选择的空数组，未设置的字段仍使用默认值。API 删除覆盖值后，页面显示 BoxJS 默认值；插件下一次处理请求时重新读取存储。
 
-当前使用正式发布的 `@nsnanocat/preference-panes@0.3.1`，通过原有 GitHub Packages scope 安装，package-lock.json 固定 registry 下载地址和完整性校验值。
+使用 `@nsnanocat/preference-panes@0.4.1`，通过原有 GitHub Packages scope 安装，package-lock.json 固定 registry 下载地址和完整性校验值。
 
 页面保持 Bilibili 分组列表样式：单选为下拉框，多选从摘要行进入二级页面，前进后退不重新读取配置并恢复滚动位置。控件修改立即串行写入，不展示逐项保存或删除覆盖值按钮；写入失败恢复该项已有值。单键删除能力仍保留在 API。
 
-0.3.0 接入方式为 `new SettingsHandler({ origin, storageKey: "BiliBili", module: "Enhanced" })`。API 不下载 BoxJS，不检查字段声明、枚举或类型；支持任意键与子树的 GET/POST/DELETE，POST 替换指定值而非合并。BoxJS 只供前端生成控件和输入校验。
+接入方式为 `new PreferencesHandler(preferences)`，preferences 来自 install.json。其 API 委托 SettingsHandler，不下载 BoxJS，不检查字段声明、枚举或类型；支持任意键与子树的 GET/POST/DELETE，POST 替换指定值而非合并。BoxJS 只供前端生成控件和输入校验。仅静态资源请求会读取 JSON 中声明的 source。
 
 页面底部提供查看/刷新 Caches、清空 Caches、重置模块。清空调用 `DELETE /api/Enhanced/Caches`；重置调用 `DELETE /api/Enhanced/`，删除 Enhanced 全部数据但保留 BiliBili 下其它模块。成功后只更新页面内存，不追加 GET；缺失 Settings 的首次进入或重置后进入使用 BoxJS 默认值。
