@@ -18,7 +18,7 @@
 ^https:\/\/biliverse\.github\.io\/configs\/Enhanced(?:\?.*)?$ mock-response-body data-type=text data-path=https://biliverse.github.io/settings/assets/Enhanced.boxjs.json status-code=200
 
 [Script]
-http-request ^https:\/\/biliverse\.github\.io\/api\/Enhanced(?:\/|\?|$) requires-body=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/request.bundle.js, tag=📺 BiliBili.Enhanced.Settings, argument={{{scriptParams}}}
+http-request ^https:\/\/biliverse\.github\.io\/api\/Enhanced(?:\/|\?|$) requires-body=1, script-path=https://biliverse.github.io/settings/assets/Enhanced.request.js, tag=📺 BiliBili.Enhanced.Settings
 http-request ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/request.bundle.js, tag=📺 BiliBili.Enhanced.x.resource.show.tab.v2, argument={{{scriptParams}}}
 http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\? requires-body=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.account.mine, argument={{{scriptParams}}}
 http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index\? requires-body=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.region.index, argument={{{scriptParams}}}

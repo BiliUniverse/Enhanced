@@ -1,5 +1,4 @@
 import { nodeResolve } from "@rollup/plugin-node-resolve";
-import json from "@rollup/plugin-json";
 import terser from "@rollup/plugin-terser";
 import pkg from "./package.json" with { type: "json" };
 
@@ -9,7 +8,7 @@ export default [
 	{
 		input: "./src/request.js",
 		output: { file: "./dist/request.bundle.js", format: "es", banner },
-		plugins: [nodeResolve(), json(), terser()],
+		plugins: [nodeResolve(), terser()],
 	},
 	{
 		input: "./src/response.js",

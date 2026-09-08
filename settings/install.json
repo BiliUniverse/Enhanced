@@ -1,9 +1,0 @@
-{
-  "origin": "https://biliverse.github.io",
-  "storageKey": "BiliBili",
-  "module": "Enhanced",
-  "resources": [
-    { "pattern": "^/configs/Enhanced$", "source": "https://biliverse.github.io/settings/assets/Enhanced.boxjs.json", "contentType": "application/json" },
-    { "pattern": "^/settings/(?:[a-zA-Z0-9_-]+/?)?$", "source": "https://biliverse.github.io/settings/assets/index.html", "contentType": "text/html" }
-  ]
-}

@@ -2,76 +2,31 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
-const config = await readFile(new URL("../template/boxjs.settings.json", import.meta.url), "utf8");
+const config = JSON.parse(await readFile(new URL("../template/boxjs.settings.json", import.meta.url), "utf8"));
 const store = new Map();
-let reads = 0,
-	downloads = 0;
 globalThis.$environment = { "surge-version": "preferences-test" };
 globalThis.$argument = { Storage: "Argument", LogLevel: "OFF" };
-globalThis.$persistentStore = {
-	read(key) {
-		reads++;
-		return store.get(key) ?? null;
-	},
-	write(value, key) {
-		store.set(key, value);
-		return true;
-	},
-};
-globalThis.$httpClient = {
-	get(request, done) {
-		downloads++;
-		assert.equal(request.url, "https://biliverse.github.io/settings/assets/Enhanced.boxjs.json");
-		done(null, { status: 200, headers: { "Content-Type": "application/json" } }, config);
-	},
-};
+globalThis.$persistentStore = { read: key => store.get(key), write: (value, key) => { store.set(key, value); return true; } };
 const { Request } = await import("../src/process/Request.mjs");
-const send = async (path, method = "GET", value) =>
-	(
-		await Request({
-			url: `https://biliverse.github.io${path}`,
-			method,
-			headers: { "X-Settings-Client": "1", "Content-Type": "application/json" },
-			...(method === "POST" ? { body: JSON.stringify(value) } : {}),
-		})
-	).$response;
 
-test("config probe bypasses setENV and never reads persistence", async () => {
-	reads = downloads = 0;
-	const response = await send("/configs/Enhanced", "HEAD");
-	assert.equal(response.status, 200);
-	assert.equal(response.body, "");
-	assert.equal(reads, 0);
-	assert.equal(downloads, 1);
-});
-
-test("storage API uses no BoxJS requests and preserves sibling modules", async () => {
-	store.set("BiliBili", JSON.stringify({ Enhanced: { Settings: { LogLevel: "OFF" }, Caches: { sentinel: 42 } }, Global: { Settings: { sentinel: true } } }));
-	reads = downloads = 0;
-	const configResponse = await send("/configs/Enhanced");
-	assert.deepEqual(JSON.parse(configResponse.body), JSON.parse(config));
-	assert.equal(reads, 0);
-	const initial = await send("/api/Enhanced/Settings/");
-	assert.equal(reads, 1);
-	assert.deepEqual(JSON.parse(initial.body), { LogLevel: "OFF" });
-	assert.equal((await send("/api/Enhanced/Settings/Storage", "POST", "PersistentStore")).status, 200);
-	assert.equal((await send("/api/Enhanced/Settings/Home/Top", "POST", [])).status, 200);
-	assert.equal((await send("/api/Enhanced/Settings/LogLevel", "POST", "INVALID")).status, 200);
-	assert.equal((await send("/api/Enhanced/Settings/LogLevel", "DELETE")).status, 200);
-	assert.equal((await send("/api/Enhanced/Settings/LogLevel")).status, 404);
-	const saved = JSON.parse(store.get("BiliBili"));
-	assert.deepEqual(saved.Enhanced.Settings.Home.Top, []);
-	assert.equal(saved.Enhanced.Caches.sentinel, 42);
-	assert.equal(saved.Global.Settings.sentinel, true);
-	assert.equal(downloads, 1, "only the explicit config request downloads BoxJS");
+test("BoxJS paths match the persistence consumed by business requests", async () => {
+	assert.ok(config.every(field => field.id.startsWith("@BiliBili.Enhanced.Settings.")));
+	store.set("BiliBili", JSON.stringify({ Enhanced: { Settings: { Storage: "PersistentStore", Home: { Top: [] } } }, Global: { sentinel: true } }));
 	const result = await Request({ url: "https://app.bilibili.com/x/resource/show/tab/v2", method: "GET", headers: {} });
 	assert.deepEqual(JSON.parse(result.$response.body).data.top, []);
-	assert.deepEqual(JSON.parse((await send("/api/Enhanced/Caches")).body), { sentinel: 42 });
-	assert.equal((await send("/api/Enhanced/Caches", "DELETE")).status, 200);
-	assert.equal((await send("/api/Enhanced/Caches")).status, 404);
-	assert.equal((await send("/api/Enhanced/", "DELETE")).status, 200);
-	assert.deepEqual(JSON.parse(store.get("BiliBili")), { Global: { Settings: { sentinel: true } } });
-	assert.equal(downloads, 1);
+	assert.equal(JSON.parse(store.get("BiliBili")).Global.sentinel, true);
+});
+
+test("every settings script rule installs the independently hosted runtime", async () => {
+	for (const name of await readdir(new URL("../template/", import.meta.url))) {
+		if (!name.endsWith(".handlebars") || name.includes("rewrite")) continue;
+		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
+		assert.ok(template.includes("https://biliverse.github.io/settings/assets/Enhanced.request.js"), name);
+		for (const line of template.split("\n").filter(line => line.includes("biliverse") && (line.includes("script-path=") || line.includes("script-echo-response")))) {
+			assert.ok(line.includes("settings/assets/Enhanced.request.js"), name);
+			assert.doesNotMatch(line, /request(?:\.dev)?\.bundle\.js|argument=/);
+		}
+	}
 });
 
 test("native resource rules and API routes are disjoint and never match download sources", async () => {
