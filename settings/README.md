@@ -7,7 +7,7 @@
 | `/settings/` | Enhanced 的 Biliverse 主菜单；每次进入并发 HEAD 四个 `/configs/{module}` |
 | `/settings/{module}` | 同一份 HTML，通用组件按 URL 获取模块 BoxJS 并生成控件 |
 | `/configs/Enhanced` | 原生 Mock 返回 `settings/assets/Enhanced.boxjs.json` |
-| `/api/Enhanced/…` | Enhanced 请求入口调用通用 SettingsHandler.handle，先于 setENV 执行 |
+| `/api/Enhanced/…` | 通用 SettingsHandler 按安装配置的 BiliBili/Enhanced 映射直接读写，先于 setENV 执行 |
 
 资源下载源都在 `https://biliverse.github.io/settings/assets/`，与 Mock 和 API 路径分开。Surge/Loon 使用原生静态 Mock；其余现有模板经请求脚本读取同一资源源站。未迁移的其它插件不会被误判为支持新版面板。
 
@@ -23,6 +23,8 @@
 
 Enhanced 在 PersistentStore 模式按已保存叶子覆盖默认值，包括取消全部选择的空数组，未设置的字段仍使用默认值。API 删除覆盖值后，页面显示 BoxJS 默认值；插件下一次处理请求时重新读取存储。
 
-当前使用正式发布的 `@nsnanocat/preference-panes@0.2.0`，通过原有 GitHub Packages scope 安装，package-lock.json 固定 registry 下载地址和完整性校验值。
+当前使用正式发布的 `@nsnanocat/preference-panes@0.3.0`，通过原有 GitHub Packages scope 安装，package-lock.json 固定 registry 下载地址和完整性校验值。
 
-通过 `new SettingsHandler({ origin, configURL })` 接入，配置下载和解析归通用类负责。浏览器组件支持 BoxJS app 元数据、placeholder、rows 和 autoGrow；实际控件仍由 Enhanced 的 BoxJS JSON 决定。
+0.3.0 接入方式为 `new SettingsHandler({ origin, storageKey: "BiliBili", module: "Enhanced" })`。API 不下载 BoxJS，不检查字段声明、枚举或类型；支持任意键与子树的 GET/POST/DELETE，POST 替换指定值而非合并。BoxJS 只供前端生成控件和输入校验。
+
+页面底部提供查看/刷新 Caches、清空 Caches、重置模块。清空调用 `DELETE /api/Enhanced/Caches`；重置调用 `DELETE /api/Enhanced/`，删除 Enhanced 全部数据但保留 BiliBili 下其它模块。成功后只更新页面内存，不追加 GET；缺失 Settings 的首次进入或重置后进入使用 BoxJS 默认值。

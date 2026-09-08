@@ -45,9 +45,9 @@ test("config probe bypasses setENV and never reads persistence", async () => {
 	assert.equal(downloads, 1);
 });
 
-test("runtime BoxJS and generic single-key API preserve siblings and affect Enhanced", async () => {
+test("storage API uses no BoxJS requests and preserves sibling modules", async () => {
 	store.set("BiliBili", JSON.stringify({ Enhanced: { Settings: { LogLevel: "OFF" }, Caches: { sentinel: 42 } }, Global: { Settings: { sentinel: true } } }));
-	reads = 0;
+	reads = downloads = 0;
 	const configResponse = await send("/configs/Enhanced");
 	assert.deepEqual(JSON.parse(configResponse.body), JSON.parse(config));
 	assert.equal(reads, 0);
@@ -56,15 +56,22 @@ test("runtime BoxJS and generic single-key API preserve siblings and affect Enha
 	assert.deepEqual(JSON.parse(initial.body), { LogLevel: "OFF" });
 	assert.equal((await send("/api/Enhanced/Settings/Storage", "POST", "PersistentStore")).status, 200);
 	assert.equal((await send("/api/Enhanced/Settings/Home/Top", "POST", [])).status, 200);
-	assert.equal((await send("/api/Enhanced/Settings/LogLevel", "POST", "INVALID")).status, 400);
+	assert.equal((await send("/api/Enhanced/Settings/LogLevel", "POST", "INVALID")).status, 200);
 	assert.equal((await send("/api/Enhanced/Settings/LogLevel", "DELETE")).status, 200);
 	assert.equal((await send("/api/Enhanced/Settings/LogLevel")).status, 404);
 	const saved = JSON.parse(store.get("BiliBili"));
 	assert.deepEqual(saved.Enhanced.Settings.Home.Top, []);
 	assert.equal(saved.Enhanced.Caches.sentinel, 42);
 	assert.equal(saved.Global.Settings.sentinel, true);
+	assert.equal(downloads, 1, "only the explicit config request downloads BoxJS");
 	const result = await Request({ url: "https://app.bilibili.com/x/resource/show/tab/v2", method: "GET", headers: {} });
 	assert.deepEqual(JSON.parse(result.$response.body).data.top, []);
+	assert.deepEqual(JSON.parse((await send("/api/Enhanced/Caches")).body), { sentinel: 42 });
+	assert.equal((await send("/api/Enhanced/Caches", "DELETE")).status, 200);
+	assert.equal((await send("/api/Enhanced/Caches")).status, 404);
+	assert.equal((await send("/api/Enhanced/", "DELETE")).status, 200);
+	assert.deepEqual(JSON.parse(store.get("BiliBili")), { Global: { Settings: { sentinel: true } } });
+	assert.equal(downloads, 1);
 });
 
 test("native resource rules and API routes are disjoint and never match download sources", async () => {

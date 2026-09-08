@@ -5,7 +5,7 @@ import { fetch } from "@nsnanocat/util/polyfill/fetch";
 const origin = "https://biliverse.github.io";
 const assets = `${origin}/settings/assets`;
 const configURL = `${assets}/Enhanced.boxjs.json`;
-const handler = new SettingsHandler({ origin, configURL });
+const handler = new SettingsHandler({ origin, storageKey: "BiliBili", module: "Enhanced" });
 
 // Native Mock handles these resources where supported; other clients use the same source.
 export async function settingsResponse(request) {
