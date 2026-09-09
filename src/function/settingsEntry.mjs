@@ -1,5 +1,4 @@
 const baseUri = "https://app.bilibili.com/settings/";
-const uri = `${baseUri}?navhide=1`;
 
 export function addSettingsEntry(data, ipad = false) {
 	const groups = ipad
@@ -28,7 +27,7 @@ export function addSettingsEntry(data, ipad = false) {
 			id: 129515498,
 			title: "Biliverse",
 			icon: "https://biliverse.github.io/settings/assets/Biliverse_subject_light.png",
-			uri,
+			uri: baseUri,
 			common_op_item: {},
 	});
 }

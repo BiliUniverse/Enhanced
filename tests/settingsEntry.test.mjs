@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { addSettingsEntry } from "../src/function/settingsEntry.mjs";
 
-const uri = "https://app.bilibili.com/settings/?navhide=1";
-test("migrates old entries to the native-navigation-free URL", () => {
-	const data = { sections_v2: [{ title: "推荐服务", items: [{ uri: "https://biliverse.github.io/settings/" }] }] };
+const uri = "https://app.bilibili.com/settings/";
+test("migrates old entries to the native navigation URL", () => {
+	const data = { sections_v2: [{ title: "推荐服务", items: [{ uri: "https://biliverse.github.io/settings/" }, { uri: "https://app.bilibili.com/settings/?navhide=1" }] }] };
 	addSettingsEntry(data);
 	assert.equal(data.sections_v2[0].items.length, 1);
 	assert.equal(data.sections_v2[0].items[0].uri, uri);
