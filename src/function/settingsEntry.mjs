@@ -1,4 +1,5 @@
-const uri = "https://biliverse.github.io/settings/";
+const baseUri = "https://biliverse.github.io/settings/";
+const uri = `${baseUri}?navhide=1`;
 
 export function addSettingsEntry(data, ipad = false) {
 	const groups = ipad
@@ -7,7 +8,7 @@ export function addSettingsEntry(data, ipad = false) {
 	for (const items of groups) {
 		if (!Array.isArray(items)) continue;
 		for (let index = items.length - 1; index >= 0; index--) {
-			if (items[index].uri === uri) items.splice(index, 1);
+			if (items[index].id === 129515498 || items[index].uri?.split(/[?#]/)[0] === baseUri) items.splice(index, 1);
 		}
 	}
 	let items;
