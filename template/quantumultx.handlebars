@@ -10,7 +10,7 @@
 
 #[rewrite_local]
 # Biliverse 本地设置
-^https:\/\/biliverse\.github\.io\/configs\/Enhanced(?:\?.*)?$ url script-echo-response https://biliverse.github.io/settings/assets/Enhanced.config.js
+^https:\/\/biliverse\.github\.io\/configs\/Enhanced(?:\?.*)?$ url script-echo-response https://biliverse.github.io/settings/assets/Enhanced.config.js?v=0.7.0
 # 📺 BiliBili.Enhanced.x.resource.show.tab.v2
 ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? url script-echo-response https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/request.bundle.js
 # 📺 BiliBili.Enhanced.x.v2.account.mine
