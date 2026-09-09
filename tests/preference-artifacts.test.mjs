@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 import vm from "node:vm";
-import { preferenceAssets } from "../rollup.config.mjs";
+import { configAsset } from "../rollup.config.mjs";
 
 test("both release channels compile configuration responses from their own JSON artifact", async () => {
 	const root = await mkdtemp(path.join(tmpdir(), "enhanced-artifacts-"));
@@ -16,8 +16,8 @@ test("both release channels compile configuration responses from their own JSON 
 			const json = [{ id: "@Root.Module.Settings.flag", name: suffix || "release", type: "boolean", val: true }];
 			await writeFile(`dist/BiliBili.Enhanced${suffix}.boxjs.json`, JSON.stringify(json));
 			const files = new Map();
-			await preferenceAssets(suffix).generateBundle.call({ emitFile: ({ fileName, source }) => files.set(fileName, source) });
-			assert.deepEqual([...files.keys()].sort(), [`config${suffix}.bundle.js`, `settings${suffix}.bundle.js`]);
+			await configAsset(suffix).generateBundle.call({ emitFile: ({ fileName, source }) => files.set(fileName, source) });
+			assert.deepEqual([...files.keys()], [`config${suffix}.bundle.js`]);
 			const response = await new Promise(resolve =>
 				vm.runInNewContext(files.get(`config${suffix}.bundle.js`), {
 					$environment: { "surge-version": "test" },

@@ -65,8 +65,9 @@ jobs:
         run: |
           node --input-type=module <<'JS'
           import { readFile, writeFile } from "node:fs/promises";
-          const names = ["request.dev.bundle.js", "response.dev.bundle.js", "config.dev.bundle.js", "settings.dev.bundle.js", "BiliBili.Enhanced.dev.boxjs.json", "BiliBili.Enhanced.dev.sgmodule", "BiliBili.Enhanced.dev.plugin", "BiliBili.Enhanced.dev.snippet", "BiliBili.Enhanced.dev.stoverride"];
+          const names = ["request.dev.bundle.js", "response.dev.bundle.js", "config.dev.bundle.js", "BiliBili.Enhanced.dev.boxjs.json", "BiliBili.Enhanced.dev.sgmodule", "BiliBili.Enhanced.dev.plugin", "BiliBili.Enhanced.dev.snippet", "BiliBili.Enhanced.dev.stoverride"];
           const files = Object.fromEntries(await Promise.all(names.map(async name => [name, { content: await readFile(`dist/${name}`, "utf8") }])));
+          files["settings.dev.bundle.js"] = null;
           await writeFile("gist-update.json", JSON.stringify({ description: "📺 BiliBili: ⚙️ Enhanced β", files }));
           JS
           gh api --method PATCH gists/97d7611df1c0b29a254ce8f527137576 --input gist-update.json --silent

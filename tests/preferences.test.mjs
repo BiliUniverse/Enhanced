@@ -23,10 +23,12 @@ test("BoxJS paths match the persistence consumed by business requests", async ()
 	assert.equal(JSON.parse(store.get("BiliBili")).Global.sentinel, true);
 });
 
-test("settings integration only installs the BoxJS configuration Mock", async () => {
+test("settings integration installs versioned JSON and the common latest API", async () => {
 	for (const name of await readdir(new URL("../template/", import.meta.url))) {
 		if (!name.endsWith(".handlebars") || name.includes("rewrite")) continue;
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
+		assert.ok(template.includes("https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js"), name);
+		assert.ok(template.includes("api\\/(?:get|set|delete)"), name);
 		assert.doesNotMatch(template, /Enhanced\.request\.js|PreferencePanes\.request\.js|settings\/assets\/index\.html/);
 		const line = template.split("\n").find(line => line.includes("configs") && line.includes("biliverse"));
 		assert.ok(line, name);

@@ -1,30 +1,21 @@
 import { readFile } from "node:fs/promises";
-import { build } from "@nsnanocat/preference-panes";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import pkg from "./package.json" with { type: "json" };
 
 /**
- * 从同次构建的 BoxJS 生成配置响应和存储桥接产物，与业务脚本一同发布。
- * Generate config-response and storage artifacts from this build's BoxJS alongside business scripts.
- * @param {string} [suffix] 开发版文件后缀 / Development file suffix.
- * @returns {import("rollup").Plugin} 共用产物插件 / Shared artifact plugin.
+ * 从同次构建的 JSON 生成非原生 Mock 平台的纯配置响应，不包含页面或存储操作。
+ * Emit config-only responses for non-native Mock platforms, without pages or persistence.
+ * @param {string} [suffix] 开发版文件后缀 / Development filename suffix.
+ * @returns {import("rollup").Plugin} 配置产物插件 / Configuration artifact plugin.
  */
-export function preferenceAssets(suffix = "") {
+export function configAsset(suffix = "") {
 	return {
-		name: "preference-assets",
+		name: "boxjs-config",
 		async generateBundle() {
-			const boxjs = JSON.parse(await readFile(`./dist/BiliBili.Enhanced${suffix}.boxjs.json`, "utf8"));
-			for (const [name, source] of Object.entries(await build(boxjs))) {
-				switch (true) {
-					case name.endsWith(".config.js"):
-						this.emitFile({ type: "asset", fileName: `config${suffix}.bundle.js`, source });
-						break;
-					case name.endsWith(".request.js"):
-						this.emitFile({ type: "asset", fileName: `settings${suffix}.bundle.js`, source });
-						break;
-				}
-			}
+			const body = await readFile(`./dist/BiliBili.Enhanced${suffix}.boxjs.json`, "utf8");
+			const source = `const response = {status: 200, headers: {"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"}, body: $request.method === "HEAD" ? "" : ${JSON.stringify(body)}};\n$done(typeof $task === "undefined" ? {response} : {...response, status:"HTTP/1.1 200 OK"});\n`;
+			this.emitFile({ type: "asset", fileName: `config${suffix}.bundle.js`, source });
 		},
 	};
 }
@@ -35,7 +26,7 @@ export default [
 	{
 		input: "./src/request.js",
 		output: { file: "./dist/request.bundle.js", format: "es", banner },
-		plugins: [nodeResolve(), terser(), preferenceAssets()],
+		plugins: [nodeResolve(), terser(), configAsset()],
 	},
 	{
 		input: "./src/response.js",
