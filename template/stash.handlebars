@@ -20,7 +20,7 @@ http:
     - "app.bilibili.com"
     - "app.biliapi.net"
   script:
-    - match: ^https:\/\/biliverse\.github\.io\/(?:api\/(?:get|set|delete)|settings\/(?:Enhanced\/?|assets\/app\.mjs))(?:\?.*)?$
+    - match: ^https:\/\/biliverse\.github\.io\/(?:api\/(?:get|set|delete)|settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/app\.mjs))(?:\?.*)?$
       name: PreferencePanes.API
       type: request
       require-body: true

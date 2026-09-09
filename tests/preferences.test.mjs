@@ -29,6 +29,7 @@ test("settings integration installs versioned JSON and the common latest API", a
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
 		assert.ok(template.includes("https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js"), name);
 		assert.ok(template.includes("api\\/(?:get|set|delete)"), name);
+		assert.ok(template.includes("settings\\/(?:[a-zA-Z0-9_-]+"), name);
 		assert.doesNotMatch(template, /Enhanced\.request\.js|PreferencePanes\.request\.js|settings\/assets\/index\.html/);
 		const line = template.split("\n").find(line => line.includes("configs") && line.includes("biliverse"));
 		assert.ok(line, name);
