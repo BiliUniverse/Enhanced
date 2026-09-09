@@ -56,10 +56,10 @@ test("homepage and static mocks never overlap module pages, configs or storage A
 		const native = /^(surge|loon)/.test(name);
 		const candidates = native ? lines.filter(line => line.includes('https://biliverse.github.io/settings/')) : lines.filter(line => line.includes('^https:\\/\\/app\\.bilibili\\.com\\/settings'));
 		const patterns = candidates.map(line => new RegExp(line.startsWith("response if") ? line.match(/~= \/(.+)\/ then/)[1] : name.startsWith("shadowrocket") ? line.match(/pattern=([^,]+)/)[1] : name.startsWith("stash") ? line.trim().slice("- match: ".length) : line.split(" ")[0]));
-		assert.equal(patterns.length, native ? 16 : 1, name);
+		assert.equal(patterns.length, native ? 14 : 1, name);
 		for (const pathname of ["/settings/", "/settings/home.js", "/settings/assets/navigation.mjs", "/settings/assets/Enhanced_subject_dark.png"])
 			assert.equal(patterns.filter(pattern => pattern.test(`https://app.bilibili.com${pathname}?v=1`)).length, 1, name);
-		for (const pathname of ["/settings/Enhanced", "/settings/assets/app.mjs", "/configs/Enhanced", "/api/get", "/x/v2/account/mine"])
+		for (const pathname of ["/settings/Enhanced", "/settings/assets/app.mjs", "/configs/Enhanced", "/api/get", "/x/v2/account/mine", "/settings/home.css", "/settings/theme.css"])
 			assert.equal(patterns.some(pattern => pattern.test(`https://app.bilibili.com${pathname}`)), false, name);
 	}
 });

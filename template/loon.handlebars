@@ -16,8 +16,6 @@
 [Rewrite]
 response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$/ then response.body.mock_file("html", "https://biliverse.github.io/settings/", 200) | response.header.set("Cache-Control", "no-store")
 response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/home\.js(?:\?[^#]*)?$/ then response.body.mock_file("javascript", "https://biliverse.github.io/settings/home.js", 200) | response.header.set("Cache-Control", "no-store")
-response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/home\.css(?:\?[^#]*)?$/ then response.body.mock_file("css", "https://biliverse.github.io/settings/home.css", 200) | response.header.set("Cache-Control", "no-store")
-response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/theme\.css(?:\?[^#]*)?$/ then response.body.mock_file("css", "https://biliverse.github.io/settings/theme.css", 200) | response.header.set("Cache-Control", "no-store")
 response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/bilibili\.mjs(?:\?[^#]*)?$/ then response.body.mock_file("javascript", "https://biliverse.github.io/settings/bilibili.mjs", 200) | response.header.set("Cache-Control", "no-store")
 response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/navigation\.mjs(?:\?[^#]*)?$/ then response.body.mock_file("javascript", "https://biliverse.github.io/settings/assets/navigation.mjs", 200) | response.header.set("Cache-Control", "no-store")
 response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/Biliverse_subject_light\.png(?:\?[^#]*)?$/ then response.body.mock_file("png", "https://biliverse.github.io/settings/assets/Biliverse_subject_light.png", 200) | response.header.set("Cache-Control", "no-store")
