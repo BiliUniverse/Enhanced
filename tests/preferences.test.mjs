@@ -33,7 +33,7 @@ test("settings integration installs versioned JSON and the common latest API", a
 		assert.doesNotMatch(template, /Enhanced\.request\.js|PreferencePanes\.request\.js|settings\/assets\/index\.html/);
 		const line = template.split("\n").find(line => line.includes("configs") && line.includes("biliverse"));
 		assert.ok(line, name);
-		const pattern = name.startsWith("shadowrocket") ? line.match(/pattern=([^,]+)/)[1] : name.startsWith("stash") ? line.trim().slice("- match: ".length) : line.split(" ")[0];
+		const pattern = line.startsWith("response if") ? line.match(/~= \/(.+)\/ then/)[1] : name.startsWith("shadowrocket") ? line.match(/pattern=([^,]+)/)[1] : name.startsWith("stash") ? line.trim().slice("- match: ".length) : line.split(" ")[0];
 		const matcher = new RegExp(pattern);
 		assert.ok(matcher.test("https://biliverse.github.io/configs/Enhanced"));
 		assert.ok(matcher.test("https://biliverse.github.io/configs/Enhanced?v=1"));

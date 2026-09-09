@@ -11,3 +11,5 @@ BoxJS 设置字段由现有 arguments-builder 生成，并与本仓库业务脚�
 dev 工作流用一次 Gist API 更新业务脚本、JSON、配置响应和订阅；旧 settings.dev.bundle.js 已完成迁移删除。正式版文件由 Release 工作流一起上传，URL 固定到对应 tag。dev 按现有业务脚本惯例滚动更新；通用 API 独立升级，不和业务配置版本绑定。
 
 App 中的 Biliverse 入口仍由 Enhanced 注入，地址为 [本地设置](https://biliverse.github.io/settings/)。要使用页面保存的值，选择 PersistentStore；业务请求按现有 setENV 读取，缺失设置仍用默认值，空数组保留。完整接入和读写说明见托管仓库的 settings/README.md。
+
+配置探测的响应头 `X-PreferencePanes-Version` 与本次脚本构建版本一致：dev 为 `dev.<commit>`，正式版为发布版本。主页只发送 HEAD，不读取设置。Loon 使用原生 `rewrite_v2` Mock 与响应头动作，需要 Loon 3.5.1 或更新版本。
