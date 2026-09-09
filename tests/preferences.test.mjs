@@ -1,12 +1,18 @@
 import assert from "node:assert/strict";
-import { readFile, readdir } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const config = JSON.parse(await readFile(new URL("../template/boxjs.settings.json", import.meta.url), "utf8"));
 const store = new Map();
 globalThis.$environment = { "surge-version": "preferences-test" };
 globalThis.$argument = { Storage: "Argument", LogLevel: "OFF" };
-globalThis.$persistentStore = { read: key => store.get(key), write: (value, key) => { store.set(key, value); return true; } };
+globalThis.$persistentStore = {
+	read: key => store.get(key),
+	write: (value, key) => {
+		store.set(key, value);
+		return true;
+	},
+};
 const { Request } = await import("../src/process/Request.mjs");
 
 test("BoxJS paths match the persistence consumed by business requests", async () => {
@@ -28,9 +34,11 @@ test("settings integration only installs the BoxJS configuration Mock", async ()
 		const matcher = new RegExp(pattern);
 		assert.ok(matcher.test("https://biliverse.github.io/configs/Enhanced"));
 		assert.ok(matcher.test("https://biliverse.github.io/configs/Enhanced?v=1"));
-		for (const pathname of ["/api/Enhanced/", "/settings/", "/settings/Enhanced", "/configs/Global", "/settings/assets/Enhanced.boxjs.json", "/settings/assets/Enhanced.config.js"])
-			assert.equal(matcher.test(`https://biliverse.github.io${pathname}`), false, name);
-		if (/^(surge|loon)/.test(name)) assert.ok(template.includes("settings/assets/Enhanced.boxjs.json"));
-		else assert.ok(template.includes("settings/assets/Enhanced.config.js"));
+		for (const pathname of ["/api/Enhanced/", "/settings/", "/settings/Enhanced", "/configs/Global", "/settings/assets/Enhanced.boxjs.json", "/settings/assets/Enhanced.config.js"]) assert.equal(matcher.test(`https://biliverse.github.io${pathname}`), false, name);
+		assert.doesNotMatch(template, /biliverse\.github\.io\/settings\/assets\//);
+		const development = name.includes(".dev.");
+		const source = development ? "https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/" : "https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/";
+		const file = /^(surge|loon)/.test(name) ? `BiliBili.Enhanced${development ? ".dev" : ""}.boxjs.json` : `config${development ? ".dev" : ""}.bundle.js`;
+		assert.ok(template.includes(source + file), name);
 	}
 });

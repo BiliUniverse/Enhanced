@@ -59,45 +59,14 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: artifact
-      - name: Deploy Request
-        uses: exuanbo/actions-deploy-gist@main
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: 97d7611df1c0b29a254ce8f527137576
-          gist_description: "📺 BiliBili: ⚙️ Enhanced β"
-          file_path: dist/request.dev.bundle.js
-      - name: Deploy Response
-        uses: exuanbo/actions-deploy-gist@main
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: 97d7611df1c0b29a254ce8f527137576
-          gist_description: "📺 BiliBili: ⚙️ Enhanced β"
-          file_path: dist/response.dev.bundle.js
-      - name: Deploy Surge Module
-        uses: exuanbo/actions-deploy-gist@main
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: 97d7611df1c0b29a254ce8f527137576
-          gist_description: "📺 BiliBili: ⚙️ Enhanced β"
-          file_path: dist/BiliBili.Enhanced.dev.sgmodule
-      - name: Deploy Loon Plugin
-        uses: exuanbo/actions-deploy-gist@main
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: 97d7611df1c0b29a254ce8f527137576
-          gist_description: "📺 BiliBili: ⚙️ Enhanced β"
-          file_path: dist/BiliBili.Enhanced.dev.plugin
-      - name: Deploy Quantumult X Snippet
-        uses: exuanbo/actions-deploy-gist@main
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: 97d7611df1c0b29a254ce8f527137576
-          gist_description: "📺 BiliBili: ⚙️ Enhanced β"
-          file_path: dist/BiliBili.Enhanced.dev.snippet
-      - name: Deploy Stash Override
-        uses: exuanbo/actions-deploy-gist@main
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: 97d7611df1c0b29a254ce8f527137576
-          gist_description: "📺 BiliBili: ⚙️ Enhanced β"
-          file_path: dist/BiliBili.Enhanced.dev.stoverride
+      - name: Publish scripts, configuration and subscriptions together
+        env:
+          GH_TOKEN: ${{ secrets.GIST_TOKEN }}
+        run: |
+          node --input-type=module <<'JS'
+          import { readFile, writeFile } from "node:fs/promises";
+          const names = ["request.dev.bundle.js", "response.dev.bundle.js", "config.dev.bundle.js", "settings.dev.bundle.js", "BiliBili.Enhanced.dev.boxjs.json", "BiliBili.Enhanced.dev.sgmodule", "BiliBili.Enhanced.dev.plugin", "BiliBili.Enhanced.dev.snippet", "BiliBili.Enhanced.dev.stoverride"];
+          const files = Object.fromEntries(await Promise.all(names.map(async name => [name, { content: await readFile(`dist/${name}`, "utf8") }])));
+          await writeFile("gist-update.json", JSON.stringify({ description: "📺 BiliBili: ⚙️ Enhanced β", files }));
+          JS
+          gh api --method PATCH gists/97d7611df1c0b29a254ce8f527137576 --input gist-update.json --silent
