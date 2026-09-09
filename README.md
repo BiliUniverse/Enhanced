@@ -13,3 +13,5 @@ dev 工作流用一次 Gist API 更新业务脚本、JSON、配置响应和订�
 App 中的 Biliverse 入口仍由 Enhanced 注入，地址为 [本地设置](https://biliverse.github.io/settings/)。要使用页面保存的值，选择 PersistentStore；业务请求按现有 setENV 读取，缺失设置仍用默认值，空数组保留。完整接入和读写说明见托管仓库的 settings/README.md。
 
 配置探测的响应头 `X-PreferencePanes-Version` 与本次脚本构建版本一致：dev 为 `dev.<commit>`，正式版为发布版本。主页只发送 HEAD，不读取设置。Loon 使用原生 `rewrite_v2` Mock 与响应头动作，需要 Loon 3.5.1 或更新版本。
+
+设置请求同时匹配 `biliverse.github.io` 与 `app.bilibili.com` 的 `/configs/Enhanced` 和 PreferencePanes 通用路径。官方域名仅作为本机代理映射地址，配置仍由本模块的同版 Gist / Release 提供。主页面与公共静态资源映射仅由 Enhanced 安装，其他模块不管理主入口。

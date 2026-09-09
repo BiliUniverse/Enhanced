@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { addSettingsEntry } from "../src/function/settingsEntry.mjs";
 
-const uri = "https://biliverse.github.io/settings/?navhide=1";
+const uri = "https://app.bilibili.com/settings/?navhide=1";
 test("migrates old entries to the native-navigation-free URL", () => {
 	const data = { sections_v2: [{ title: "推荐服务", items: [{ uri: "https://biliverse.github.io/settings/" }] }] };
 	addSettingsEntry(data);
