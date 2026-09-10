@@ -29,7 +29,7 @@ export function addSettingsEntry(data, ipad = false) {
 	items.unshift({
 			id: 129515498,
 			title: "Biliverse",
-			icon: "https://biliverse.github.io/settings/assets/Biliverse_subject_light.png",
+			icon: "https://biliverse.github.io/settings/assets/Biliverse_subject.png",
 			uri,
 			common_op_item: {},
 	});

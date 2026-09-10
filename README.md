@@ -14,4 +14,4 @@ App 中的 Biliverse 入口仍由 Enhanced 注入，地址为 [本地设置](htt
 
 配置探测的响应头 `X-PreferencePanes-Version` 与本次脚本构建版本一致：dev 为 `dev.<commit>`，正式版为发布版本。主页只发送 HEAD，不读取设置。Loon 使用原生 `rewrite_v2` Mock 与响应头动作，需要 Loon 3.5.1 或更新版本。
 
-设置请求同时匹配 `biliverse.github.io` 与 `app.bilibili.com` 的 `/configs/Enhanced` 和 PreferencePanes 通用路径。官方域名仅作为本机代理映射地址，配置仍由本模块的同版 Gist / Release 提供。Enhanced 只映射声明式主页及图标素材；导航、探测、版本状态和模块页面均由 PreferencePanes API 处理。
+设置请求同时匹配 `biliverse.github.io` 与 `app.bilibili.com` 的 `/configs/Enhanced` 和 PreferencePanes 通用路径。官方域名仅作为本机代理映射地址，配置仍由本模块的同版 Gist / Release 提供。Enhanced 只映射声明式主页及五张透明前景图标；导航、主题、探测、版本状态和模块页面均由官方资源与 PreferencePanes API 处理。

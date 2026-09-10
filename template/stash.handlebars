@@ -20,7 +20,7 @@ http:
     - "app.bilibili.com"
     - "app.biliapi.net"
   script:
-    - match: ^https:\/\/app\.bilibili\.com\/settings\/(?:assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject_(?:light|dark)\.png)?(?:\?[^#]*)?$
+    - match: ^https:\/\/app\.bilibili\.com\/settings\/(?:assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject\.png)?(?:\?[^#]*)?$
       name: Biliverse.Website
       type: request
       require-body: false
