@@ -61,3 +61,25 @@ test("Tab endpoint uses request scripts in every platform template", () => {
 		assert.doesNotMatch(block, /response\.bundle|response\.dev\.bundle|script-response-body|http-response|type: response/);
 	}
 });
+
+test("Surge dev captures Mixture shortcut gRPC request and response bodies", () => {
+	const template = readFileSync(new URL("../template/surge.dev.handlebars", import.meta.url), "utf8");
+	const mixtureLines = template.split("\n").filter(line => line.includes("show.v1.Mixture"));
+
+	assert.equal(mixtureLines.length, 2);
+	assert.ok(mixtureLines.some(line => line.includes("type=http-request") && line.includes("request.dev.bundle.js")));
+	assert.ok(mixtureLines.some(line => line.includes("type=http-response") && line.includes("response.dev.bundle.js")));
+	for (const line of mixtureLines) {
+		assert.ok(line.includes("Mixture\\/(RegionList|RegionShortcut)$"));
+		assert.match(line, /requires-body=1/);
+		assert.match(line, /binary-body-mode=1/);
+		assert.match(line, /engine=webview/);
+	}
+	assert.match(template, /hostname = .*grpc\.biliapi\.net/);
+
+	for (const script of ["Request.dev.mjs", "Response.dev.mjs"]) {
+		const content = readFileSync(new URL(`../src/process/${script}`, import.meta.url), "utf8");
+		assert.match(content, /case "\/bilibili\.app\.show\.v1\.Mixture\/RegionList"/);
+		assert.match(content, /case "\/bilibili\.app\.show\.v1\.Mixture\/RegionShortcut"/);
+	}
+});

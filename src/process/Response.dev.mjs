@@ -231,6 +231,17 @@ export async function Response($request, $response) {
 			const rawBody = $app === "Quantumult X" ? new Uint8Array($response.bodyBytes ?? []) : ($response.body ?? new Uint8Array());
 			//Console.debug(`isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`);
 			/******************  initialization start  *******************/
+			switch (url.hostname) {
+				case "grpc.biliapi.net":
+				case "app.biliapi.net":
+				case "app.bilibili.com":
+					switch (url.pathname) {
+						case "/bilibili.app.show.v1.Mixture/RegionList": // 获取分区与快捷访问
+						case "/bilibili.app.show.v1.Mixture/RegionShortcut": // 保存快捷访问
+							break;
+					}
+					break;
+			}
 			/******************  initialization finish  *******************/
 			// 写入二进制数据
 			$response.body = rawBody;

@@ -25,9 +25,13 @@ export async function Request($request) {
 		default:
 			// 主机判断
 			switch (url.hostname) {
+				case "grpc.biliapi.net":
 				case "app.bilibili.com":
 				case "app.biliapi.net":
 					switch (url.pathname) {
+						case "/bilibili.app.show.v1.Mixture/RegionList": // 获取分区与快捷访问
+						case "/bilibili.app.show.v1.Mixture/RegionShortcut": // 保存快捷访问
+							break;
 						case "/x/resource/show/tab/v2": {
 							// 首页-Tab
 							if (!Settings.Home?.Switch) break;
