@@ -1,4 +1,7 @@
 const baseUri = "https://app.bilibili.com/settings/";
+// iOS 的 web/general 路由直接创建 common WebView，url 参数保存页面的真实地址。
+// The iOS web/general route creates the common WebView directly; url retains the actual page address.
+const uri = `bilibili://web/general?url=${encodeURIComponent(baseUri)}`;
 
 export function addSettingsEntry(data, ipad = false) {
 	const groups = ipad
@@ -7,7 +10,7 @@ export function addSettingsEntry(data, ipad = false) {
 	for (const items of groups) {
 		if (!Array.isArray(items)) continue;
 		for (let index = items.length - 1; index >= 0; index--) {
-			if (items[index].id === 129515498 || [baseUri, "https://biliverse.github.io/settings/"].includes(items[index].uri?.split(/[?#]/)[0])) items.splice(index, 1);
+			if (items[index].id === 129515498 || items[index].uri === uri || [baseUri, "https://biliverse.github.io/settings/"].includes(items[index].uri?.split(/[?#]/)[0])) items.splice(index, 1);
 		}
 	}
 	let items;
@@ -27,7 +30,7 @@ export function addSettingsEntry(data, ipad = false) {
 			id: 129515498,
 			title: "Biliverse",
 			icon: "https://biliverse.github.io/settings/assets/Biliverse_subject_light.png",
-			uri: baseUri,
+			uri,
 			common_op_item: {},
 	});
 }

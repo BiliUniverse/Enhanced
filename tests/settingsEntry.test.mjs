@@ -2,12 +2,16 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { addSettingsEntry } from "../src/function/settingsEntry.mjs";
 
-const uri = "https://app.bilibili.com/settings/";
-test("migrates old entries to the native navigation URL", () => {
+const uri = "bilibili://web/general?url=https%3A%2F%2Fapp.bilibili.com%2Fsettings%2F";
+test("migrates old entries to the explicit iOS common container route", () => {
 	const data = { sections_v2: [{ title: "推荐服务", items: [{ uri: "https://biliverse.github.io/settings/" }, { uri: "https://app.bilibili.com/settings/?navhide=1" }] }] };
 	addSettingsEntry(data);
 	assert.equal(data.sections_v2[0].items.length, 1);
 	assert.equal(data.sections_v2[0].items[0].uri, uri);
+	const entry = new URL(data.sections_v2[0].items[0].uri);
+	assert.equal(entry.host + entry.pathname, "web/general");
+	assert.equal(entry.searchParams.get("url"), "https://app.bilibili.com/settings/");
+	assert.deepEqual([...entry.searchParams.keys()], ["url"]);
 });
 test("moves the existing entry to recommended services without changing the shortcut row", () => {
 	const shortcuts = [{ id: 396 }, { id: 397 }, { id: 398 }, { id: 399 }];
@@ -34,4 +38,13 @@ test("iPad moves the entry from more services into its recommended list", () => 
 	assert.deepEqual(data.ipad_more_sections, []);
 	assert.equal(data.ipad_recommend_sections.length, 2);
 	assert.equal(data.ipad_recommend_sections[0].uri, uri);
+});
+
+test("leaves other common-container entries intact", () => {
+	const other = { uri: "bilibili://web/general?url=https%3A%2F%2Fwww.bilibili.com%2Fh5%2Fcustomer-service" };
+	const data = { sections_v2: [{ title: "推荐服务", items: [other] }] };
+	addSettingsEntry(data);
+	addSettingsEntry(data);
+	assert.deepEqual(data.sections_v2[0].items[1], other);
+	assert.equal(data.sections_v2[0].items.length, 2);
 });
