@@ -9,8 +9,8 @@
 #!version = {{version}}
 
 #[rewrite_local]
-^https:\/\/app\.bilibili\.com\/settings\/(?:assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject\.png)?(?:\?[^#]*)?$ url script-echo-response https://biliverse.github.io/settings/mock.js
-^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/(?:api\/(?:get|set|delete)|settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/(?:app|host)\.mjs))(?:\?.*)?$ url script-echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
+^https:\/\/app\.bilibili\.com\/settings\/(?:index\.mjs|assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject\.png)?(?:\?[^#]*)?$ url script-echo-response https://biliverse.github.io/settings/mock.js
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/(?:api\/(?:get|set|delete)|settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/(?:app|navigation)\.mjs))(?:\?.*)?$ url script-echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
 # Biliverse 本地设置
 ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/configs\/Enhanced(?:\?.*)?$ url script-echo-response https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/config.dev.bundle.js
 ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? url script-echo-response https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/request.dev.bundle.js
