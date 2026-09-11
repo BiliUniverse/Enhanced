@@ -238,10 +238,6 @@ export const args: ArgumentItem[] = [
 				label: "首页",
 			},
 			{
-				key: "channel",
-				label: "频道",
-			},
-			{
 				key: "dynamic",
 				label: "动态",
 			},

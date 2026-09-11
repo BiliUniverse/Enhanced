@@ -111,7 +111,6 @@ export interface Settings {
      *
      * Possible values:
      * - `'home'` - 首页
-     * - `'channel'` - 频道
      * - `'dynamic'` - 动态
      * - `'publish'` - 发布
      * - `'ogv'` - 节目（港澳台）
@@ -121,7 +120,7 @@ export interface Settings {
      *
      * @defaultValue ["home","dynamic","ogv","mall","mine"]
      */
-    Bottom?: ('home' | 'channel' | 'dynamic' | 'publish' | 'ogv' | 'mall' | 'messages' | 'mine')[];
+    Bottom?: ('home' | 'dynamic' | 'publish' | 'ogv' | 'mall' | 'messages' | 'mine')[];
     Region?: {
     /**
          * [分区] 启用此标签页自定义功能
