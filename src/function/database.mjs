@@ -72,7 +72,7 @@ export default {
 					},
 					{
 						title: "港澳台分区/服务",
-						ids: ["774", "801"],
+						ids: ["774", "801", "884", "1028"],
 					},
 					{
 						title: "全部分区",
@@ -450,6 +450,20 @@ export default {
 						url: "bilibili://following/home_activity_tab/95636",
 						rid: "801",
 						tab_id: "koreavtw",
+					},
+					884: {
+						img: "http://i0.hdslb.com/bfs/archive/f90bb1ef59630ad9765486c6088a4944b96e88a3.png",
+						title: "节目",
+						url: "bilibili://following/home_bottom_tab_activity_tab/168312",
+						rid: "884",
+						tab_id: "ogv",
+					},
+					1028: {
+						img: "http://i0.hdslb.com/bfs/feed-admin/569a9178aa707f2f2494e34bb6eb1d9d14bd9a7b.png",
+						title: "我的NFT",
+						url: "https://www.bilibili.com/h5/pangu/gat?navhide=1",
+						rid: "1028",
+						tab_id: "1028",
 					},
 					861: {
 						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",

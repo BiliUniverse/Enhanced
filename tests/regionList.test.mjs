@@ -29,8 +29,8 @@ test("RegionList config contains the captured entries and every custom tab", () 
 		RegionList.groups.map(group => group.title),
 		["推荐分区/服务", "港澳台分区/服务", "全部分区"],
 	);
-	assert.deepEqual(RegionList.groups.find(group => group.title === "港澳台分区/服务").ids, ["774", "801"]);
-	assert.equal(regionIds.length, 60);
+	assert.deepEqual(RegionList.groups.find(group => group.title === "港澳台分区/服务").ids, ["774", "801", "884", "1028"]);
+	assert.equal(regionIds.length, 62);
 	assert.equal(uniqueIds.size, regionIds.length);
 	assert.equal(Object.keys(RegionList.items).length, regionIds.length);
 	for (const uniqueId of regionIds) {
@@ -42,6 +42,8 @@ test("RegionList config contains the captured entries and every custom tab", () 
 	assert.deepEqual(RegionList.defaultShortcut, ["2036", "2037", "780", "545", "774", "151", "801"]);
 	assert.equal(RegionList.items["774"].title, "动画（港澳台）");
 	assert.equal(RegionList.items["801"].title, "韩综（港澳台）");
+	assert.deepEqual({ title: RegionList.items["884"].title, url: RegionList.items["884"].url, tab_id: RegionList.items["884"].tab_id }, { title: "节目", url: "bilibili://following/home_bottom_tab_activity_tab/168312", tab_id: "ogv" });
+	assert.deepEqual({ title: RegionList.items["1028"].title, url: RegionList.items["1028"].url, tab_id: RegionList.items["1028"].tab_id }, { title: "我的NFT", url: "https://www.bilibili.com/h5/pangu/gat?navhide=1", tab_id: "1028" });
 });
 
 test("RegionList response keeps online entries and applies the configured section order", async () => {
@@ -70,11 +72,13 @@ test("RegionList response keeps online entries and applies the configured sectio
 		result.contents.map(content => content.title),
 		["推荐分区/服务", "港澳台分区/服务", "全部分区"],
 	);
-	assert.equal(icons.length, 60);
+	assert.equal(icons.length, 62);
 	assert.equal(icons.filter(icon => icon.uniqueId === "13").length, 1);
 	assert.equal(icons.find(icon => icon.uniqueId === "13").url, "bilibili://online");
 	assert.ok(icons.some(icon => icon.uniqueId === "774" && icon.title === "动画（港澳台）"));
 	assert.ok(icons.some(icon => icon.uniqueId === "801" && icon.title === "韩综（港澳台）"));
+	assert.ok(icons.some(icon => icon.uniqueId === "884" && icon.title === "节目"));
+	assert.ok(icons.some(icon => icon.uniqueId === "1028" && icon.title === "我的NFT"));
 });
 
 test("empty RegionList shortcut uses the Enhanced default tabs", async () => {
@@ -106,7 +110,7 @@ test("RegionShortcut updates the cached order used to build home tabs", async ()
 		{
 			url: "https://app.bilibili.com/bilibili.app.show.v1.Mixture/RegionShortcut",
 			headers: { "User-Agent": "bili-inter/1" },
-			body: gRPC.encode(RegionShortcutReq.toBinary({ uniqueId: ["801", "774", "65552"] })),
+			body: gRPC.encode(RegionShortcutReq.toBinary({ uniqueId: ["1028", "884", "801", "774", "65552"] })),
 		},
 		{
 			headers: { "Content-Type": "application/grpc" },
@@ -116,18 +120,18 @@ test("RegionShortcut updates the cached order used to build home tabs", async ()
 	const response = await Response({ url: "https://app.bilibili.com/x/resource/show/tab/v2", headers: {} }, { headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 0, data: {} }) });
 	const tabs = JSON.parse(response.body).data.tab;
 
-	assert.deepEqual(Storage.getItem("@BiliBili.Enhanced.Caches", {}).Tab, ["801", "774", "65552"]);
+	assert.deepEqual(Storage.getItem("@BiliBili.Enhanced.Caches", {}).Tab, ["1028", "884", "801", "774", "65552"]);
 	assert.deepEqual(
 		tabs.map(tab => tab.id),
-		[801, 774, 65552],
+		[1028, 884, 801, 774, 65552],
 	);
 	assert.deepEqual(
 		tabs.map(tab => tab.name),
-		["韩综（港澳台）", "动画（港澳台）", "全区排行榜"],
+		["我的NFT", "节目", "韩综（港澳台）", "动画（港澳台）", "全区排行榜"],
 	);
 	assert.deepEqual(
 		tabs.map(tab => tab.pos),
-		[1, 2, 3],
+		[1, 2, 3, 4, 5],
 	);
 });
 
