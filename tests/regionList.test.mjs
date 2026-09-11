@@ -25,6 +25,11 @@ test("RegionList config contains the captured entries and every custom tab", () 
 	const uniqueIds = new Set(regionIds);
 
 	assert.equal(RegionList.groups.length, 3);
+	assert.deepEqual(
+		RegionList.groups.map(group => group.title),
+		["推荐分区/服务", "港澳台分区/服务", "全部分区"],
+	);
+	assert.deepEqual(RegionList.groups.find(group => group.title === "港澳台分区/服务").ids, ["774", "801"]);
 	assert.equal(regionIds.length, 60);
 	assert.equal(uniqueIds.size, regionIds.length);
 	assert.equal(Object.keys(RegionList.items).length, regionIds.length);
@@ -39,7 +44,7 @@ test("RegionList config contains the captured entries and every custom tab", () 
 	assert.equal(RegionList.items["801"].title, "韩综（港澳台）");
 });
 
-test("RegionList response keeps online entries and appends missing local entries", async () => {
+test("RegionList response keeps online entries and applies the configured section order", async () => {
 	const online = RegionListReply.create({
 		contents: [
 			{
@@ -61,6 +66,10 @@ test("RegionList response keeps online entries and appends missing local entries
 	const result = RegionListReply.fromBinary(gRPC.decode(response.body));
 	const icons = result.contents.flatMap(content => content.icons);
 
+	assert.deepEqual(
+		result.contents.map(content => content.title),
+		["推荐分区/服务", "港澳台分区/服务", "全部分区"],
+	);
 	assert.equal(icons.length, 60);
 	assert.equal(icons.filter(icon => icon.uniqueId === "13").length, 1);
 	assert.equal(icons.find(icon => icon.uniqueId === "13").url, "bilibili://online");

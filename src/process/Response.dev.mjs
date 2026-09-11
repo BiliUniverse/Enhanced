@@ -289,12 +289,10 @@ function mergeRegionList(onlineContents, localRegionList) {
 			content.icons.push({ img: item.img, title: item.title, url: item.url, uniqueId, rid: item.rid });
 			uniqueIds.add(uniqueId);
 		}
-		if (!groups.has(group.title)) {
-			contents.push(content);
-			groups.set(group.title, content);
-		}
+		groups.set(group.title, content);
 	}
-	return contents;
+	const configuredTitles = new Set(localRegionList.groups.map(group => group.title));
+	return [...localRegionList.groups.map(group => groups.get(group.title)), ...contents.filter(content => !configuredTitles.has(content.title))];
 }
 
 function getDefaultShortcutIds(configs) {
