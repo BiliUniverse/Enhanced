@@ -61,11 +61,11 @@ test("returns a fully local Tab response during request processing", async () =>
 	assert.equal(body.config.tab_simplify, false);
 	assert.deepEqual(
 		body.data.tab.map(item => item.id),
-		["live", "recommend", "hottopic", "bangumi", "anime", "film", "koreavtw"],
+		[2036, 2037, 780, 545, 774, 151, 801],
 	);
 	assert.deepEqual(
 		body.data.bottom.map(item => item.id),
 		["home", "dynamic", "ogv", "mall", "mine"],
 	);
-	assert.ok(body.data.tab.every(item => typeof item.id === "string"));
+	assert.ok(body.data.tab.every(item => typeof item.id === "number"));
 });

@@ -1,7 +1,9 @@
+import gRPC from "@nsnanocat/grpc";
 import { URL } from "@nsnanocat/url";
-import { Console } from "@nsnanocat/util";
+import { $app, Console, Storage } from "@nsnanocat/util";
 import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
+import { RegionShortcutReq } from "../protobuf/bilibili/app/show/v1/mixture.js";
 /***************** Processing *****************/
 export async function Request($request) {
 	let $response;
@@ -15,7 +17,7 @@ export async function Request($request) {
 	 * 设置
 	 * @type {{Settings: import('../types').Settings}}
 	 */
-	const { Settings, Configs } = setENV("BiliBili", "Enhanced", database);
+	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", database);
 	Console.logLevel = Settings.LogLevel;
 	// 方法判断
 	switch ($request.method) {
@@ -28,6 +30,16 @@ export async function Request($request) {
 				case "app.bilibili.com":
 				case "app.biliapi.net":
 					switch (url.pathname) {
+						case "/bilibili.app.show.v1.Mixture/RegionShortcut": {
+							const rawBody = $app === "Quantumult X" ? new Uint8Array($request.bodyBytes ?? []) : ($request.body ?? new Uint8Array());
+							const request = RegionShortcutReq.fromBinary(gRPC.decode(rawBody));
+							const shortcutIds = request.uniqueId.length ? request.uniqueId : Configs.RegionList.defaultShortcut;
+							saveShortcutCache(
+								Caches,
+								shortcutIds.filter(uniqueId => Configs.RegionList.items[uniqueId]),
+							);
+							break;
+						}
 						case "/x/resource/show/tab/v2": {
 							// 首页-Tab
 							if (!Settings.Home?.Switch) break;
@@ -54,16 +66,7 @@ export async function Request($request) {
 								.filter(Boolean)
 								.map((e, i) => ({ ...e, pos: i + 1 }));
 							// 标签栏
-							body.data.tab = Configs.Tab.tab
-								.map(e => {
-									if (Settings.Home.Tab.includes(e.id)) return e;
-								})
-								.filter(Boolean)
-								.map((e, i) => {
-									const tab = { ...e, pos: i + 1 };
-									if (Settings.Home.Tab_default === e.id) tab.default_selected = 1;
-									return tab;
-								});
+							body.data.tab = buildTabs(Configs.RegionList.defaultShortcut, Configs.RegionList, Settings.Home.Tab_default);
 							// 底部导航栏
 							body.data.bottom = Configs.Tab.bottom
 								.map(e => {
@@ -83,4 +86,19 @@ export async function Request($request) {
 			break;
 	}
 	return { $request, $response };
+}
+
+function saveShortcutCache(caches, uniqueIds) {
+	caches.Tab = uniqueIds;
+	Storage.setItem("@BiliBili.Enhanced.Caches", caches);
+}
+
+function buildTabs(uniqueIds, regionList, defaultTab) {
+	return uniqueIds.map((uniqueId, index) => {
+		const item = regionList.items[uniqueId];
+		const tab = { id: Number(uniqueId), name: item.title, uri: item.url, tab_id: item.tab_id, pos: index + 1 };
+		if (item.color) tab.color = item.color;
+		if (uniqueId === defaultTab) tab.default_selected = 1;
+		return tab;
+	});
 }

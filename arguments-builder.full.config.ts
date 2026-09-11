@@ -38,131 +38,69 @@ export const output = {
 export const args: ArgumentItem[] = [
 	{
 		key: "Home.Switch",
-		name: "[首页] 启用此标签页自定义功能",
+		name: "[首页] 启用自定义功能",
 		type: "boolean",
 		defaultValue: true,
-		description: "启用后可自定义首页标签页、顶栏按钮等内容。",
-	},
-	{
-		key: "Home.Tab",
-		name: "[首页] 标签页",
-		defaultValue: ["live", "recommend", "hottopic", "bangumi", "anime", "film", "koreavtw"],
-		type: "array",
-		boxJsType: "checkboxes",
-		description: "请选择启用的首页标签页，建议不超过7个。",
-		options: [
-			{
-				key: "live",
-				label: "直播",
-			},
-			{
-				key: "recommend",
-				label: "推荐",
-			},
-			{
-				key: "hottopic",
-				label: "热门",
-			},
-			{
-				key: "bangumi",
-				label: "番剧",
-			},
-			{
-				key: "anime",
-				label: "动画（港澳台）",
-			},
-			{
-				key: "film",
-				label: "影视",
-			},
-			{
-				key: "koreavtw",
-				label: "韩综（港澳台）",
-			},
-			{
-				key: "game",
-				label: "游戏",
-			},
-			{
-				key: "minecraft",
-				label: "minecraft",
-			},
-			{
-				key: "anime_fan",
-				label: "动画同人",
-			},
-			{
-				key: "funny",
-				label: "搞笑",
-			},
-			{
-				key: "school",
-				label: "校园",
-			},
-			{
-				key: "digital",
-				label: "数码",
-			},
-		],
+		description: "启用后可自定义首页顶栏、标签页和底部导航栏内容。标签页由分区页的快捷访问决定。",
 	},
 	{
 		key: "Home.Tab_default",
 		name: "[首页] 默认标签页",
-		defaultValue: "recommend",
+		defaultValue: "2037",
 		type: "string",
 		boxJsType: "selects",
-		description: "请选择启动APP时默认展示的标签页，需选择已启用的标签页。",
+		description: "请选择启动APP时默认展示的标签页，需先将该标签页加入分区页的快捷访问。",
 		options: [
 			{
-				key: "live",
+				key: "2036",
 				label: "直播",
 			},
 			{
-				key: "recommend",
+				key: "2037",
 				label: "推荐",
 			},
 			{
-				key: "hottopic",
+				key: "780",
 				label: "热门",
 			},
 			{
-				key: "bangumi",
+				key: "545",
 				label: "番剧",
 			},
 			{
-				key: "anime",
+				key: "774",
 				label: "动画（港澳台）",
 			},
 			{
-				key: "film",
+				key: "151",
 				label: "影视",
 			},
 			{
-				key: "koreavtw",
+				key: "801",
 				label: "韩综（港澳台）",
 			},
 			{
-				key: "game",
+				key: "861",
 				label: "游戏",
 			},
 			{
-				key: "minecraft",
+				key: "843",
 				label: "minecraft",
 			},
 			{
-				key: "anime_fan",
+				key: "1229",
 				label: "动画同人",
 			},
 			{
-				key: "funny",
+				key: "1405",
 				label: "搞笑",
 			},
 			{
-				key: "school",
+				key: "2280",
 				label: "校园",
 			},
 			{
-				key: "digital",
+				key: "1716",
 				label: "数码",
 			},
 		],

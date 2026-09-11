@@ -19,6 +19,7 @@ http:
     - "biliverse.github.io"
     - "app.bilibili.com"
     - "app.biliapi.net"
+    - "grpc.biliapi.net"
   script:
     - match: ^https:\/\/app\.bilibili\.com\/settings\/(?:index\.mjs|assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject\.png)?(?:\?[^#]*)?$
       name: Biliverse.Website
@@ -34,9 +35,19 @@ http:
       type: request
       require-body: false
     - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\?
+      name: 📺 BiliBili.Enhanced.response
+      type: response
+      require-body: true
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionShortcut$
       name: 📺 BiliBili.Enhanced.request
       type: request
-      require-body: false
+      require-body: true
+      binary-mode: true
+    - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/(RegionList|RegionShortcut)$
+      name: 📺 BiliBili.Enhanced.response
+      type: response
+      require-body: true
+      binary-mode: true
     - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\?
       name: 📺 BiliBili.Enhanced.response
       type: response

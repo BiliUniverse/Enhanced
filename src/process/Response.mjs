@@ -1,11 +1,11 @@
-import { addSettingsEntry } from "../function/settingsEntry.mjs";
-import fixHeaders from "../function/fixHeaders.mjs";
 import gRPC from "@nsnanocat/grpc";
 import { URL } from "@nsnanocat/url";
-import { $app, Console } from "@nsnanocat/util";
+import { $app, Console, Storage } from "@nsnanocat/util";
 import database from "../function/database.mjs";
+import fixHeaders from "../function/fixHeaders.mjs";
 import setENV from "../function/setENV.mjs";
-import { RegionListReply } from "../protobuf/bilibili/app/show/v1/mixture.js";
+import { addSettingsEntry } from "../function/settingsEntry.mjs";
+import { RegionListReply, RegionShortcutReq } from "../protobuf/bilibili/app/show/v1/mixture.js";
 /***************** Processing *****************/
 export async function Response($request, $response) {
 	// 解构URL
@@ -21,7 +21,7 @@ export async function Response($request, $response) {
 	 * 设置
 	 * @type {{Settings: import('../types').Settings}}
 	 */
-	const { Settings, Configs } = setENV("BiliBili", "Enhanced", database);
+	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", database);
 	Console.logLevel = Settings.LogLevel;
 	// 创建空数据
 	let body = { code: 0, message: "0", data: {} };
@@ -73,16 +73,8 @@ export async function Response($request, $response) {
 									return e;
 								});
 							// 标签栏
-							body.data.tab = Configs.Tab.tab
-								.map(e => {
-									if (Settings.Home.Tab.includes(e.tab_id)) return e;
-								})
-								.filter(Boolean)
-								.map((e, i) => {
-									if (Settings.Home.Tab_default === e.tab_id) e.default_selected = 1;
-									e.pos = i + 1;
-									return e;
-								});
+							if (!Caches.Tab) saveShortcutCache(Caches, getDefaultShortcutIds(Configs));
+							body.data.tab = buildTabs(Caches.Tab, Configs.RegionList, Settings.Home.Tab_default);
 							// 底部导航栏
 							body.data.bottom = Configs.Tab.bottom
 								.map(e => {
@@ -213,11 +205,30 @@ export async function Response($request, $response) {
 						case "app.biliapi.net":
 						case "app.bilibili.com":
 							switch (url.pathname) {
-								case "/bilibili.app.show.v1.Mixture/RegionList":
+								case "/bilibili.app.show.v1.Mixture/RegionList": {
 									body = RegionListReply.fromBinary(rawBody);
 									body.contents = mergeRegionList(body.contents, Configs.RegionList);
+									const serverIds = body.shortcut?.icons.map(icon => icon.uniqueId) ?? [];
+									const shortcutIds = serverIds.length ? serverIds : (Caches.Tab ?? getDefaultShortcutIds(Configs));
+									const shortcutIcons = getRegionIcons(shortcutIds, body.contents);
+									body.shortcut = { title: body.shortcut?.title ?? "快捷访问", icons: shortcutIcons };
+									saveShortcutCache(
+										Caches,
+										shortcutIcons.map(icon => icon.uniqueId),
+									);
 									rawBody = RegionListReply.toBinary(body);
 									break;
+								}
+								case "/bilibili.app.show.v1.Mixture/RegionShortcut": {
+									const requestBody = $request.body instanceof ArrayBuffer ? new Uint8Array($request.body) : ($request.body ?? new Uint8Array());
+									const request = RegionShortcutReq.fromBinary(gRPC.decode(requestBody));
+									const shortcutIds = request.uniqueId.length ? request.uniqueId : getDefaultShortcutIds(Configs);
+									saveShortcutCache(
+										Caches,
+										shortcutIds.filter(uniqueId => Configs.RegionList.items[uniqueId]),
+									);
+									break;
+								}
 							}
 							break;
 					}
@@ -232,21 +243,59 @@ export async function Response($request, $response) {
 	return $response;
 }
 
-function mergeRegionList(onlineContents, localContents) {
+function mergeRegionList(onlineContents, localRegionList) {
 	const contents = onlineContents.map(content => ({ ...content, icons: [...content.icons] }));
 	const groups = new Map(contents.map(content => [content.title, content]));
 	const uniqueIds = new Set(contents.flatMap(content => content.icons.map(icon => icon.uniqueId)));
-	for (const localContent of localContents) {
-		const content = groups.get(localContent.title) ?? { title: localContent.title, icons: [] };
-		for (const icon of localContent.icons) {
-			if (uniqueIds.has(icon.uniqueId)) continue;
-			content.icons.push(icon);
-			uniqueIds.add(icon.uniqueId);
+	for (const group of localRegionList.groups) {
+		const content = groups.get(group.title) ?? { title: group.title, icons: [] };
+		for (const uniqueId of group.ids) {
+			if (uniqueIds.has(uniqueId)) continue;
+			const item = localRegionList.items[uniqueId];
+			content.icons.push({ img: item.img, title: item.title, url: item.url, uniqueId, rid: item.rid });
+			uniqueIds.add(uniqueId);
 		}
-		if (!groups.has(localContent.title)) {
+		if (!groups.has(group.title)) {
 			contents.push(content);
-			groups.set(localContent.title, content);
+			groups.set(group.title, content);
 		}
 	}
 	return contents;
+}
+
+function getDefaultShortcutIds(configs) {
+	return configs.RegionList.defaultShortcut;
+}
+
+function getRegionIcons(uniqueIds, contents) {
+	return uniqueIds
+		.map(uniqueId => {
+			for (const content of contents) {
+				const icon = content.icons.find(icon => icon.uniqueId === uniqueId);
+				if (icon) return icon;
+			}
+		})
+		.filter(Boolean);
+}
+
+function saveShortcutCache(caches, uniqueIds) {
+	caches.Tab = uniqueIds;
+	Storage.setItem("@BiliBili.Enhanced.Caches", caches);
+}
+
+function buildTabs(uniqueIds, regionList, defaultTab) {
+	return uniqueIds
+		.map(uniqueId => {
+			const item = regionList.items[uniqueId];
+			if (!item) return;
+			const tab = { id: Number(uniqueId), name: item.title, uri: item.url, tab_id: item.tab_id };
+			if (item.color) tab.color = item.color;
+			if (uniqueId === defaultTab) tab.default_selected = 1;
+			return tab;
+		})
+		.filter(Boolean)
+		.map((tab, index) => {
+			tab.pos = index + 1;
+			return tab;
+		});
 }

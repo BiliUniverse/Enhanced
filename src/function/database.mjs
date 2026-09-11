@@ -6,8 +6,7 @@ export default {
 				Top_left: "mine",
 				Top: ["messages"],
 				Top_more: ["categories", "search"],
-				Tab: ["live", "recommend", "hottopic", "bangumi", "anime", "film", "koreavtw"],
-				Tab_default: "bangumi",
+				Tab_default: "545",
 			},
 			Bottom: ["home", "dynamic", "ogv", "mall", "mine"],
 			Mine: {
@@ -64,443 +63,446 @@ export default {
 			},
 		},
 		Configs: {
-			RegionList: [
-				{
-					"title": "全部分区",
-					"icons": [
-						{
-							"img": "https://i0.hdslb.com/bfs/app/3c2f00abc8c6272effd4d7039d344b4c55336d65.png",
-							"title": "番剧",
-							"url": "bilibili://pgc/partition_page?page_name=bangumi-operation&title=%E7%95%AA%E5%89%A7&select_id=1",
-							"uniqueId": "13",
-							"rid": "13"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/d78adc96c54bf604dacbf48dddaab8b28c60c350.png",
-							"title": "国创",
-							"url": "bilibili://pgc/partition_page?page_name=gc-operation&title=%E5%9B%BD%E5%88%9B&select_id=1",
-							"uniqueId": "167",
-							"rid": "167"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/2a718a470e72a63f1751dfd65a21586fd7f3fa1b.png",
-							"title": "纪录片",
-							"url": "bilibili://pgc/partition_page?page_name=documentary-operation&title=%E7%BA%AA%E5%BD%95%E7%89%87&select_id=1",
-							"uniqueId": "177",
-							"rid": "177"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/bc37217c3e1fb340c354622f7982b1fd5fd4c3a4.png",
-							"title": "电影",
-							"url": "bilibili://pgc/page/operation_list?page_id=movie-operation&title=%E7%94%B5%E5%BD%B1",
-							"uniqueId": "23",
-							"rid": "23"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/0f657fc9754b0af3b300523597b376a0c59f9df7.png",
-							"title": "电视剧",
-							"url": "bilibili://pgc/partition_page?page_name=tv-operation&title=%E7%94%B5%E8%A7%86%E5%89%A7&select_id=1",
-							"uniqueId": "11",
-							"rid": "11"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/616d1ac7ed04973eb0a2ee2621f2aaa9957b486f.png",
-							"title": "放映厅",
-							"url": "bilibili://pgc/cinema",
-							"uniqueId": "65545",
-							"rid": "65545"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/efa9bb08dda98aef6799dcde63a3fad14c27da5c.png",
-							"title": "影视",
-							"url": "bilibili://main/regionv2/detail/1001",
-							"uniqueId": "1001",
-							"rid": "1001"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/73e9db5ba181fecf06bc717a666cc5a95d0f3102.png",
-							"title": "娱乐",
-							"url": "bilibili://main/regionv2/detail/1002",
-							"uniqueId": "1002",
-							"rid": "1002"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/26466b52dab018988634b43d6ce42953864c3317.png",
-							"title": "音乐",
-							"url": "bilibili://main/regionv2/detail/1003",
-							"uniqueId": "1003",
-							"rid": "1003"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/2346c58247703341cbf71490271e669ca369194d.png",
-							"title": "舞蹈",
-							"url": "bilibili://main/regionv2/detail/1004",
-							"uniqueId": "1004",
-							"rid": "1004"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/bc2b52b81b2e279e9091ba73a008286fd96899f5.png",
-							"title": "动画",
-							"url": "bilibili://main/regionv2/detail/1005",
-							"uniqueId": "1005",
-							"rid": "1005"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/9c41509bf505a204b58c9ba8004a0b41557ead06.png",
-							"title": "绘画",
-							"url": "bilibili://main/regionv2/detail/1006",
-							"uniqueId": "1006",
-							"rid": "1006"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/24273b257608d65d88048a399d3f6d63380aea81.png",
-							"title": "鬼畜",
-							"url": "bilibili://main/regionv2/detail/1007",
-							"uniqueId": "1007",
-							"rid": "1007"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/57d63bc4142ae1da69b1e8bf9a401f64a6d755b1.png",
-							"title": "游戏",
-							"url": "bilibili://main/regionv2/detail/1008",
-							"uniqueId": "1008",
-							"rid": "1008"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/5adb29e49944552880f4bfcaa44d979b43ac979d.png",
-							"title": "资讯",
-							"url": "bilibili://main/regionv2/detail/1009",
-							"uniqueId": "1009",
-							"rid": "1009"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/d94cca46f64e6011417c9f12436221d54073355f.png",
-							"title": "知识",
-							"url": "bilibili://main/regionv2/detail/1010",
-							"uniqueId": "1010",
-							"rid": "1010"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/41b31a3d4d775d864724975f4d1f265230b431c1.png",
-							"title": "人工智能",
-							"url": "bilibili://main/regionv2/detail/1011",
-							"uniqueId": "1011",
-							"rid": "1011"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/c26ddc8a04f8bdd87cb1c2abafbf7d8adaeca7f5.png",
-							"title": "科技数码",
-							"url": "bilibili://main/regionv2/detail/1012",
-							"uniqueId": "1012",
-							"rid": "1012"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/dc27539ab509fe82e0502ba99636293113d63f4b.png",
-							"title": "汽车",
-							"url": "bilibili://main/regionv2/detail/1013",
-							"uniqueId": "1013",
-							"rid": "1013"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/09573a665a17a60f11aa3e0efe300d3957db0d2a.png",
-							"title": "时尚美妆",
-							"url": "bilibili://main/regionv2/detail/1014",
-							"uniqueId": "1014",
-							"rid": "1014"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/c6fb48c18cf8399644c4ee709fc8979952f698c9.png",
-							"title": "家装房产",
-							"url": "bilibili://main/regionv2/detail/1015",
-							"uniqueId": "1015",
-							"rid": "1015"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/29826b70f8bba851f611e02911a93c8be0fab887.png",
-							"title": "户外潮流",
-							"url": "bilibili://main/regionv2/detail/1016",
-							"uniqueId": "1016",
-							"rid": "1016"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/6b93058ade817fb2b14b7e7b9c17ac8a7c2f3ae4.png",
-							"title": "健身",
-							"url": "bilibili://main/regionv2/detail/1017",
-							"uniqueId": "1017",
-							"rid": "1017"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/812a9fe834076e487a0892dcd00db3c77e92f500.png",
-							"title": "体育运动",
-							"url": "bilibili://main/regionv2/detail/1018",
-							"uniqueId": "1018",
-							"rid": "1018"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/83735a2cd10e365a85c6b6b6631be0500dba31ac.png",
-							"title": "手工",
-							"url": "bilibili://main/regionv2/detail/1019",
-							"uniqueId": "1019",
-							"rid": "1019"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/7b312edc2929538cfc4b0f240c8edc19cbb1aad4.png",
-							"title": "美食",
-							"url": "bilibili://main/regionv2/detail/1020",
-							"uniqueId": "1020",
-							"rid": "1020"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/d7d02701405c8ea5aa9e951e4920fdacb169854a.png",
-							"title": "小剧场",
-							"url": "bilibili://main/regionv2/detail/1021",
-							"uniqueId": "1021",
-							"rid": "1021"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/1912f74143f4a054f971db3dc594cade9cf7cd53.png",
-							"title": "旅游出行",
-							"url": "bilibili://main/regionv2/detail/1022",
-							"uniqueId": "1022",
-							"rid": "1022"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/05c06713a99f0a1cd4e7a9e93efc764b4a7db334.png",
-							"title": "三农",
-							"url": "bilibili://main/regionv2/detail/1023",
-							"uniqueId": "1023",
-							"rid": "1023"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/c84dab04b277fdc6d6b40272cf3f9279d9463a7a.png",
-							"title": "动物",
-							"url": "bilibili://main/regionv2/detail/1024",
-							"uniqueId": "1024",
-							"rid": "1024"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/0747e4e4bc7f94e45c0861e7d8b4de0ff4e896c2.png",
-							"title": "亲子",
-							"url": "bilibili://main/regionv2/detail/1025",
-							"uniqueId": "1025",
-							"rid": "1025"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/17c8747c8fc2ae7d9a9d2e5bed33273b5e54319c.png",
-							"title": "健康",
-							"url": "bilibili://main/regionv2/detail/1026",
-							"uniqueId": "1026",
-							"rid": "1026"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/d201464bc5406a2cdf9e25c20fa86577da2b16f4.png",
-							"title": "情感",
-							"url": "bilibili://main/regionv2/detail/1027",
-							"uniqueId": "1027",
-							"rid": "1027"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/87aaea3f8ffabc9ad3d434f2bf6dc09192207a21.png",
-							"title": "vlog",
-							"url": "bilibili://main/regionv2/detail/1029",
-							"uniqueId": "1029",
-							"rid": "1029"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/238dbdf0342b89c52793039da035b12e6d31b44e.png",
-							"title": "生活兴趣",
-							"url": "bilibili://main/regionv2/detail/1030",
-							"uniqueId": "1030",
-							"rid": "1030"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/0f174e1627b29bf897c60ba5068bc00265dc9951.png",
-							"title": "生活经验",
-							"url": "bilibili://main/regionv2/detail/1031",
-							"uniqueId": "1031",
-							"rid": "1031"
-						}
-					]
+			RegionList: {
+				defaultShortcut: ["2036", "2037", "780", "545", "774", "151", "801"],
+				groups: [
+					{
+						title: "全部分区",
+						ids: ["13", "167", "177", "23", "11", "65545", "1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008", "1009", "1010", "1011", "1012", "1013", "1014", "1015", "1016", "1017", "1018", "1019", "1020", "1021", "1022", "1023", "1024", "1025", "1026", "1027", "1029", "1030", "1031"],
+					},
+					{
+						title: "推荐分区/服务",
+						ids: ["65552", "65563", "65549", "65551", "65539", "65550", "65555", "65560", "65541", "65565"],
+					},
+					{
+						title: "Enhanced",
+						ids: ["2036", "2037", "780", "545", "774", "151", "801", "861", "843", "1229", "1405", "2280", "1716", "136117"],
+					},
+				],
+				items: {
+					13: {
+						img: "https://i0.hdslb.com/bfs/app/3c2f00abc8c6272effd4d7039d344b4c55336d65.png",
+						title: "番剧",
+						url: "bilibili://pgc/partition_page?page_name=bangumi-operation&title=%E7%95%AA%E5%89%A7&select_id=1",
+						rid: "13",
+						tab_id: "13",
+					},
+					167: {
+						img: "https://i0.hdslb.com/bfs/app/d78adc96c54bf604dacbf48dddaab8b28c60c350.png",
+						title: "国创",
+						url: "bilibili://pgc/partition_page?page_name=gc-operation&title=%E5%9B%BD%E5%88%9B&select_id=1",
+						rid: "167",
+						tab_id: "167",
+					},
+					177: {
+						img: "https://i0.hdslb.com/bfs/app/2a718a470e72a63f1751dfd65a21586fd7f3fa1b.png",
+						title: "纪录片",
+						url: "bilibili://pgc/partition_page?page_name=documentary-operation&title=%E7%BA%AA%E5%BD%95%E7%89%87&select_id=1",
+						rid: "177",
+						tab_id: "177",
+					},
+					23: {
+						img: "https://i0.hdslb.com/bfs/app/bc37217c3e1fb340c354622f7982b1fd5fd4c3a4.png",
+						title: "电影",
+						url: "bilibili://pgc/page/operation_list?page_id=movie-operation&title=%E7%94%B5%E5%BD%B1",
+						rid: "23",
+						tab_id: "23",
+					},
+					11: {
+						img: "https://i0.hdslb.com/bfs/app/0f657fc9754b0af3b300523597b376a0c59f9df7.png",
+						title: "电视剧",
+						url: "bilibili://pgc/partition_page?page_name=tv-operation&title=%E7%94%B5%E8%A7%86%E5%89%A7&select_id=1",
+						rid: "11",
+						tab_id: "11",
+					},
+					65545: {
+						img: "https://i0.hdslb.com/bfs/app/616d1ac7ed04973eb0a2ee2621f2aaa9957b486f.png",
+						title: "放映厅",
+						url: "bilibili://pgc/cinema",
+						rid: "65545",
+						tab_id: "65545",
+					},
+					1001: {
+						img: "https://i0.hdslb.com/bfs/app/efa9bb08dda98aef6799dcde63a3fad14c27da5c.png",
+						title: "影视",
+						url: "bilibili://main/regionv2/detail/1001",
+						rid: "1001",
+						tab_id: "1001",
+					},
+					1002: {
+						img: "https://i0.hdslb.com/bfs/app/73e9db5ba181fecf06bc717a666cc5a95d0f3102.png",
+						title: "娱乐",
+						url: "bilibili://main/regionv2/detail/1002",
+						rid: "1002",
+						tab_id: "1002",
+					},
+					1003: {
+						img: "https://i0.hdslb.com/bfs/app/26466b52dab018988634b43d6ce42953864c3317.png",
+						title: "音乐",
+						url: "bilibili://main/regionv2/detail/1003",
+						rid: "1003",
+						tab_id: "1003",
+					},
+					1004: {
+						img: "https://i0.hdslb.com/bfs/app/2346c58247703341cbf71490271e669ca369194d.png",
+						title: "舞蹈",
+						url: "bilibili://main/regionv2/detail/1004",
+						rid: "1004",
+						tab_id: "1004",
+					},
+					1005: {
+						img: "https://i0.hdslb.com/bfs/app/bc2b52b81b2e279e9091ba73a008286fd96899f5.png",
+						title: "动画",
+						url: "bilibili://main/regionv2/detail/1005",
+						rid: "1005",
+						tab_id: "1005",
+					},
+					1006: {
+						img: "https://i0.hdslb.com/bfs/app/9c41509bf505a204b58c9ba8004a0b41557ead06.png",
+						title: "绘画",
+						url: "bilibili://main/regionv2/detail/1006",
+						rid: "1006",
+						tab_id: "1006",
+					},
+					1007: {
+						img: "https://i0.hdslb.com/bfs/app/24273b257608d65d88048a399d3f6d63380aea81.png",
+						title: "鬼畜",
+						url: "bilibili://main/regionv2/detail/1007",
+						rid: "1007",
+						tab_id: "1007",
+					},
+					1008: {
+						img: "https://i0.hdslb.com/bfs/app/57d63bc4142ae1da69b1e8bf9a401f64a6d755b1.png",
+						title: "游戏",
+						url: "bilibili://main/regionv2/detail/1008",
+						rid: "1008",
+						tab_id: "1008",
+					},
+					1009: {
+						img: "https://i0.hdslb.com/bfs/app/5adb29e49944552880f4bfcaa44d979b43ac979d.png",
+						title: "资讯",
+						url: "bilibili://main/regionv2/detail/1009",
+						rid: "1009",
+						tab_id: "1009",
+					},
+					1010: {
+						img: "https://i0.hdslb.com/bfs/app/d94cca46f64e6011417c9f12436221d54073355f.png",
+						title: "知识",
+						url: "bilibili://main/regionv2/detail/1010",
+						rid: "1010",
+						tab_id: "1010",
+					},
+					1011: {
+						img: "https://i0.hdslb.com/bfs/app/41b31a3d4d775d864724975f4d1f265230b431c1.png",
+						title: "人工智能",
+						url: "bilibili://main/regionv2/detail/1011",
+						rid: "1011",
+						tab_id: "1011",
+					},
+					1012: {
+						img: "https://i0.hdslb.com/bfs/app/c26ddc8a04f8bdd87cb1c2abafbf7d8adaeca7f5.png",
+						title: "科技数码",
+						url: "bilibili://main/regionv2/detail/1012",
+						rid: "1012",
+						tab_id: "1012",
+					},
+					1013: {
+						img: "https://i0.hdslb.com/bfs/app/dc27539ab509fe82e0502ba99636293113d63f4b.png",
+						title: "汽车",
+						url: "bilibili://main/regionv2/detail/1013",
+						rid: "1013",
+						tab_id: "1013",
+					},
+					1014: {
+						img: "https://i0.hdslb.com/bfs/app/09573a665a17a60f11aa3e0efe300d3957db0d2a.png",
+						title: "时尚美妆",
+						url: "bilibili://main/regionv2/detail/1014",
+						rid: "1014",
+						tab_id: "1014",
+					},
+					1015: {
+						img: "https://i0.hdslb.com/bfs/app/c6fb48c18cf8399644c4ee709fc8979952f698c9.png",
+						title: "家装房产",
+						url: "bilibili://main/regionv2/detail/1015",
+						rid: "1015",
+						tab_id: "1015",
+					},
+					1016: {
+						img: "https://i0.hdslb.com/bfs/app/29826b70f8bba851f611e02911a93c8be0fab887.png",
+						title: "户外潮流",
+						url: "bilibili://main/regionv2/detail/1016",
+						rid: "1016",
+						tab_id: "1016",
+					},
+					1017: {
+						img: "https://i0.hdslb.com/bfs/app/6b93058ade817fb2b14b7e7b9c17ac8a7c2f3ae4.png",
+						title: "健身",
+						url: "bilibili://main/regionv2/detail/1017",
+						rid: "1017",
+						tab_id: "1017",
+					},
+					1018: {
+						img: "https://i0.hdslb.com/bfs/app/812a9fe834076e487a0892dcd00db3c77e92f500.png",
+						title: "体育运动",
+						url: "bilibili://main/regionv2/detail/1018",
+						rid: "1018",
+						tab_id: "1018",
+					},
+					1019: {
+						img: "https://i0.hdslb.com/bfs/app/83735a2cd10e365a85c6b6b6631be0500dba31ac.png",
+						title: "手工",
+						url: "bilibili://main/regionv2/detail/1019",
+						rid: "1019",
+						tab_id: "1019",
+					},
+					1020: {
+						img: "https://i0.hdslb.com/bfs/app/7b312edc2929538cfc4b0f240c8edc19cbb1aad4.png",
+						title: "美食",
+						url: "bilibili://main/regionv2/detail/1020",
+						rid: "1020",
+						tab_id: "1020",
+					},
+					1021: {
+						img: "https://i0.hdslb.com/bfs/app/d7d02701405c8ea5aa9e951e4920fdacb169854a.png",
+						title: "小剧场",
+						url: "bilibili://main/regionv2/detail/1021",
+						rid: "1021",
+						tab_id: "1021",
+					},
+					1022: {
+						img: "https://i0.hdslb.com/bfs/app/1912f74143f4a054f971db3dc594cade9cf7cd53.png",
+						title: "旅游出行",
+						url: "bilibili://main/regionv2/detail/1022",
+						rid: "1022",
+						tab_id: "1022",
+					},
+					1023: {
+						img: "https://i0.hdslb.com/bfs/app/05c06713a99f0a1cd4e7a9e93efc764b4a7db334.png",
+						title: "三农",
+						url: "bilibili://main/regionv2/detail/1023",
+						rid: "1023",
+						tab_id: "1023",
+					},
+					1024: {
+						img: "https://i0.hdslb.com/bfs/app/c84dab04b277fdc6d6b40272cf3f9279d9463a7a.png",
+						title: "动物",
+						url: "bilibili://main/regionv2/detail/1024",
+						rid: "1024",
+						tab_id: "1024",
+					},
+					1025: {
+						img: "https://i0.hdslb.com/bfs/app/0747e4e4bc7f94e45c0861e7d8b4de0ff4e896c2.png",
+						title: "亲子",
+						url: "bilibili://main/regionv2/detail/1025",
+						rid: "1025",
+						tab_id: "1025",
+					},
+					1026: {
+						img: "https://i0.hdslb.com/bfs/app/17c8747c8fc2ae7d9a9d2e5bed33273b5e54319c.png",
+						title: "健康",
+						url: "bilibili://main/regionv2/detail/1026",
+						rid: "1026",
+						tab_id: "1026",
+					},
+					1027: {
+						img: "https://i0.hdslb.com/bfs/app/d201464bc5406a2cdf9e25c20fa86577da2b16f4.png",
+						title: "情感",
+						url: "bilibili://main/regionv2/detail/1027",
+						rid: "1027",
+						tab_id: "1027",
+					},
+					1029: {
+						img: "https://i0.hdslb.com/bfs/app/87aaea3f8ffabc9ad3d434f2bf6dc09192207a21.png",
+						title: "vlog",
+						url: "bilibili://main/regionv2/detail/1029",
+						rid: "1029",
+						tab_id: "1029",
+					},
+					1030: {
+						img: "https://i0.hdslb.com/bfs/app/238dbdf0342b89c52793039da035b12e6d31b44e.png",
+						title: "生活兴趣",
+						url: "bilibili://main/regionv2/detail/1030",
+						rid: "1030",
+						tab_id: "1030",
+					},
+					1031: {
+						img: "https://i0.hdslb.com/bfs/app/0f174e1627b29bf897c60ba5068bc00265dc9951.png",
+						title: "生活经验",
+						url: "bilibili://main/regionv2/detail/1031",
+						rid: "1031",
+						tab_id: "1031",
+					},
+					65552: {
+						img: "https://i0.hdslb.com/bfs/app/b1f1f105479640fd9a8d9f80286dcb76c59230b5.png",
+						title: "全区排行榜",
+						url: "bilibili://rank/",
+						rid: "65552",
+						tab_id: "65552",
+					},
+					65563: {
+						img: "https://i0.hdslb.com/bfs/app/5f955448513c0179ac61ea40d82c4ad20ede22c5.png",
+						title: "新歌热榜",
+						url: "https://music.bilibili.com/h5/music-center?-Abrowser=live&is_live_webview=1&hybrid_set_header=2",
+						rid: "65563",
+						tab_id: "65563",
+					},
+					65549: {
+						img: "https://i0.hdslb.com/bfs/app/63c39b588dec93c46c2452941c8d19600d5ae428.png",
+						title: "工房集市",
+						url: "https://mall.bilibili.com/neul-next/index.html?page=mall-up_market&noTitleBar=1&msource=js_subarea",
+						rid: "65549",
+						tab_id: "65549",
+					},
+					65551: {
+						img: "https://i0.hdslb.com/bfs/app/8417230e12b25e67b76f503acc58fd215ce812d0.png",
+						title: "小黑屋",
+						url: "https://www.bilibili.com/blackroom",
+						rid: "65551",
+						tab_id: "65551",
+					},
+					65539: {
+						img: "https://i0.hdslb.com/bfs/app/d648ca9614551a053f7d67418d9301da3cacd56d.png",
+						title: "游戏中心",
+						url: "bilibili://game_center?from=category",
+						rid: "65539",
+						tab_id: "65539",
+					},
+					65550: {
+						img: "https://i0.hdslb.com/bfs/app/2a6993417a39de6757db4f97bf80265fc5222112.png",
+						title: "游戏赛事",
+						url: "https://www.bilibili.com/h5/match/data/home?navhide=1",
+						rid: "65550",
+						tab_id: "65550",
+					},
+					65555: {
+						img: "https://i0.hdslb.com/bfs/app/e52ed0d89fb326a362d9b7d59a4140ddb2d15221.png",
+						title: "漫画",
+						url: "bilibili://comic/home?from=manga_channel",
+						rid: "65555",
+						tab_id: "65555",
+					},
+					65560: {
+						img: "https://i0.hdslb.com/bfs/app/f918bfbeaffca05a0d92f158ccc9dd251e33d467.png",
+						title: "课堂",
+						url: "https://m.bilibili.com/cheese/home?navhide=1&native.theme=1&night=0&spm_id_from=traffic.channel-square-category.0.0&csource=Channel_class",
+						rid: "65560",
+						tab_id: "65560",
+					},
+					65541: {
+						img: "https://i0.hdslb.com/bfs/app/8af80abfd90d70c2293ebce415f52c758f3168c2.png",
+						title: "专栏",
+						url: "bilibili://article/category/",
+						rid: "65541",
+						tab_id: "65541",
+					},
+					65565: {
+						img: "https://i0.hdslb.com/bfs/app/093ec78b5a7b363fbdc26cef6381d8911ecd0b22.png",
+						title: "超高清专区",
+						url: "https://www.bilibili.com/blackboard/era/LqwJ5qsaKiEE0yj8.html?auto_media_playback=1",
+						rid: "65565",
+						tab_id: "65565",
+					},
+					2036: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "直播",
+						url: "bilibili://live/home",
+						rid: "2036",
+						tab_id: "直播tab",
+					},
+					2037: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "推荐",
+						url: "bilibili://pegasus/promo",
+						rid: "2037",
+						tab_id: "推荐tab",
+					},
+					780: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "热门",
+						url: "bilibili://pegasus/hottopic",
+						rid: "780",
+						tab_id: "hottopic",
+					},
+					545: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "追番",
+						url: "bilibili://pgc/home",
+						rid: "545",
+						tab_id: "bangumi",
+					},
+					774: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "动画（港澳台）",
+						url: "bilibili://following/home_activity_tab/6544",
+						rid: "774",
+						tab_id: "anime",
+					},
+					151: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "影视",
+						url: "bilibili://pgc/cinema-tab",
+						rid: "151",
+						tab_id: "film",
+					},
+					801: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "韩综（港澳台）",
+						url: "bilibili://following/home_activity_tab/95636",
+						rid: "801",
+						tab_id: "koreavtw",
+					},
+					861: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "游戏",
+						url: "bilibili://pegasus/vertical/802",
+						rid: "861",
+						tab_id: "game",
+					},
+					843: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "minecraft",
+						url: "bilibili://pegasus/vertical/2485003",
+						rid: "843",
+						tab_id: "mctab",
+					},
+					1229: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "动画同人",
+						url: "bilibili://pegasus/vertical/27555107",
+						rid: "1229",
+						tab_id: "dhtr",
+					},
+					1405: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "搞笑",
+						url: "bilibili://pegasus/vertical/1833",
+						rid: "1405",
+						tab_id: "gaoxiao",
+					},
+					2280: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "校园",
+						url: "bilibili://campus/home_tab",
+						rid: "2280",
+						tab_id: "school",
+					},
+					1716: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "数码",
+						url: "bilibili://pegasus/vertical/13807",
+						rid: "1716",
+						tab_id: "kj",
+					},
+					136117: {
+						img: "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+						title: "新征程",
+						url: "bilibili://following/home_activity_tab/136117",
+						rid: "136117",
+						tab_id: "165",
+						color: "#DD1225",
+					},
 				},
-				{
-					"title": "推荐分区/服务",
-					"icons": [
-						{
-							"img": "https://i0.hdslb.com/bfs/app/b1f1f105479640fd9a8d9f80286dcb76c59230b5.png",
-							"title": "全区排行榜",
-							"url": "bilibili://rank/",
-							"uniqueId": "65552",
-							"rid": "65552"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/5f955448513c0179ac61ea40d82c4ad20ede22c5.png",
-							"title": "新歌热榜",
-							"url": "https://music.bilibili.com/h5/music-center?-Abrowser=live&is_live_webview=1&hybrid_set_header=2",
-							"uniqueId": "65563",
-							"rid": "65563"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/63c39b588dec93c46c2452941c8d19600d5ae428.png",
-							"title": "工房集市",
-							"url": "https://mall.bilibili.com/neul-next/index.html?page=mall-up_market&noTitleBar=1&msource=js_subarea",
-							"uniqueId": "65549",
-							"rid": "65549"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/8417230e12b25e67b76f503acc58fd215ce812d0.png",
-							"title": "小黑屋",
-							"url": "https://www.bilibili.com/blackroom",
-							"uniqueId": "65551",
-							"rid": "65551"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/d648ca9614551a053f7d67418d9301da3cacd56d.png",
-							"title": "游戏中心",
-							"url": "bilibili://game_center?from=category",
-							"uniqueId": "65539",
-							"rid": "65539"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/2a6993417a39de6757db4f97bf80265fc5222112.png",
-							"title": "游戏赛事",
-							"url": "https://www.bilibili.com/h5/match/data/home?navhide=1",
-							"uniqueId": "65550",
-							"rid": "65550"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/e52ed0d89fb326a362d9b7d59a4140ddb2d15221.png",
-							"title": "漫画",
-							"url": "bilibili://comic/home?from=manga_channel",
-							"uniqueId": "65555",
-							"rid": "65555"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/f918bfbeaffca05a0d92f158ccc9dd251e33d467.png",
-							"title": "课堂",
-							"url": "https://m.bilibili.com/cheese/home?navhide=1&native.theme=1&night=0&spm_id_from=traffic.channel-square-category.0.0&csource=Channel_class",
-							"uniqueId": "65560",
-							"rid": "65560"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/8af80abfd90d70c2293ebce415f52c758f3168c2.png",
-							"title": "专栏",
-							"url": "bilibili://article/category/",
-							"uniqueId": "65541",
-							"rid": "65541"
-						},
-						{
-							"img": "https://i0.hdslb.com/bfs/app/093ec78b5a7b363fbdc26cef6381d8911ecd0b22.png",
-							"title": "超高清专区",
-							"url": "https://www.bilibili.com/blackboard/era/LqwJ5qsaKiEE0yj8.html?auto_media_playback=1",
-							"uniqueId": "65565",
-							"rid": "65565"
-						}
-					]
-				},
-				{
-					"title": "Enhanced",
-					"icons": [
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "直播",
-							"url": "bilibili://live/home",
-							"uniqueId": "2036",
-							"rid": "2036"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "推荐",
-							"url": "bilibili://pegasus/promo",
-							"uniqueId": "2037",
-							"rid": "2037"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "热门",
-							"url": "bilibili://pegasus/hottopic",
-							"uniqueId": "780",
-							"rid": "780"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "追番",
-							"url": "bilibili://pgc/home",
-							"uniqueId": "545",
-							"rid": "545"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "动画（港澳台）",
-							"url": "bilibili://following/home_activity_tab/6544",
-							"uniqueId": "774",
-							"rid": "774"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "影视",
-							"url": "bilibili://pgc/cinema-tab",
-							"uniqueId": "151",
-							"rid": "151"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "韩综（港澳台）",
-							"url": "bilibili://following/home_activity_tab/95636",
-							"uniqueId": "801",
-							"rid": "801"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "游戏",
-							"url": "bilibili://pegasus/vertical/802",
-							"uniqueId": "861",
-							"rid": "861"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "minecraft",
-							"url": "bilibili://pegasus/vertical/2485003",
-							"uniqueId": "843",
-							"rid": "843"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "动画同人",
-							"url": "bilibili://pegasus/vertical/27555107",
-							"uniqueId": "1229",
-							"rid": "1229"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "搞笑",
-							"url": "bilibili://pegasus/vertical/1833",
-							"uniqueId": "1405",
-							"rid": "1405"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "校园",
-							"url": "bilibili://campus/home_tab",
-							"uniqueId": "2280",
-							"rid": "2280"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "数码",
-							"url": "bilibili://pegasus/vertical/13807",
-							"uniqueId": "1716",
-							"rid": "1716"
-						},
-						{
-							"img": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
-							"title": "新征程",
-							"url": "bilibili://following/home_activity_tab/136117",
-							"uniqueId": "136117",
-							"rid": "136117"
-						}
-					]
-				}
-			],
+			},
 			Tab: {
 				config: {
 					no_login_avatar: "https://i0.hdslb.com/bfs/archive/689ed56f5b8b9bd26a90b20c52d464ebc0156185.png",
@@ -509,107 +511,6 @@ export default {
 					search_entrance: 5,
 					tab_simplify: false,
 				},
-				tab: [
-					{
-						id: "live",
-						uniqueId: "2036",
-						name: "直播",
-						uri: "bilibili://live/home",
-						tab_id: "直播tab",
-					},
-					{
-						id: "recommend",
-						uniqueId: "2037",
-						name: "推荐",
-						uri: "bilibili://pegasus/promo",
-						tab_id: "推荐tab",
-					},
-					{
-						id: "hottopic",
-						uniqueId: "780",
-						name: "热门",
-						uri: "bilibili://pegasus/hottopic",
-						tab_id: "hottopic",
-					},
-					{
-						id: "bangumi",
-						uniqueId: "545",
-						name: "追番",
-						uri: "bilibili://pgc/home",
-						tab_id: "bangumi",
-					},
-					{
-						id: "anime",
-						uniqueId: "774",
-						name: "动画（港澳台）",
-						uri: "bilibili://following/home_activity_tab/6544",
-						tab_id: "anime",
-					},
-					{
-						id: "film",
-						uniqueId: "151",
-						name: "影视",
-						uri: "bilibili://pgc/cinema-tab",
-						tab_id: "film",
-					},
-					{
-						id: "koreavtw",
-						uniqueId: "801",
-						name: "韩综（港澳台）",
-						uri: "bilibili://following/home_activity_tab/95636",
-						tab_id: "koreavtw",
-					},
-					{
-						id: "game",
-						uniqueId: "861",
-						name: "游戏",
-						uri: "bilibili://pegasus/vertical/802",
-						tab_id: "game",
-					},
-					{
-						id: "minecraft",
-						uniqueId: "843",
-						name: "minecraft",
-						uri: "bilibili://pegasus/vertical/2485003",
-						tab_id: "mctab",
-					},
-					{
-						id: "anime_fan",
-						uniqueId: "1229",
-						name: "动画同人",
-						uri: "bilibili://pegasus/vertical/27555107",
-						tab_id: "dhtr",
-					},
-					{
-						id: "funny",
-						uniqueId: "1405",
-						name: "搞笑",
-						uri: "bilibili://pegasus/vertical/1833",
-						tab_id: "gaoxiao",
-					},
-					{
-						id: "school",
-						uniqueId: "2280",
-						name: "校园",
-						uri: "bilibili://campus/home_tab",
-						tab_id: "school",
-					},
-					{
-						id: "digital",
-						uniqueId: "1716",
-						name: "数码",
-						uri: "bilibili://pegasus/vertical/13807",
-						tab_id: "kj",
-					},
-					{
-						id: "new_journey",
-						uniqueId: "136117",
-						name: "新征程",
-						uri: "bilibili://following/home_activity_tab/136117",
-						tab_id: "165",
-						color: "#DD1225",
-					},
-				],
 				top: [
 					{
 						id: "game_center",

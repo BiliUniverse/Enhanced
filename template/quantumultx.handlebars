@@ -14,7 +14,11 @@
 # Biliverse 本地设置
 ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/configs\/Enhanced(?:\?.*)?$ url script-echo-response https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/config.bundle.js
 # 📺 BiliBili.Enhanced.x.resource.show.tab.v2
-^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? url script-echo-response https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/request.bundle.js
+^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? url script-response-body https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js
+# 📺 BiliBili.Enhanced.show.v1.Mixture.RegionShortcut.request.grpc
+^https?:\/\/app\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionShortcut$ url script-request-body https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/request.bundle.js
+# 📺 BiliBili.Enhanced.show.v1.Mixture.response.grpc
+^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/(RegionList|RegionShortcut)$ url script-response-body https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js
 # 📺 BiliBili.Enhanced.x.v2.account.mine
 ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\? url script-response-body https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js
 # 📺 BiliBili.Enhanced.x.v2.region.index
@@ -23,4 +27,4 @@
 ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list\? url script-response-body https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js
 
 #[mitm]
-hostname = biliverse.github.io, app.bilibili.com, app.biliapi.net
+hostname = biliverse.github.io, app.bilibili.com, app.biliapi.net, grpc.biliapi.net

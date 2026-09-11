@@ -1,63 +1,38 @@
 export interface Settings {
     Home?: {
     /**
-         * [首页] 启用此标签页自定义功能
+         * [首页] 启用自定义功能
          *
-         * 启用后可自定义首页标签页、顶栏按钮等内容。
+         * 启用后可自定义首页顶栏、标签页和底部导航栏内容。标签页由分区页的快捷访问决定。
          *
          * @defaultValue true
          */
         Switch?: boolean;
     /**
-         * [首页] 标签页
-         *
-         * 请选择启用的首页标签页，建议不超过7个。
-         *
-         * @remarks
-         *
-         * Possible values:
-         * - `'live'` - 直播
-         * - `'recommend'` - 推荐
-         * - `'hottopic'` - 热门
-         * - `'bangumi'` - 番剧
-         * - `'anime'` - 动画（港澳台）
-         * - `'film'` - 影视
-         * - `'koreavtw'` - 韩综（港澳台）
-         * - `'game'` - 游戏
-         * - `'minecraft'` - minecraft
-         * - `'anime_fan'` - 动画同人
-         * - `'funny'` - 搞笑
-         * - `'school'` - 校园
-         * - `'digital'` - 数码
-         *
-         * @defaultValue ["live","recommend","hottopic","bangumi","anime","film","koreavtw"]
-         */
-        Tab?: ('live' | 'recommend' | 'hottopic' | 'bangumi' | 'anime' | 'film' | 'koreavtw' | 'game' | 'minecraft' | 'anime_fan' | 'funny' | 'school' | 'digital')[];
-    /**
          * [首页] 默认标签页
          *
-         * 请选择启动APP时默认展示的标签页，需选择已启用的标签页。
+         * 请选择启动APP时默认展示的标签页，需先将该标签页加入分区页的快捷访问。
          *
          * @remarks
          *
          * Possible values:
-         * - `'live'` - 直播
-         * - `'recommend'` - 推荐
-         * - `'hottopic'` - 热门
-         * - `'bangumi'` - 番剧
-         * - `'anime'` - 动画（港澳台）
-         * - `'film'` - 影视
-         * - `'koreavtw'` - 韩综（港澳台）
-         * - `'game'` - 游戏
-         * - `'minecraft'` - minecraft
-         * - `'anime_fan'` - 动画同人
-         * - `'funny'` - 搞笑
-         * - `'school'` - 校园
-         * - `'digital'` - 数码
+         * - `'2036'` - 直播
+         * - `'2037'` - 推荐
+         * - `'780'` - 热门
+         * - `'545'` - 番剧
+         * - `'774'` - 动画（港澳台）
+         * - `'151'` - 影视
+         * - `'801'` - 韩综（港澳台）
+         * - `'861'` - 游戏
+         * - `'843'` - minecraft
+         * - `'1229'` - 动画同人
+         * - `'1405'` - 搞笑
+         * - `'2280'` - 校园
+         * - `'1716'` - 数码
          *
-         * @defaultValue "recommend"
+         * @defaultValue "2037"
          */
-        Tab_default?: 'live' | 'recommend' | 'hottopic' | 'bangumi' | 'anime' | 'film' | 'koreavtw' | 'game' | 'minecraft' | 'anime_fan' | 'funny' | 'school' | 'digital';
+        Tab_default?: '2036' | '2037' | '780' | '545' | '774' | '151' | '801' | '861' | '843' | '1229' | '1405' | '2280' | '1716';
     /**
          * [首页] 顶栏（左侧）按钮（用户头像）
          *
