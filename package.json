@@ -58,8 +58,10 @@
 		"wrangler": "^4.127.1"
 	},
 	"dependencies": {
+		"@nsnanocat/grpc": "^1.1.0",
 		"@nsnanocat/url": "^1.2.6",
 		"@nsnanocat/util": "^2.7.4",
+		"@protobuf-ts/runtime": "^2.11.1",
 		"hono": "^4.13.5"
 	}
 }

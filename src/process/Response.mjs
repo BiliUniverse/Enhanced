@@ -1,8 +1,11 @@
 import { addSettingsEntry } from "../function/settingsEntry.mjs";
+import fixHeaders from "../function/fixHeaders.mjs";
+import gRPC from "@nsnanocat/grpc";
 import { URL } from "@nsnanocat/url";
 import { $app, Console } from "@nsnanocat/util";
 import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
+import { RegionListReply } from "../protobuf/bilibili/app/show/v1/mixture.js";
 /***************** Processing *****************/
 export async function Response($request, $response) {
 	// 解构URL
@@ -199,11 +202,51 @@ export async function Response($request, $response) {
 		case "application/grpc":
 		case "application/grpc+proto":
 		case "application/octet-stream": {
-			const rawBody = $app === "Quantumult X" ? new Uint8Array($response.bodyBytes ?? []) : ($response.body ?? new Uint8Array());
+			let rawBody = $app === "Quantumult X" ? new Uint8Array($response.bodyBytes ?? []) : ($response.body ?? new Uint8Array());
+			switch (FORMAT) {
+				case "application/grpc":
+				case "application/grpc+proto":
+					$response.headers = fixHeaders($request.headers, $response.headers);
+					rawBody = gRPC.decode(rawBody);
+					switch (url.hostname) {
+						case "grpc.biliapi.net":
+						case "app.biliapi.net":
+						case "app.bilibili.com":
+							switch (url.pathname) {
+								case "/bilibili.app.show.v1.Mixture/RegionList":
+									body = RegionListReply.fromBinary(rawBody);
+									body.contents = mergeRegionList(body.contents, Configs.RegionList);
+									rawBody = RegionListReply.toBinary(body);
+									break;
+							}
+							break;
+					}
+					rawBody = gRPC.encode(rawBody);
+					break;
+			}
 			// 写入二进制数据
 			$response.body = rawBody;
 			break;
 		}
 	}
 	return $response;
+}
+
+function mergeRegionList(onlineContents, localContents) {
+	const contents = onlineContents.map(content => ({ ...content, icons: [...content.icons] }));
+	const groups = new Map(contents.map(content => [content.title, content]));
+	const uniqueIds = new Set(contents.flatMap(content => content.icons.map(icon => icon.uniqueId)));
+	for (const localContent of localContents) {
+		const content = groups.get(localContent.title) ?? { title: localContent.title, icons: [] };
+		for (const icon of localContent.icons) {
+			if (uniqueIds.has(icon.uniqueId)) continue;
+			content.icons.push(icon);
+			uniqueIds.add(icon.uniqueId);
+		}
+		if (!groups.has(localContent.title)) {
+			contents.push(content);
+			groups.set(localContent.title, content);
+		}
+	}
+	return contents;
 }
